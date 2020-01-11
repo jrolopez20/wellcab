@@ -1,0 +1,23 @@
+{
+  "Common": {
+    "ValidationMessage": {
+      "FieldRequired": "This field is required",
+      "InvalidEmail": "Enter a valid email address"
+    },
+    "Label": {
+      "FirstName": "First name",
+      "LastName": "Last name",
+      "Password": "Password",
+      "Email": "Email",
+      "Phone": "Phone",
+      "DateOfBirth": "Date of birth"
+    },
+    "Button": {
+      "Submit": "Submit",
+      "Cancel": "Cancel",
+      "Add": "Add",
+      "Edit": "Edit",
+      "Delete": "Delete"
+    }
+  }
+}

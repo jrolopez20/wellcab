@@ -1,0 +1,23 @@
+{
+  "Common": {
+    "ValidationMessage": {
+      "FieldRequired": "Este campo es obligatorio",
+      "InvalidEmail": "Formato de email incorrecto"
+    },
+    "Label": {
+      "FirstName": "Nombre",
+      "LastName": "Apellidos",
+      "Password": "Contraseña",
+      "Email": "Email",
+      "Phone": "Teléfono",
+      "DateOfBirth": "Fecha de nacimiento"
+    },
+    "Button": {
+      "Submit": "Enviar",
+      "Cancel": "Cancelar",
+      "Add": "Adicionar",
+      "Edit": "Editar",
+      "Delete": "Eliminar"
+    }
+  }
+}
