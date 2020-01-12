@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EntryPoint} from '../../models/entry-point.model';
 import {EntryPointService} from '../../services/entry-point.service';
+import {PageTitleService} from '../../../core/services/page-title.service';
 
 
 @Component({
@@ -20,11 +21,13 @@ export class EntryPointComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private entryPointService: EntryPointService
+        private entryPointService: EntryPointService,
+        private pageTitleService: PageTitleService
     ) {
     }
 
     ngOnInit() {
+        this.pageTitleService.title = 'Entry point';
         const user = null;
         this.entryPoints = this.entryPointService.getCollection(user);
         this.entryPointForm = this.formBuilder.group({
@@ -40,7 +43,7 @@ export class EntryPointComponent implements OnInit {
     /* Get errors */
     public handleError = (controlName: string, errorName: string) => {
         return this.f[controlName].hasError(errorName);
-    }
+    };
 
     onSubmit(): void {
         // Stop here if form is invalid

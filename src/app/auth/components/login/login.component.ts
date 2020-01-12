@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../services/authentication.service';
 import {first} from 'rxjs/operators';
+import {PageTitleService} from '../../../core/services/page-title.service';
 
 @Component({
     selector: 'app-login',
@@ -14,13 +15,14 @@ export class LoginComponent implements OnInit {
     loading = false;
     returnUrl: string;
     error: '';
-    appTitle = 'Gestvtc'
+    appTitle = 'Gestvtc';
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private pageTitleService: PageTitleService
     ) {
         if (this.authenticationService.currentUserValue) {
             // Redirect to secure area if already logged in
@@ -29,16 +31,13 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.pageTitleService.title = 'Login';
         this.loginForm = this.formBuilder.group({
             // Do not use expression for validate email, This field allow to input username too
             email: ['', Validators.required],
             password: ['', Validators.required]
         });
-
-        // Get return url from route parameters or default to '/'
-        // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
-
 
     // Convenience getter for easy access to form fields
     get f() {
@@ -48,7 +47,7 @@ export class LoginComponent implements OnInit {
     /* Get errors */
     public handleError = (controlName: string, errorName: string) => {
         return this.f[controlName].hasError(errorName);
-    }
+    };
 
     onSubmit(): void {
         // Stop here if form is invalid

@@ -9,9 +9,10 @@ import {
     ViewChild,
     HostListener,
     Directive,
-    AfterViewInit
+    AfterViewInit, OnInit
 } from '@angular/core';
 import {MenuItems} from '../../shared/menu-items/menu-items';
+import {PageTitleService} from '../services/page-title.service';
 
 /** @title Responsive sidenav */
 @Component({
@@ -19,7 +20,7 @@ import {MenuItems} from '../../shared/menu-items/menu-items';
     templateUrl: 'master.component.html',
     styleUrls: []
 })
-export class MasterComponent implements OnDestroy, AfterViewInit {
+export class MasterComponent implements OnDestroy, OnInit {
     mobileQuery: MediaQueryList;
 
     private _mobileQueryListener: () => void;
@@ -27,6 +28,7 @@ export class MasterComponent implements OnDestroy, AfterViewInit {
     constructor(
         changeDetectorRef: ChangeDetectorRef,
         media: MediaMatcher,
+        private pageTitleService: PageTitleService,
         public menuItems: MenuItems
     ) {
         this.mobileQuery = media.matchMedia('(min-width: 768px)');
@@ -38,6 +40,7 @@ export class MasterComponent implements OnDestroy, AfterViewInit {
         this.mobileQuery.removeListener(this._mobileQueryListener);
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
+        this.pageTitleService.title = 'Dashboard';
     }
 }
