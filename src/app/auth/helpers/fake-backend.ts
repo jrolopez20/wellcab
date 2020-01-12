@@ -6,7 +6,7 @@ import {Lang, User} from '../../admin/user/models/user.model';
 
 
 const users: User[] = [
-    {id: 1, email: 'test@gmail.com', password: 'test', firstName: 'Test', lastName: 'User', lang: Lang.en}
+    {id: 1, email: 'test@gmail.com', password: 'test', firstName: 'Test', lastName: 'User', lang: Lang.es}
 ];
 
 @Injectable()

@@ -8,6 +8,8 @@ import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
 import {fakeBackendProvider} from './helpers/fake-backend';
 import {FlexModule} from '@angular/flex-layout';
+import {TranslateModule} from '@ngx-translate/core';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
     declarations: [LoginComponent],
@@ -15,7 +17,9 @@ import {FlexModule} from '@angular/flex-layout';
         CommonModule,
         ReactiveFormsModule,
         AppMaterialModule,
-        FlexModule
+        FlexModule,
+        TranslateModule,
+        RouterModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

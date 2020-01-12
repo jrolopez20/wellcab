@@ -32,7 +32,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     ]
 })
 export class I18nModule {
-    private language = Lang.en;
+    private language = Lang.es;
 
     constructor(private translateService: TranslateService, private authenticationService: AuthenticationService) {
         if (authenticationService.currentUserValue) {

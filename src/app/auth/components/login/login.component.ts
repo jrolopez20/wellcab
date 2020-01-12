@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../services/authentication.service';
 import {first} from 'rxjs/operators';
 
@@ -12,7 +12,6 @@ import {first} from 'rxjs/operators';
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
-    submitted = false;
     returnUrl: string;
     error: '';
     appTitle = 'Gestvtc'
@@ -25,7 +24,7 @@ export class LoginComponent implements OnInit {
     ) {
         if (this.authenticationService.currentUserValue) {
             // Redirect to secure area if already logged in
-            this.router.navigate(['/']);
+            this.router.navigate(['entrypoint']);
         }
     }
 
@@ -37,7 +36,7 @@ export class LoginComponent implements OnInit {
         });
 
         // Get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
 
@@ -52,7 +51,6 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.submitted = true;
         // Stop here if form is invalid
         if (this.loginForm.valid) {
             this.loading = true;
@@ -60,7 +58,7 @@ export class LoginComponent implements OnInit {
                 .pipe(first())
                 .subscribe(
                     data => {
-                        this.router.navigate([this.returnUrl]);
+                        this.router.navigate(['entrypoint']);
                     },
                     error => {
                         this.error = error;

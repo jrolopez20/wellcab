@@ -1,15 +1,15 @@
 <!-- ============================================================== -->
 <!-- sidebar -->
 <!-- ============================================================== -->
- <div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;">
-    <!-- User profile image -->
+<!-- <div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;">
+    &lt;!&ndash; User profile image &ndash;&gt;
     <div class="profile-img"> <img src="assets/images/users/1.jpg" alt="user"> </div>
-    <!-- User profile text-->
-    <!-- ============================================================== -->
-    <!-- Profile - style you can find in header.scss -->
-    <!-- ============================================================== -->
+    &lt;!&ndash; User profile text&ndash;&gt;
+    &lt;!&ndash; ============================================================== &ndash;&gt;
+    &lt;!&ndash; Profile - style you can find in header.scss &ndash;&gt;
+    &lt;!&ndash; ============================================================== &ndash;&gt;
     <div class="profile-text"><a> Markarn Doe <i class="ti-angle-down font-12 m-l-5"></i></a></div>
-</div>
+</div>-->
 <mat-nav-list appAccordion>
     <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}">
         <a class="" appAccordionToggle [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">
@@ -18,7 +18,6 @@
             <span fxFlex></span>
             <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
         </a>
-
 
     </mat-list-item>
 

@@ -1,32 +1,36 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="login-main">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-card>
-            <mat-card-header>
-                <mat-card-title>
-                        Bienvenido a {{appTitle}}
-                </mat-card-title>
-            </mat-card-header>
+            <mat-card-title align="center" class="p-b-20">
+                {{'Auth.Label.Welcome' | translate}} {{appTitle}}
+            </mat-card-title>
             <mat-card-content>
                 <mat-form-field>
-                    <input matInput placeholder="Usuario o correo electrónico" formControlName="email"/>
+                    <input matInput placeholder="{{'Auth.Label.UsernameOrEmail' | translate}}" formControlName="email"/>
                     <mat-error *ngIf="handleError('email', 'required')">
-                        This field is required
+                        {{'Common.ValidationMessage.FieldRequired' | translate}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input type="password" matInput placeholder="password" formControlName="password"/>
+                    <input type="password" matInput placeholder=" {{'Common.Label.Password' | translate}}"
+                           formControlName="password"/>
                     <mat-error *ngIf="handleError('password', 'required')">
-                        This field is required
+                        {{'Common.ValidationMessage.FieldRequired' | translate}}
                     </mat-error>
                 </mat-form-field>
-                <mat-progress-bar mode="indeterminate" [style.display]="loading ? 'block' : 'none'"></mat-progress-bar>
-                <mat-error *ngIf="error" align="center">
+                <mat-error *ngIf="error && !loading" align="center">
                     {{error}}
                 </mat-error>
+                <mat-progress-bar mode="indeterminate" [style.display]="loading ? 'block' : 'none'"></mat-progress-bar>
             </mat-card-content>
-            <mat-card-actions align="right">
-                <a mat-raised-button routerLink=".">Forgot your password?</a>
-                <button [disabled]="loading" mat-raised-button color="primary">Login</button>
+            <mat-card-actions>
+                <button [disabled]="loading" mat-flat-button color="primary" class="btn-block">
+                    {{'Auth.Label.StartSession' | translate | uppercase}}
+                </button>
+
+                <a mat-flat-button routerLink="/password-forgotten" class="btn-block" style="margin-top: 5px;">
+                    {{'Auth.Label.ForgotPassword' | translate}}
+                </a>
             </mat-card-actions>
         </mat-card>
     </form>

@@ -1,4 +1,21 @@
 {
+  "Auth": {
+    "Label": {
+      "Welcome": "Bienvenido a",
+      "UsernameOrEmail": "Usuario o correo electrónico",
+      "StartSession": "Iniciar sesión",
+      "ForgotPassword": "¿Olvidaste tu contraseña?"
+    }
+  },
+  "EntryPoint": {
+    "Label": {
+      "SelectEntryPoint": "Seleccione punto de entrada",
+      "City": "Ciudad"
+    },
+    "Button": {
+      "Operate": "Operar"
+    }
+  },
   "Common": {
     "ValidationMessage": {
       "FieldRequired": "Este campo es obligatorio",

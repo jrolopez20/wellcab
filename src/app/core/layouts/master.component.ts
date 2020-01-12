@@ -12,16 +12,14 @@ import {
     AfterViewInit
 } from '@angular/core';
 import {MenuItems} from '../../shared/menu-items/menu-items';
-import {AppHeaderComponent, AppLogoutDialogComponent} from './header/header.component';
-import {AppSidebarComponent} from './sidebar/sidebar.component';
 
 /** @title Responsive sidenav */
 @Component({
-    selector: 'app-full-layout',
-    templateUrl: 'full.component.html',
+    selector: 'app-master-layout',
+    templateUrl: 'master.component.html',
     styleUrls: []
 })
-export class FullComponent implements OnDestroy, AfterViewInit {
+export class MasterComponent implements OnDestroy, AfterViewInit {
     mobileQuery: MediaQueryList;
 
     private _mobileQueryListener: () => void;

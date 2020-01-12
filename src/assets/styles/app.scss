@@ -716,6 +716,7 @@ Mat card
     .mat-card-content {
         font-size: 1rem;
         line-height: 23px;
+        margin-bottom: 0px !important;
     }
     .mat-card-image {
         width: calc(100% + 0px);

@@ -1,8 +1,9 @@
 import {Routes} from '@angular/router';
 
-import {FullComponent} from './layouts/full/full.component';
+import {MasterComponent as MasterLayout} from './core/layouts/master.component';
 import {LoginComponent} from './auth/components/login/login.component';
 import {AuthGuard} from './auth/guards/auth.guard';
+import {EntryPointComponent} from './entrypoint/components/entry-point/entry-point.component';
 
 export const AppRoutes: Routes = [
     {
@@ -10,25 +11,27 @@ export const AppRoutes: Routes = [
         component: LoginComponent
     },
     {
+        path: 'entrypoint',
+        component: EntryPointComponent,
+        canActivate: [AuthGuard]
+    },
+    {
         path: '',
-        component: FullComponent,
+        component: MasterLayout,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',
-                redirectTo: '/dashboard',
+                redirectTo: 'dashboard',
                 pathMatch: 'full'
             },
             {
-                path: 'dashboard', canActivate: [AuthGuard],
+                path: 'dashboard',
                 loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
             },
             {
                 path: 'admin',
                 loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-            },
-            {
-                path: '**',
-                redirectTo: 'dashboard'
             }
         ]
     }

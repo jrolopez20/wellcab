@@ -15,20 +15,16 @@
     <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"/>
 </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
-    <button mat-menu-item>
-        <mat-icon>settings</mat-icon>
-        Settings
-    </button>
     <a mat-menu-item routerLink="/admin">
         <mat-icon>account_box</mat-icon>
-        Profile
+        Perfil
     </a>
-    <a mat-menu-item routerLink="/admin">
-        <mat-icon>security</mat-icon>
-        Admin area
+    <a mat-menu-item routerLink="/entrypoint">
+        <mat-icon>location_city</mat-icon>
+        Cambiar de ciudad
     </a>
     <button mat-menu-item (click)="handleLogout()">
         <mat-icon>exit_to_app</mat-icon>
-        Sign Out
+        Cerrar sesión
     </button>
 </mat-menu>
