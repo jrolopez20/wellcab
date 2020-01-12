@@ -8,6 +8,7 @@ import {AppSidebarComponent} from './layouts/sidebar/sidebar.component';
 import {AppMaterialModule} from '../app-material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {SharedModule} from '../shared/shared.module';
+import {PageTitleService} from './services/page-title.service';
 
 @NgModule({
     declarations: [
@@ -29,6 +30,9 @@ import {SharedModule} from '../shared/shared.module';
         AppHeaderComponent,
         AppSidebarComponent,
         AppLogoutDialogComponent
+    ],
+    providers: [
+        PageTitleService
     ]
 })
 export class CoreModule {
