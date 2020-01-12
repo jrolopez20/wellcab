@@ -1,15 +1,7 @@
 <!-- ============================================================== -->
 <!-- sidebar -->
 <!-- ============================================================== -->
-<!-- <div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;">
-    &lt;!&ndash; User profile image &ndash;&gt;
-    <div class="profile-img"> <img src="assets/images/users/1.jpg" alt="user"> </div>
-    &lt;!&ndash; User profile text&ndash;&gt;
-    &lt;!&ndash; ============================================================== &ndash;&gt;
-    &lt;!&ndash; Profile - style you can find in header.scss &ndash;&gt;
-    &lt;!&ndash; ============================================================== &ndash;&gt;
-    <div class="profile-text"><a> Markarn Doe <i class="ti-angle-down font-12 m-l-5"></i></a></div>
-</div>-->
+<!--
 <mat-nav-list appAccordion>
     <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}">
         <a class="" appAccordionToggle [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">
@@ -20,5 +12,31 @@
         </a>
 
     </mat-list-item>
-
 </mat-nav-list>
+-->
+
+<div class="docs-component-viewer-nav">
+    <div class="docs-component-viewer-nav-content">
+        <nav *ngFor="let category of menuItems.getCategories(section); let last = last;">
+            <button cdkAccordionItem #panel="cdkAccordionItem" (click)="panel.toggle()" expanded="true"
+                    class="docs-nav-content-btn"
+                    [attr.aria-label]="category.name + ', section toggle'"
+                    [attr.aria-controls]="'panel-' + category.id"
+                    [attr.aria-expanded]="panel.expanded">
+
+                {{category.name}}
+                <mat-icon class="collapsible-icon">{{panel.expanded ? 'keyboard_arrow_up' :  'keyboard_arrow_down'}}</mat-icon>
+            </button>
+            <ul [@bodyExpansion]="panel.expanded ? 'expanded' : 'collapsed'" id="panel-{{category.id}}">
+                <li *ngFor="let component of category.items">
+                    <a [routerLink]="'/' + (category.id | lowercase) + '/' + component.id"
+                       routerLinkActive="selected">
+                        {{component.name}}
+                    </a>
+                </li>
+            </ul>
+            <hr *ngIf="!last" />
+        </nav>
+    </div>
+</div>
+

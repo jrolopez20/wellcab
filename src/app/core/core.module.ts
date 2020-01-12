@@ -9,6 +9,9 @@ import {AppMaterialModule} from '../app-material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {SharedModule} from '../shared/shared.module';
 import {PageTitleService} from './services/page-title.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CdkAccordionModule} from '@angular/cdk/accordion';
+import {MenuItems} from '../shared/menu-items/menu-items';
 
 @NgModule({
     declarations: [
@@ -23,6 +26,8 @@ import {PageTitleService} from './services/page-title.service';
         CommonModule,
         RouterModule,
         AppMaterialModule,
+        BrowserAnimationsModule,
+        CdkAccordionModule
     ],
     entryComponents: [AppLogoutDialogComponent],
     exports: [
@@ -32,7 +37,8 @@ import {PageTitleService} from './services/page-title.service';
         AppLogoutDialogComponent
     ],
     providers: [
-        PageTitleService
+        PageTitleService,
+        MenuItems
     ]
 })
 export class CoreModule {

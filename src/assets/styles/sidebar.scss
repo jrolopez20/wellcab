@@ -9,168 +9,135 @@ File: scss
 Main sidebar
 ******************/
 
+.docs-component-viewer-sidenav-container {
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.docs-component-viewer-sidenav {
+    overflow: auto;
+}
+
+.docs-component-sidenav-inner-content {
+    display: flex;
+    flex-direction: row;
+
+    // The rule will match the element following the router-outlet which will be the routed component.
+    router-outlet + * {
+        flex-grow: 1;
+    }
+}
+
+.mat-drawer {
+    &::-webkit-scrollbar {
+        height: 4px;
+        width: 4px;
+    }
+}
+
+.docs-component-viewer-nav {
+    position: sticky;
+    top: 15px;
+
+    .docs-component-viewer-nav-content {
+        padding-left: 10px;
+        padding-right: 5px;
+        max-height: 75vh;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            height: 4px;
+            width: 4px;
+        }
+        button:focus {
+          background: $light-text;
+        }
+        button {
+            padding: 10px 10px;
+            font-weight: 700;
+            line-height: 16px;
+            margin: 0;
+            font-size: 15px;
+            cursor: pointer;
+            position: relative;
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.08);
+            color: rgba(0, 0, 0, 0.5);
+            border: none;
+
+            &:focus {
+                outline: none;
+            }
+
+            .collapsible-icon {
+                position: absolute;
+                right: 5px;
+                font-size: 18px;
+            }
+        }
+
+        hr {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0 0 5px 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            font-size: 13px;
+            line-height: 16px;
+            margin: 0;
+        }
+
+        a {
+          padding: 10px 15px;
+          align-items: center;
+          display: block;
+          white-space: nowrap;
+          color:$sidebar-text;
+          //mat-icon:not(.dd-icon){
+          //  margin-right: 8px;
+          //}
+          //mat-icon{
+          //  color:$sidebar-icons;
+          //}
+        }
+        .selected {
+          background: $light;
+          color:$bodytext;
+          font-weight: bold;
+          //mat-icon{
+          //  color:$white;
+          //}
+        }
+    }
+}
+
+.docs-component-sidenav-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.docs-component-sidenav-inner-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.docs-component-sidenav-body-content {
+    display: flex;
+    flex: 1 1 auto;
+}
+
 mat-sidenav {
   width: 240px;
   padding-top: 0px;
-}
-#snav{
-    box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
-    .mat-list-item {
-        height: auto;
-        &:hover{
-            background: none;
-        }
-        
-        .mat-list-item-content{
-            display: block;
-            padding: 0px 15px;
-            &:hover{
-                background: none;
-                > a{
-                  color:$themecolor;
-                }
-            }
-        }
-        
-        a{
-            height: 45px;
-            padding: 0 10px;
-            margin-bottom: 10px;
-            align-items: center;
-            display: flex;
-            font-size: 15px;
-            white-space: nowrap;
-            color:$sidebar-text;
-            mat-icon:not(.dd-icon){
-                margin-right: 8px;
-            }
-            mat-icon{
-                color:$sidebar-icons;
-            }
-            .dd-icon{
-                font-size: 16px;
-                width: 16px;
-                transition: 0.2s ease-in;
-                margin: 5px 0 5px 5px;
-                height: 16px;
-            }
-        }
-        &.selected > .mat-list-item-content > a{
-            background: $themecolor-alt;
-            border-radius: $radius;
-            color:$white;
-            
-            mat-icon{
-                color:$white;
-            }
-            .dd-icon{
-                -webkit-transform: rotate(-180deg);
-                transform: rotate(-180deg);
-            }
-            
-        }
-        &.selected .sub-item .mat-list-item-content a.selected{
-            background: transparent;
-            color:$inverse;
-            font-weight: 500;               
-        }
-    }
-}
-/*******************
-use profile section
-******************/
-
-.user-profile {  
-    position: relative;
-    background-size:cover;
-    
-    .profile-img {
-        width: 50px;
-        margin-left: 30px;
-        padding: 31px 0;
-        border-radius: 100%;
-        &::before {
-            -webkit-animation: 2.5s blow 0s linear infinite;
-            animation: 2.5s blow 0s linear infinite;
-            position: absolute;
-            content: '';
-            width: 50px;
-            height: 50px;
-            top: 31px;
-            margin: 0 auto;
-            border-radius: 50%;
-            z-index: 0;
-        }
-        @-webkit-keyframes blow {
-            0% {
-                box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);
-                opacity: 1;
-                -webkit-transform: scale3d(1, 1, 0.5);
-                transform: scale3d(1, 1, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.1);
-                opacity: 1;
-                -webkit-transform: scale3d(1, 1, 0.5);
-                transform: scale3d(1, 1, 0.5);
-            }
-            100% {
-                box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.1);
-                opacity: 0;
-                -webkit-transform: scale3d(1, 1, 0.5);
-                transform: scale3d(1, 1, 0.5);
-            }
-        }
-        @keyframes blow {
-            0% {
-                box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);
-                opacity: 1;
-                -webkit-transform: scale3d(1, 1, 0.5);
-                transform: scale3d(1, 1, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.1);
-                opacity: 1;
-                -webkit-transform: scale3d(1, 1, 0.5);
-                transform: scale3d(1, 1, 0.5);
-            }
-            100% {
-                box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.1);
-                opacity: 0;
-                -webkit-transform: scale3d(1, 1, 0.5);
-                transform: scale3d(1, 1, 0.5);
-            }
-        }
-        img {
-            width: 100%;
-            border-radius: 100%;
-        }
-    }
-    .profile-text {
-        padding: 5px 0px;
-        position: relative;
-        cursor: pointer;
-        white-space: nowrap;
-        > a {
-            color: $white!important;
-            width: 100%;
-            padding: 6px 30px;
-            background: rgba(0, 0, 0, 0.5);
-            display: block;
-            white-space: nowrap;
-            &:after{
-                position: absolute;
-                right: 20px;
-                top:20px;
-            }
-        }
-    }
-    
-}
-
-
-.sidebar-closed #snav{
-    &.mat-sidenav ~ .mat-drawer-content {
-          margin-left: 0px!important;
-        }
 }
