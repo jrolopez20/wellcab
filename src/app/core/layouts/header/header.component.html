@@ -15,16 +15,16 @@
     <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"/>
 </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
-    <a mat-menu-item routerLink="/admin">
+    <a mat-menu-item routerLink="/profile">
         <mat-icon>account_box</mat-icon>
-        Perfil
+        {{'Profile.Label.Profile' | translate }}
     </a>
     <a mat-menu-item routerLink="/entrypoint">
         <mat-icon>location_city</mat-icon>
-        Cambiar de ciudad
+        {{'EntryPoint.Label.ChangeEntryPoint' | translate }}
     </a>
     <button mat-menu-item (click)="handleLogout()">
         <mat-icon>exit_to_app</mat-icon>
-        Cerrar sesión
+        {{'Auth.Label.Logout' | translate }}
     </button>
 </mat-menu>

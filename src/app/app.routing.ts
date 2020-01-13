@@ -4,6 +4,7 @@ import {MasterComponent as MasterLayout} from './core/layouts/master.component';
 import {LoginComponent} from './auth/components/login/login.component';
 import {AuthGuard} from './auth/guards/auth.guard';
 import {EntryPointComponent} from './entrypoint/components/entry-point/entry-point.component';
+import {ProfileComponent} from './auth/components/profile/profile.component';
 
 export const AppRoutes: Routes = [
     {
@@ -24,6 +25,10 @@ export const AppRoutes: Routes = [
                 path: '',
                 redirectTo: 'dashboard',
                 pathMatch: 'full'
+            },
+            {
+                path: 'profile',
+                component: ProfileComponent
             },
             {
                 path: 'dashboard',

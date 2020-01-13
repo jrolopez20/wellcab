@@ -31,7 +31,7 @@ body {
     overflow-x: hidden;
     color: $bodytext;
     font-weight: 300;
-    //background: $inverse;
+    // background: $inverse;
 }
 
 html {
@@ -712,7 +712,7 @@ Mat card
 *******************/
 .mat-card {
     border-radius: $radius;
-
+    margin: 8px;
     .mat-card-content {
         font-size: 1rem;
         line-height: 23px;
@@ -744,15 +744,16 @@ Mat card
             }
         }
     }
-    .mat-card-title{
+    .mat-card-title {
         font-size: 20px;
         margin-bottom: 5px;
     }
-    .mat-card-subtitle{
+    .mat-card-subtitle {
         margin-bottom: 20px;
     }
-    .mat-card-actions{
-        margin-bottom: 5px !important;
+    .mat-card-actions {
+        margin: 0px !important;
+        // margin-bottom: 5px !important;
     }
 }
 

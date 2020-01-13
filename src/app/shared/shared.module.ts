@@ -3,13 +3,17 @@ import {MenuItems} from './menu-items/menu-items';
 import {AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective} from './accordion';
 import {SpinnerComponent} from './spinner.component';
 import {CommonModule} from '@angular/common';
+import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog/delete-confirm-dialog.component';
+import {AppMaterialModule} from '../app-material.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
         AccordionAnchorDirective,
         AccordionLinkDirective,
         AccordionDirective,
-        SpinnerComponent
+        SpinnerComponent,
+        DeleteConfirmDialogComponent
     ],
     exports: [
         AccordionAnchorDirective,
@@ -18,8 +22,11 @@ import {CommonModule} from '@angular/common';
         SpinnerComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        AppMaterialModule,
+        TranslateModule
     ],
+    entryComponents: [DeleteConfirmDialogComponent],
     providers: [MenuItems]
 })
 export class SharedModule {

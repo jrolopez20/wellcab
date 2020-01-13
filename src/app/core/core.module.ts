@@ -12,6 +12,7 @@ import {PageTitleService} from './services/page-title.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {MenuItems} from '../shared/menu-items/menu-items';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import {MenuItems} from '../shared/menu-items/menu-items';
         RouterModule,
         AppMaterialModule,
         BrowserAnimationsModule,
-        CdkAccordionModule
+        CdkAccordionModule,
+        TranslateModule
     ],
     entryComponents: [AppLogoutDialogComponent],
     exports: [

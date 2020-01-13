@@ -10,9 +10,10 @@ import {fakeBackendProvider} from './helpers/fake-backend';
 import {FlexModule} from '@angular/flex-layout';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterModule} from '@angular/router';
+import {ProfileComponent} from './components/profile/profile.component';
 
 @NgModule({
-    declarations: [LoginComponent],
+    declarations: [LoginComponent, ProfileComponent],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -27,6 +28,9 @@ import {RouterModule} from '@angular/router';
 
         // provider used to create fake backend
         fakeBackendProvider
+    ],
+    exports: [
+        ProfileComponent
     ]
 })
 export class AuthModule {

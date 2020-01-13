@@ -9,11 +9,13 @@ import {AppMaterialModule} from '../../app-material.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {UserService} from './services/user.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FlexModule} from '@angular/flex-layout';
 
 @NgModule({
     declarations: [EditUserComponent, AddUserComponent, ListUserComponent],
     imports: [
         CommonModule,
+        FlexModule,
         AppMaterialModule,
         UserRoutingModule,
         TranslateModule,

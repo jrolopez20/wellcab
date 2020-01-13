@@ -1,0 +1,9 @@
+table {
+    width: 100%;
+}
+
+.table-rate-limit-reached {
+    color: #980000;
+    text-align: center;
+    padding: 10px 20px;
+}

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {MatSnackBar} from '@angular/material';
 
@@ -12,62 +12,57 @@ import {MatSnackBar} from '@angular/material';
 export class AddUserComponent implements OnInit {
     userForm: FormGroup;
     loading = false;
-    submitted = false;
-    error = '';
-    private maxDate: Date;
+    error: '';
+    userId: number;
 
     constructor(
-        public fb: FormBuilder,
-        private router: Router,
+        private formBuilder: FormBuilder,
+        public router: Router,
+        private activatedRoute: ActivatedRoute,
         private userService: UserService,
         private snackBar: MatSnackBar
     ) {
-        this.maxDate = new Date();
+        this.activatedRoute.params.subscribe(params => {
+            this.userId = params.id;
+        });
     }
 
     ngOnInit() {
         this.initUserForm();
+        this.loadUserData(this.userId);
     }
 
     initUserForm() {
-        this.userForm = this.fb.group({
-            email: new FormControl('example@gmail.com', Validators.compose([
-                Validators.required, Validators.email
-            ])),
-            firstName: ['me', [Validators.required]],
-            lastName: ['you', [Validators.required]],
-            dob: ['', [Validators.required]],
-            gender: ['Male']
+        this.userForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            email: ['', Validators.required],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
         });
     }
 
+    loadUserData(id: number) {
+        this.userService.findById(id).subscribe(res => {
+            this.userForm.patchValue({
+                ...res
+            });
+        });
+    }
+
+    // Convenience getter for easy access to form fields
     get f() {
         return this.userForm.controls;
     }
 
     /* Get errors */
     public handleError = (controlName: string, errorName: string) => {
-        return this.userForm.controls[controlName].hasError(errorName);
-    }
+        return this.f[controlName].hasError(errorName);
+    };
 
-    onSubmit() {
-        this.submitted = true;
-
+    onSubmit(): void {
+        // Stop here if form is invalid
         if (this.userForm.valid) {
-            this.userService.add(this.userForm.value)
-                .subscribe(
-                    data => {
-                        console.log('succesfull');
-                        this.router.navigate(['users']);
-                    },
-                    error => {
-                        this.loading = false;
-                        this.snackBar.open(error, 'Close', {
-                            duration: 2000,
-                            horizontalPosition: 'right'
-                        });
-                    }
-                );
+            this.loading = true;
         }
     }
 
