@@ -19,7 +19,6 @@ import {AuthModule} from './auth/auth.module';
 import {EffectsModule} from '@ngrx/effects';
 import {AppEffects} from './app.effects';
 import {I18nModule} from './i18n.module';
-import {EntrypointModule} from './entrypoint/entrypoint.module';
 import {CoreModule} from './core/core.module';
 
 
@@ -38,7 +37,6 @@ import {CoreModule} from './core/core.module';
         HttpClientModule,
         SharedModule,
         AuthModule,
-        EntrypointModule,
         RouterModule.forRoot(AppRoutes, {
             preloadingStrategy: PreloadAllModules
         }),

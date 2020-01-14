@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     ) {
         if (this.authenticationService.currentUserValue) {
             // Redirect to secure area if already logged in
-            this.router.navigate(['entrypoint']);
+            this.router.navigate(['/']);
         }
     }
 
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
                 .pipe(first())
                 .subscribe(
                     data => {
-                        this.router.navigate(['entrypoint']);
+                        this.router.navigate(['/']);
                     },
                     error => {
                         this.error = error;

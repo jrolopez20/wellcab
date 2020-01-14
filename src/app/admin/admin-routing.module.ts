@@ -12,7 +12,11 @@ const routes: Routes = [
     {
         path: 'companies',
         loadChildren: () => import('./company/company.module').then(m => m.CompanyModule)
-    }
+    },
+    {
+        path: 'cities',
+        loadChildren: () => import('./city/city.module').then(m => m.CityModule)
+    },
 ];
 
 @NgModule({

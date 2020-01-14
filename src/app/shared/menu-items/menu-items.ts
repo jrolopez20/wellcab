@@ -4,8 +4,6 @@ export interface MenuItem {
     id: string;
     name: string;
     summary?: string;
-    state?: string;
-    type?: string;
 }
 
 export interface MenuCategory {
@@ -35,23 +33,17 @@ const MENU: { [key: string]: MenuCategory[] } = {
                 {
                     id: 'users',
                     name: 'Usuarios',
-                    summary: 'Gestión de usuarios.',
-                    state: 'a',
-                    type: 'link'
+                    summary: 'Gestión de usuarios.'
                 },
                 {
                     id: 'companies',
                     name: 'Empresas',
-                    summary: 'Gestión de usuarios.',
-                    state: 'a',
-                    type: 'link'
+                    summary: 'Gestión de usuarios.'
                 },
                 {
-                    id: 'lorem',
-                    name: 'Lorem Ipsum',
-                    summary: 'Gestión de usuarios.',
-                    state: 'a',
-                    type: 'folder'
+                    id: 'cities',
+                    name: 'Ciudades',
+                    summary: 'Gestión de ciudades.'
                 }
             ]
         },
@@ -63,9 +55,7 @@ const MENU: { [key: string]: MenuCategory[] } = {
                 {
                     id: 'menu-example',
                     name: 'Menu example',
-                    summary: 'Menu example for testing only.',
-                    state: 'a',
-                    type: 'link'
+                    summary: 'Menu example for testing only.'
                 }
             ]
         }

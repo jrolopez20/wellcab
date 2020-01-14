@@ -55,17 +55,12 @@ export class ListCompanyComponent implements OnInit, AfterViewInit {
                 catchError((err) => {
                     this.isLoadingResults = false;
                     this.isRateLimitReached = true;
-                    console.log(err);
                     return observableOf([]);
                 })
             ).subscribe(data => this.data = data);
     }
 
     ngOnInit() {
-    }
-
-    editUser(id: number): void {
-        this.router.navigate([`/users/${id}`]);
     }
 
     // TODO - Test it

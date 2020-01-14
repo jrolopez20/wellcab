@@ -4,12 +4,12 @@ import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
-  selector: 'app-add-company',
-  templateUrl: './add-company.component.html',
-  styleUrls: ['./add-company.component.css']
+  selector: 'app-add-city',
+  templateUrl: './add-city.component.html',
+  styleUrls: ['./add-city.component.css']
 })
-export class AddCompanyComponent implements OnInit {
-  companyForm: FormGroup;
+export class AddCityComponent implements OnInit {
+  cityForm: FormGroup;
   loading = false;
   error: '';
 
@@ -21,19 +21,18 @@ export class AddCompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initCompanyForm();
+    this.initCityForm();
   }
 
-  initCompanyForm() {
-    this.companyForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required]
+  initCityForm() {
+    this.cityForm = this.formBuilder.group({
+      name: ['', Validators.required]
     });
   }
 
   // Convenience getter for easy access to form fields
   get f() {
-    return this.companyForm.controls;
+    return this.cityForm.controls;
   }
 
   /* Get errors */
@@ -43,7 +42,7 @@ export class AddCompanyComponent implements OnInit {
 
   onSubmit(): void {
     // Stop here if form is invalid
-    if (this.companyForm.valid) {
+    if (this.cityForm.valid) {
       this.loading = true;
     }
   }

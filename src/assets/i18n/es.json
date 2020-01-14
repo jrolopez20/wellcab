@@ -13,22 +13,13 @@
             "Profile": "Mi perfil"
         }
     },
-    "EntryPoint": {
-        "Label": {
-            "SelectEntryPoint": "Seleccione punto de entrada",
-            "ChangeEntryPoint": "Cambiar de ciudad",
-            "City": "Ciudad"
-        },
-        "Button": {
-            "Operate": "Operar"
-        }
-    },
     "Common": {
         "ValidationMessage": {
             "FieldRequired": "Este campo es obligatorio",
             "InvalidEmail": "Formato de email incorrecto"
         },
         "Label": {
+            "Action": "Acción",
             "Search": "Buscar",
             "Name": "Nombre",
             "Address": "Dirección",
@@ -64,6 +55,13 @@
             "Companies": "Empresas",
             "AddCompany": "Adicionar empresa",
             "EditCompany": "Editar empresa"
+        }
+    },
+    "City": {
+        "Label": {
+            "Cities": "Ciudades",
+            "AddCity": "Adicionar ciudad",
+            "EditCity": "Editar ciudad"
         }
     }
 }
