@@ -4,12 +4,18 @@ import {Observable, of, throwError} from 'rxjs';
 import {delay, dematerialize, materialize, mergeMap} from 'rxjs/operators';
 import {Lang} from '../../admin/user/models/user.model';
 import {AuthUser} from '../models/auth-user.model';
+import {Company} from '../../admin/company/models/company.model';
 
 
 const users: AuthUser[] = [
     {id: 1, username: 'oscar', email: 'oscar@gmail.com', password: 'oscar', firstName: 'Oscar', lastName: 'Wilde', lang: Lang.es},
     {id: 2, username: 'mario', email: 'mario@gmail.com', password: 'mario', firstName: 'Mario', lastName: 'Puzo', lang: Lang.es},
-    {id: 2, username: 'valerio', email: 'valerio@gmail.com', password: 'valerio', firstName: 'Valerio', lastName: 'Massimo', lang: Lang.es}
+    {id: 3, username: 'valerio', email: 'valerio@gmail.com', password: 'valerio', firstName: 'Valerio', lastName: 'Massimo', lang: Lang.es}
+];
+
+const companies: Company[] = [
+    {id: 1, name: 'Asus', address: 'Wall Street #45, New York'},
+    {id: 2, name: 'Google', address: 'Palo Alto #178, California'}
 ];
 
 @Injectable()
@@ -30,6 +36,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return authenticate();
                 case url.endsWith('/users') && method === 'GET':
                     return getUsers();
+                case url.endsWith('/companies') && method === 'GET':
+                    return getCompanies();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -56,6 +64,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok({
                 items: [...users],
                 total_count: users.length,
+            });
+        }
+
+        function getCompanies() {
+            return ok({
+                items: [...companies],
+                total_count: companies.length,
             });
         }
 

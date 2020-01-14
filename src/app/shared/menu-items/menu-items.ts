@@ -40,7 +40,7 @@ const MENU: { [key: string]: MenuCategory[] } = {
                     type: 'link'
                 },
                 {
-                    id: 'company',
+                    id: 'companies',
                     name: 'Empresas',
                     summary: 'Gestión de usuarios.',
                     state: 'a',

@@ -13,7 +13,7 @@ export class UserService {
     }
 
     /**
-     * Retrieve a collection of  users
+     * Retrieve a collection of users
      * @param sort
      * @param order
      * @param page
@@ -32,10 +32,6 @@ export class UserService {
         return this.http.get(`users/${id}`);
     }
 
-    /**
-     * asdasd
-     * @param data
-     */
     add(data: User) {
         return this.http.post<any>(`users`, data);
     }

@@ -29,23 +29,16 @@ export class AddUserComponent implements OnInit {
 
     ngOnInit() {
         this.initUserForm();
-        this.loadUserData(this.userId);
     }
 
     initUserForm() {
         this.userForm = this.formBuilder.group({
             username: ['', Validators.required],
-            email: ['', Validators.required],
+            email: new FormControl('', Validators.compose([
+                Validators.required, Validators.email
+            ])),
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-        });
-    }
-
-    loadUserData(id: number) {
-        this.userService.findById(id).subscribe(res => {
-            this.userForm.patchValue({
-                ...res
-            });
         });
     }
 

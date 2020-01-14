@@ -22,7 +22,7 @@ import {FlexModule} from '@angular/flex-layout';
         ReactiveFormsModule,
         FormsModule
     ],
-    providers:[
+    providers: [
         UserService
     ]
 })

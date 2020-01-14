@@ -30,6 +30,8 @@
         },
         "Label": {
             "Search": "Buscar",
+            "Name": "Nombre",
+            "Address": "Dirección",
             "ConfirmDelete": "Confirme por favor",
             "ShureToDelete": "¿Está seguro que desea eliminar este elemento?",
             "FirstName": "Nombre",
@@ -55,6 +57,13 @@
             "Users": "Usuarios",
             "EditUser": "Editar usuario",
             "AddUser": "Adicionar usuario"
+        }
+    },
+    "Company": {
+        "Label": {
+            "Companies": "Empresas",
+            "AddCompany": "Adicionar empresa",
+            "EditCompany": "Editar empresa"
         }
     }
 }
