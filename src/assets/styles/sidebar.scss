@@ -1,140 +1,81 @@
-/*
-Template Name: Material Pro Admin
-Author: Themedesigner
-Email: niravjoshi87@gmail.com
-File: scss
-*/
-
 /*******************
 Main sidebar
 ******************/
 
-.docs-component-viewer-sidenav-container {
-    flex: 1;
-    box-sizing: border-box;
-}
-
-.docs-component-viewer-sidenav {
-    overflow: auto;
-}
-
-.docs-component-sidenav-inner-content {
-    display: flex;
-    flex-direction: row;
-
-    // The rule will match the element following the router-outlet which will be the routed component.
-    router-outlet + * {
-        flex-grow: 1;
-    }
-}
-
 .mat-drawer {
-    &::-webkit-scrollbar {
-        height: 4px;
-        width: 4px;
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+}
+
+.sidebar-menu-container {
+  margin: 15px 10px;
+
+  button:focus {
+    background: $light-text;
+  }
+
+  button {
+    padding: 10px 10px;
+    font-weight: 700;
+    line-height: 16px;
+    margin: 0;
+    font-size: 15px;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.5);
+    border: none;
+
+    &:focus {
+      outline: none;
     }
-}
 
-.docs-component-viewer-nav {
-    position: sticky;
-    top: 15px;
-
-    .docs-component-viewer-nav-content {
-        padding-left: 10px;
-        padding-right: 5px;
-        max-height: 75vh;
-        overflow: auto;
-
-        &::-webkit-scrollbar {
-            height: 4px;
-            width: 4px;
-        }
-        button:focus {
-          background: $light-text;
-        }
-        button {
-            padding: 10px 10px;
-            font-weight: 700;
-            line-height: 16px;
-            margin: 0;
-            font-size: 15px;
-            cursor: pointer;
-            position: relative;
-            display: block;
-            width: 100%;
-            text-align: left;
-            background: rgba(0, 0, 0, 0.08);
-            color: rgba(0, 0, 0, 0.5);
-            border: none;
-
-            &:focus {
-                outline: none;
-            }
-
-            .collapsible-icon {
-                position: absolute;
-                right: 5px;
-                font-size: 18px;
-            }
-        }
-
-        hr {
-            padding: 0;
-            margin: 0;
-        }
-
-        ul {
-            list-style-type: none;
-            margin: 0 0 5px 0;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        li {
-            font-size: 13px;
-            line-height: 16px;
-            margin: 0;
-        }
-
-        a {
-          padding: 10px 15px;
-          align-items: center;
-          display: block;
-          white-space: nowrap;
-          color:$sidebar-text;
-          //mat-icon:not(.dd-icon){
-          //  margin-right: 8px;
-          //}
-          //mat-icon{
-          //  color:$sidebar-icons;
-          //}
-        }
-        .selected {
-          background: $light;
-          color:$bodytext;
-          font-weight: bold;
-          //mat-icon{
-          //  color:$white;
-          //}
-        }
+    .collapsible-icon {
+      position: absolute;
+      right: 5px;
+      font-size: 18px;
     }
-}
+  }
 
-.docs-component-sidenav-content {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-}
+  hr {
+    padding: 0;
+    margin: 0;
+  }
 
-.docs-component-sidenav-inner-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
+  ul {
+    list-style-type: none;
+    margin: 0 0 5px 0;
+    padding: 0;
+    overflow: hidden;
+  }
 
-.docs-component-sidenav-body-content {
-    display: flex;
-    flex: 1 1 auto;
+  li {
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0;
+  }
+
+  a {
+    padding: 10px 15px;
+    align-items: center;
+    display: block;
+    white-space: nowrap;
+    color: $sidebar-text;
+  }
+
+  .selected {
+    background: $light;
+    color: $bodytext;
+    font-weight: bold;
+    //mat-icon{
+    //  color:$white;
+    //}
+  }
 }
 
 mat-sidenav {

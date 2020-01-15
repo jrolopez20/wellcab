@@ -1,42 +1,30 @@
 <!-- ============================================================== -->
 <!-- sidebar -->
 <!-- ============================================================== -->
-<!--
-<mat-nav-list appAccordion>
-    <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}">
-        <a class="" appAccordionToggle [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">
-            <mat-icon>{{ menuitem.icon }}</mat-icon>
-            <span>{{ menuitem.name }}</span>
-            <span fxFlex></span>
-            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
-        </a>
 
-    </mat-list-item>
-</mat-nav-list>
--->
+<div class="sidebar-menu-container">
+    <nav *ngFor="let category of menuItems.getCategories(section); let last = last;">
+        <button cdkAccordionItem #panel="cdkAccordionItem" (click)="panel.toggle()" expanded="true"
+                [attr.aria-label]="category.name + ', section toggle'"
+                [attr.aria-controls]="'panel-' + category.id"
+                [attr.aria-expanded]="panel.expanded">
 
-<div class="docs-component-viewer-nav">
-    <div class="docs-component-viewer-nav-content">
-        <nav *ngFor="let category of menuItems.getCategories(section); let last = last;">
-            <button cdkAccordionItem #panel="cdkAccordionItem" (click)="panel.toggle()" expanded="true"
-                    class="docs-nav-content-btn"
-                    [attr.aria-label]="category.name + ', section toggle'"
-                    [attr.aria-controls]="'panel-' + category.id"
-                    [attr.aria-expanded]="panel.expanded">
+            {{category.name}}
+            <mat-icon
+                    class="collapsible-icon">{{panel.expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+        </button>
+        <ul [@bodyExpansion]="panel.expanded ? 'expanded' : 'collapsed'" id="panel-{{category.id}}">
+            <li *ngFor="let component of category.items">
+                <a [routerLink]="'/' + (category.id | lowercase) + '/' + component.id"
+                   routerLinkActive="selected">
+                    {{component.name}}
+                </a>
+            </li>
+        </ul>
+        <hr *ngIf="!last"/>
+    </nav>
 
-                {{category.name}}
-                <mat-icon class="collapsible-icon">{{panel.expanded ? 'keyboard_arrow_up' :  'keyboard_arrow_down'}}</mat-icon>
-            </button>
-            <ul [@bodyExpansion]="panel.expanded ? 'expanded' : 'collapsed'" id="panel-{{category.id}}">
-                <li *ngFor="let component of category.items">
-                    <a [routerLink]="'/' + (category.id | lowercase) + '/' + component.id"
-                       routerLinkActive="selected">
-                        {{component.name}}
-                    </a>
-                </li>
-            </ul>
-            <hr *ngIf="!last" />
-        </nav>
-    </div>
+    <footer>
+        Copyright Gestvtc@2020
+    </footer>
 </div>
-
