@@ -7,7 +7,8 @@
             <div fxLayout="row wrap">
                 <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="p-r-10">
                     <mat-form-field>
-                        <input matInput placeholder="{{'User.Label.Username' | translate}}" formControlName="username"/>
+                        <input matInput placeholder="{{'User.Label.Username' | translate}}" formControlName="username"
+                               maxlength="255"/>
                         <mat-error *ngIf="handleError('username', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
                         </mat-error>
@@ -15,7 +16,8 @@
                 </div>
                 <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="p-r-10">
                     <mat-form-field>
-                        <input matInput placeholder="{{'Common.Label.Email' | translate}}" formControlName="email"/>
+                        <input matInput placeholder="{{'Common.Label.Email' | translate}}" formControlName="email"
+                               maxlength="255"/>
                         <mat-error *ngIf="handleError('email', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
                         </mat-error>
@@ -29,7 +31,7 @@
                 <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="p-r-10">
                     <mat-form-field>
                         <input matInput placeholder="{{'Common.Label.FirstName' | translate}}"
-                               formControlName="firstName"/>
+                               formControlName="firstName" maxlength="45"/>
                         <mat-error *ngIf="handleError('firstName', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
                         </mat-error>
@@ -38,7 +40,7 @@
                 <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="p-r-10">
                     <mat-form-field>
                         <input matInput placeholder="{{'Common.Label.LastName' | translate}}"
-                               formControlName="lastName"/>
+                               formControlName="lastName" maxlength="45"/>
                         <mat-error *ngIf="handleError('lastName', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
                         </mat-error>

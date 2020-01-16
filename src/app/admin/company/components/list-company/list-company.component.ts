@@ -13,7 +13,7 @@ import {CompanyService} from '../../services/company.service';
     styleUrls: ['./list-company.component.css']
 })
 export class ListCompanyComponent implements OnInit, AfterViewInit {
-    displayedColumns: string[] = ['name', 'address', 'action'];
+    displayedColumns: string[] = ['name', 'action'];
     data: Company[] = [];
 
     resultsLength = 0;

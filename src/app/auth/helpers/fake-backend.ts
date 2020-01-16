@@ -14,8 +14,8 @@ const users: AuthUser[] = [
 ];
 
 const companies: Company[] = [
-    {id: 1, name: 'Asus', address: 'Wall Street #45, New York'},
-    {id: 2, name: 'Google', address: 'Palo Alto #178, California'}
+    {id: 1, name: 'Asus'},
+    {id: 2, name: 'Google'}
 ];
 
 @Injectable()

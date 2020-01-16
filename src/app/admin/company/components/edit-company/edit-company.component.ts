@@ -34,8 +34,7 @@ export class EditCompanyComponent implements OnInit {
 
   initCompanyForm() {
     this.companyForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required]
+      name: ['', Validators.required]
     });
   }
 

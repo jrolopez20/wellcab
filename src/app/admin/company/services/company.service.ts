@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Companies, Company} from '../models/company.model';
+import {Companies} from '../models/company.model';
 
 @Injectable({
     providedIn: 'root'
@@ -31,7 +31,7 @@ export class CompanyService {
         return this.http.get(`companies/${id}`);
     }
 
-    add(data: Company) {
+    add(data) {
         return this.http.post<any>(`companies`, data);
     }
 

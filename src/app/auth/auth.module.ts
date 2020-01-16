@@ -5,7 +5,7 @@ import {AppMaterialModule} from '../app-material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
-import {ErrorInterceptor} from './helpers/error.interceptor';
+import {ErrorInterceptor} from '../core/interceptors/error.interceptor';
 import {fakeBackendProvider} from './helpers/fake-backend';
 import {FlexModule} from '@angular/flex-layout';
 import {TranslateModule} from '@ngx-translate/core';

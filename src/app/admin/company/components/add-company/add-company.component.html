@@ -5,14 +5,9 @@
         </mat-card-title>
         <mat-card-content>
             <mat-form-field>
-                <input matInput placeholder="{{'Common.Label.Name' | translate}}" formControlName="name"/>
+                <input matInput placeholder="{{'Common.Label.Name' | translate}}" formControlName="name"
+                       maxlength="45"/>
                 <mat-error *ngIf="handleError('name', 'required')">
-                    {{'Common.ValidationMessage.FieldRequired' | translate}}
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="{{'Common.Label.Address' | translate}}" formControlName="address"/>
-                <mat-error *ngIf="handleError('address', 'required')">
                     {{'Common.ValidationMessage.FieldRequired' | translate}}
                 </mat-error>
             </mat-form-field>
