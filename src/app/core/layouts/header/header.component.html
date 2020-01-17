@@ -1,18 +1,10 @@
 <!-- ============================================================== -->
 <!-- Profile - style you can find in header.scss -->
 <!-- ============================================================== -->
+<app-language-picker [user]="user" (langPicked)="onLangPicked($event)"></app-language-picker>
 
-<button mat-button [matMenuTriggerFor]="menu">
-    <img src="assets/images/flags/{{ user.lang }}.svg" height="90%"/>
-</button>
-<mat-menu #menu="matMenu" style="padding: 0px !important;">
-    <button mat-menu-item *ngFor="let lang of langs" (click)="changeLang(lang)">
-        <img src="assets/images/flags/{{lang}}.svg" height="90%"/>
-    </button>
-</mat-menu>
-
-<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
-    <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"/>
+<button mat-icon-button [mat-menu-trigger-for]="profile" class="m-r-5">
+    <mat-icon>person</mat-icon>
 </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
     <a mat-menu-item routerLink="/profile">

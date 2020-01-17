@@ -3,7 +3,6 @@ import {AuthenticationService} from '../../../auth/services/authentication.servi
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {Lang, User} from '../../../admin/user/models/user.model';
 import {UserService} from '../../../admin/user/services/user.service';
-import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-header',
@@ -12,18 +11,16 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppHeaderComponent implements OnInit {
     public user: User;
-    public langs: Lang[];
+
 
     constructor(
         public dialog: MatDialog,
         private authenticationService: AuthenticationService,
-        private userService: UserService,
-        private translateService: TranslateService
+        private userService: UserService
     ) {
     }
 
     ngOnInit() {
-        this.langs = [Lang.en, Lang.es];
         this.user = this.authenticationService.currentUserValue;
     }
 
@@ -31,8 +28,7 @@ export class AppHeaderComponent implements OnInit {
         const dialogRef = this.dialog.open(AppLogoutDialogComponent);
     }
 
-    changeLang(language: Lang): void {
-        this.translateService.use(language);
+    onLangPicked(language: Lang) {
         this.userService.updateProfile(language);
     }
 }

@@ -4,8 +4,8 @@
             {{'User.Label.AddUser' | translate}}
         </mat-card-title>
         <mat-card-content>
-            <div fxLayout="row wrap">
-                <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="p-r-10">
+            <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <input matInput placeholder="{{'User.Label.Username' | translate}}" formControlName="username"
                                maxlength="255"/>
@@ -14,7 +14,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="p-r-10">
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <input matInput placeholder="{{'Common.Label.Email' | translate}}" formControlName="email"
                                maxlength="255"/>
@@ -27,8 +27,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div fxLayout="row wrap">
-                <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="p-r-10">
+            <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <input matInput placeholder="{{'Common.Label.FirstName' | translate}}"
                                formControlName="firstName" maxlength="45"/>
@@ -37,7 +37,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="p-r-10">
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <input matInput placeholder="{{'Common.Label.LastName' | translate}}"
                                formControlName="lastName" maxlength="45"/>

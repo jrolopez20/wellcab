@@ -13,13 +13,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {MenuItems} from '../shared/menu-items/menu-items';
 import {TranslateModule} from '@ngx-translate/core';
+import { LanguagePickerComponent } from './components/language-picker/language-picker.component';
 
 @NgModule({
     declarations: [
         MasterComponent,
         AppHeaderComponent,
         AppSidebarComponent,
-        AppLogoutDialogComponent
+        AppLogoutDialogComponent,
+        LanguagePickerComponent
     ],
     imports: [
         FlexLayoutModule,
