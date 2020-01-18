@@ -1,10 +1,14 @@
+/**
+ * This file  is for test only
+ */
 import {Injectable} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {delay, dematerialize, materialize, mergeMap} from 'rxjs/operators';
-import {Lang} from '../../admin/user/models/user.model';
-import {AuthUser} from '../models/auth-user.model';
-import {Company} from '../../admin/company/models/company.model';
+import {Lang} from '../../store/models/user.model';
+import {AuthUser} from '../../store/models/auth-user.model';
+import {Company} from '../../store/models/company.model';
+import {City} from '@app/store/models/city.model';
 
 
 const users: AuthUser[] = [
@@ -16,6 +20,11 @@ const users: AuthUser[] = [
 const companies: Company[] = [
     {id: 1, name: 'Asus'},
     {id: 2, name: 'Google'}
+];
+
+const cities: City[] = [
+    {id: 1, name: 'Madrid'},
+    {id: 2, name: 'Barcelona'}
 ];
 
 @Injectable()
@@ -38,6 +47,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getUsers();
                 case url.endsWith('/companies') && method === 'GET':
                     return getCompanies();
+                case url.endsWith('/cities') && method === 'GET':
+                    return getCities();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -71,6 +82,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok({
                 items: [...companies],
                 total_count: companies.length,
+            });
+        }
+
+        function getCities() {
+            return ok({
+                items: [...cities],
+                total_count: cities.length,
             });
         }
 

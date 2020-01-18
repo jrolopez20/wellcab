@@ -10,7 +10,8 @@
     },
     "Profile": {
         "Label": {
-            "Profile": "Mi perfil"
+            "Profile": "Perfil",
+            "ChangeYourPersonalInfo": "Modifique su información personal"
         }
     },
     "Common": {

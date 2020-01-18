@@ -9,35 +9,42 @@ File: scss
 /*******************
  Topbar
 *******************/
-mat-toolbar{
-    box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
-    &.topbar{
-        padding: 0px 15px;
-    }
-    .navbar-header {
-        text-align: center;
-        .navbar-brand {
-            display: flex;
-            line-height: 18px;
-            align-items: center;
-            .dark-logo {
-                display: none;
-            }
-            .light-logo {
-                color: #ffffff;
-            }
-            b {
-               margin-right: 5px;
-            }
-        }
-    }
+mat-toolbar {
+  box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
 
-    .profile-pic{
-        width: 40px;
-        height: 40px;
-        border-radius: 100%;
+  &.topbar {
+    padding: 0px 15px;
+  }
+
+  .navbar-header {
+    text-align: center;
+
+    .navbar-brand {
+      display: flex;
+      line-height: 18px;
+      align-items: center;
+
+      .dark-logo {
+        display: none;
+      }
+
+      .light-logo {
+        color: #ffffff;
+      }
+
+      b {
+        margin-right: 5px;
+      }
     }
+  }
+
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
 }
+
 /*******************
  Topbar
 *******************/
@@ -59,3 +66,15 @@ mat-toolbar{
   flex: 1 0 auto;
 }
 
+.lang-menu {
+  min-width: auto !important;
+  max-width: max-content !important;
+
+  .mat-menu-content {
+    padding: 0 !important;
+
+    .mat-menu-item {
+      padding: 0 10px;
+    }
+  }
+}

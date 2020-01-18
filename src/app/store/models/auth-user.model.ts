@@ -1,4 +1,4 @@
-import {Lang} from '../../admin/user/models/user.model';
+import {Lang} from './user.model';
 
 export interface AuthUser {
     id: number;

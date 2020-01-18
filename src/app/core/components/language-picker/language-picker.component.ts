@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Lang, User} from '../../../admin/user/models/user.model';
+import {Lang, User} from '../../../store/models/user.model';
 import {TranslateService} from '@ngx-translate/core';
 
 

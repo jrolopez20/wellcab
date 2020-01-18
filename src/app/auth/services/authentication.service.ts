@@ -4,7 +4,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {Router} from '@angular/router';
-import {AuthUser as User} from '../models/auth-user.model';
+import {AuthUser as User} from '@app/store/models/auth-user.model';
 
 @Injectable({
     providedIn: 'root'

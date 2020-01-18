@@ -1,16 +1,9 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import {NgModule} from '@angular/core';
 
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
-import {Lang} from './admin/user/models/user.model';
+import {Lang} from './store/models/user.model';
 import {AuthenticationService} from './auth/services/authentication.service';
 
 export const createTranslateLoader = (http: HttpClient) => {

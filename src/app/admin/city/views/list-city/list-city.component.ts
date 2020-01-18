@@ -1,22 +1,20 @@
-import {Component, ViewChild, OnInit, AfterViewInit} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {merge, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {User} from '../../models/user.model';
-import {UserService} from '../../services/user.service';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {City} from '../../../../store/models/city.model';
+import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
+import {CityService} from '../../services/city.service';
+import {merge, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {DeleteConfirmDialogComponent} from '../../../../shared/components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
-    selector: 'app-list-user',
-    templateUrl: './list-user.component.html',
-    styleUrls: ['./list-user.component.css']
+    selector: 'app-list-city',
+    templateUrl: './list-city.component.html',
+    styleUrls: ['./list-city.component.css']
 })
-export class ListUserComponent implements OnInit, AfterViewInit {
-    displayedColumns: string[] = ['username', 'email', 'firstName', 'lastName', 'action'];
-    data: User[] = [];
+export class ListCityComponent implements OnInit, AfterViewInit {
+    displayedColumns: string[] = ['name', 'action'];
+    data: City[] = [];
 
     resultsLength = 0;
     isLoadingResults = true;
@@ -26,10 +24,13 @@ export class ListUserComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort, {static: false}) sort: MatSort;
 
     constructor(
-        private userService: UserService,
+        private cityService: CityService,
         private router: Router,
         public dialog: MatDialog
     ) {
+    }
+
+    ngOnInit() {
     }
 
     ngAfterViewInit() {
@@ -43,7 +44,7 @@ export class ListUserComponent implements OnInit, AfterViewInit {
                     this.isLoadingResults = true;
                     // return this.exampleDatabase!.getRepoIssues(
                     //     this.sort.active, this.sort.direction, this.paginator.pageIndex);
-                    return this.userService.getCollection(
+                    return this.cityService.getCollection(
                         this.sort.active, this.sort.direction, this.paginator.pageIndex);
                 }),
                 map(data => {
@@ -57,17 +58,13 @@ export class ListUserComponent implements OnInit, AfterViewInit {
                 catchError((err) => {
                     this.isLoadingResults = false;
                     this.isRateLimitReached = true;
-                    console.log(err);
                     return observableOf([]);
                 })
             ).subscribe(data => this.data = data);
     }
 
-    ngOnInit() {
-    }
-
     // TODO - Test it
-    deleteUser(id: number): void {
+    deleteCity(id: number): void {
         const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
@@ -80,5 +77,5 @@ export class ListUserComponent implements OnInit, AfterViewInit {
         });
 
     }
-}
 
+}

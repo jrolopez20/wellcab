@@ -1,8 +1,9 @@
-<button mat-button [matMenuTriggerFor]="menu" matTooltip="Seleccione el idioma!">
+<button mat-button [matMenuTriggerFor]="langMenu" matTooltip="Seleccione el idioma!">
     <img src="assets/images/flags/{{ user.lang }}.svg" height="90%"/>
 </button>
-<mat-menu #menu="matMenu" style="padding: 0px !important;">
-    <button mat-menu-item *ngFor="let lang of langs" (click)="changeLang(lang)">
-        <img src="assets/images/flags/{{lang}}.svg" height="90%"/>
-    </button>
+<mat-menu #langMenu="matMenu" class="lang-menu">
+    <div mat-menu-item *ngFor="let lang of langs" (click)="changeLang(lang)">
+        <img src="assets/images/flags/{{lang}}.svg" height="100%"/>
+    </div>
 </mat-menu>
+

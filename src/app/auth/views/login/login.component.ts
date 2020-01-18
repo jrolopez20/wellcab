@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthenticationService} from '../../services/authentication.service';
+import {AuthenticationService} from '@app/auth/services/authentication.service';
 import {first} from 'rxjs/operators';
-import {PageTitleService} from '../../../core/services/page-title.service';
+
+import {PageTitleService} from '@app/core/services/page-title.service';
 
 @Component({
     selector: 'app-login',

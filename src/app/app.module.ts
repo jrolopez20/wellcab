@@ -1,16 +1,15 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {PreloadAllModules, RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
-import {AppRoutes} from './app.routing';
 import {AppComponent} from './app.component';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppMaterialModule} from './app-material.module';
+import {AppRoutingModule} from './app-routing.module';
 
 import {SharedModule} from './shared/shared.module';
 import {StoreModule} from '@ngrx/store';
@@ -20,7 +19,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {AppEffects} from './app.effects';
 import {I18nModule} from './i18n.module';
 import {CoreModule} from './core/core.module';
-
+import {RouterState} from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -37,9 +36,7 @@ import {CoreModule} from './core/core.module';
         HttpClientModule,
         SharedModule,
         AuthModule,
-        RouterModule.forRoot(AppRoutes, {
-            preloadingStrategy: PreloadAllModules
-        }),
+        AppRoutingModule,
         StoreModule.forRoot(reducers, {
             metaReducers,
             runtimeChecks: {

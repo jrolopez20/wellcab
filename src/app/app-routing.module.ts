@@ -1,11 +1,12 @@
-import {Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 
 import {MasterComponent as MasterLayout} from './core/layouts/master.component';
-import {LoginComponent} from './auth/components/login/login.component';
-import {AuthGuard} from './auth/guards/auth.guard';
-import {ProfileComponent} from './auth/components/profile/profile.component';
+import {AuthGuard} from '@app/shared/guards/auth.guard';
+import {LoginComponent} from '@app/auth/views/login/login.component';
+import {ProfileComponent} from '@app/auth/views/profile/profile.component';
 
-export const AppRoutes: Routes = [
+export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
@@ -36,3 +37,10 @@ export const AppRoutes: Routes = [
     },
     {path: '**', redirectTo: ''}
 ];
+
+@NgModule({
+    imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],
+    exports: [RouterModule],
+})
+export class AppRoutingModule {
+}
