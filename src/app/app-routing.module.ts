@@ -3,8 +3,8 @@ import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 
 import {MasterComponent as MasterLayout} from './core/layouts/master.component';
 import {AuthGuard} from '@app/shared/guards/auth.guard';
-import {LoginComponent} from '@app/auth/views/login/login.component';
-import {ProfileComponent} from '@app/auth/views/profile/profile.component';
+import {LoginComponent} from '@app/modules/auth/views/login/login.component';
+import {ProfileComponent} from '@app/modules/auth/views/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -27,11 +27,11 @@ export const routes: Routes = [
             },
             {
                 path: 'dashboard',
-                loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+                loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
             },
             {
                 path: 'admin',
-                loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+                loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
             }
         ]
     },

@@ -4,7 +4,7 @@ import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
 import {Lang} from './store/models/user.model';
-import {AuthenticationService} from './auth/services/authentication.service';
+import {AuthenticationService} from './modules/auth/services/authentication.service';
 
 export const createTranslateLoader = (http: HttpClient) => {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');

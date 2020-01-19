@@ -14,12 +14,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from './shared/shared.module';
 import {StoreModule} from '@ngrx/store';
 import {reducers, metaReducers} from './reducers';
-import {AuthModule} from './auth/auth.module';
+import {AuthModule} from './modules/auth/auth.module';
 import {EffectsModule} from '@ngrx/effects';
-import {AppEffects} from './app.effects';
 import {I18nModule} from './i18n.module';
 import {CoreModule} from './core/core.module';
-import {RouterState} from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -44,7 +42,7 @@ import {RouterState} from '@angular/router';
                 strictActionImmutability: true
             }
         }),
-        EffectsModule.forRoot([AppEffects]),
+        EffectsModule.forRoot([]),
     ],
     providers: [
         {

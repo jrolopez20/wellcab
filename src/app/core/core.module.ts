@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {RouterModule} from '@angular/router';
@@ -16,6 +16,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {LanguagePickerComponent} from './components/language-picker/language-picker.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ErrorInterceptor} from '@app/core/interceptors/error.interceptor';
+import {throwIfAlreadyLoaded} from '@app/core/guards/module-import.guard';
 
 @NgModule({
     declarations: [
@@ -49,4 +50,7 @@ import {ErrorInterceptor} from '@app/core/interceptors/error.interceptor';
     ],
 })
 export class CoreModule {
+    constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+        throwIfAlreadyLoaded(parentModule, 'CoreModule');
+    }
 }

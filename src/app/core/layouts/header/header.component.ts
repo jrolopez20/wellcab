@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from '../../../auth/services/authentication.service';
+import {AuthenticationService} from '../../../modules/auth/services/authentication.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {Lang, User} from '../../../store/models/user.model';
-import {UserService} from '../../../admin/user/services/user.service';
+import {UserService} from '../../../modules/admin/user/services/user.service';
 
 @Component({
     selector: 'app-header',
