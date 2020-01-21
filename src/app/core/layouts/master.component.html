@@ -2,10 +2,14 @@
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 <div class="main-container">
+<!--    flex-direction: row;-->
+<!--    box-sizing: border-box;-->
+<!--    display: flex;-->
     <!-- ============================================================== -->
     <!-- Topbar - style you can find in header.scss -->
     <!-- ============================================================== -->
-    <mat-toolbar color="primary" class="topbar telative">
+
+    <mat-toolbar color="primary" class="topbar relative">
         <!-- ============================================================== -->
         <!-- Logo - style you can find in header.scss -->
         <!-- ============================================================== -->
@@ -56,8 +60,9 @@
         <!-- ============================================================== -->
         <!-- app header component - style you can find in header.scss / header.component.ts-->
         <!-- ============================================================== -->
-        <app-header></app-header>
+        <app-header [user]="user$ | async" ></app-header>
     </mat-toolbar>
+
     <!-- ============================================================== -->
     <!-- End Topbar - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -97,4 +102,5 @@
         <!-- Page container - style you can find in pages.scss -->
         <!-- ============================================================== -->
     </mat-sidenav-container>
+
 </div>

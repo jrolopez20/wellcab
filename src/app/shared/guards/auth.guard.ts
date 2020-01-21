@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
-import {AuthenticationService} from '@app/modules/auth/services/authentication.service';
+import {AuthService} from '@app/store/features/auth/auth.service';
+import {Observable, of} from 'rxjs';
+import {catchError, switchMap, take} from 'rxjs/operators';
+import {getIsLoggedIn} from '@app/store/features/auth/auth.selectors';
+import {json} from '@angular-devkit/core';
 
 @Injectable({
     providedIn: 'root'
@@ -8,19 +12,30 @@ import {AuthenticationService} from '@app/modules/auth/services/authentication.s
 export class AuthGuard implements CanActivate {
     constructor(
         private router: Router,
-        private authenticationService: AuthenticationService) {
+        private authService: AuthService) {
     }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const currentUser = this.authenticationService.currentUserValue;
-        if (currentUser) {
-            // Authorised so return true
-            return true;
-        }
+    getUser(): Observable<any> {
+        return this.authService.getIsLoggedIn$();
+    }
 
-        // Not logged in so redirect to login page
-        this.router.navigate(['login']);
-        return false;
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+        return this.authService.getIsLoggedIn$().pipe(
+            take(1),
+            switchMap((isLoggedIn) => {
+                if (isLoggedIn) {
+                    return of(true);
+                }
+                
+                // Not logged in so redirect to login page
+                this.router.navigate(['/login']);
+                return of(false);
+            }),
+            catchError(() => {
+                this.router.navigateByUrl('/login');
+                return of(false);
+            })
+        );
     }
 
 }

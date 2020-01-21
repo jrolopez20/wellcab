@@ -10,6 +10,10 @@ import {FlexModule} from '@angular/flex-layout';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterModule} from '@angular/router';
 import {ProfileComponent} from './views/profile/profile.component';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import * as authReducer from '@app/store/features/auth/auth.reducer';
+import {AuthEffects} from '@app/store/features/auth/auth.effects';
 
 @NgModule({
     declarations: [LoginComponent, ProfileComponent],
@@ -19,7 +23,12 @@ import {ProfileComponent} from './views/profile/profile.component';
         AppMaterialModule,
         FlexModule,
         TranslateModule,
-        RouterModule
+        RouterModule,
+        StoreModule.forFeature(
+            authReducer.featureKey,
+            authReducer.reducer
+        ),
+        EffectsModule.forFeature([AuthEffects])
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from '../../../modules/auth/services/authentication.service';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {Lang, User} from '../../../store/models/user.model';
-import {UserService} from '../../../modules/admin/user/services/user.service';
+import {AuthService} from '@app/store/features/auth/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -10,18 +9,16 @@ import {UserService} from '../../../modules/admin/user/services/user.service';
     styleUrls: []
 })
 export class AppHeaderComponent implements OnInit {
-    public user: User;
-
+    @Input() user: User;
 
     constructor(
         public dialog: MatDialog,
-        private authenticationService: AuthenticationService,
-        private userService: UserService
+        private authService: AuthService
     ) {
     }
 
     ngOnInit() {
-        this.user = this.authenticationService.currentUserValue;
+        // this.user = this.authenticationService.currentUserValue;
     }
 
     handleLogout(): void {
@@ -29,7 +26,8 @@ export class AppHeaderComponent implements OnInit {
     }
 
     onLangPicked(language: Lang) {
-        this.userService.updateProfile(language);
+        const user = {...this.user, lang: language};
+        this.authService.updateProfile(user);
     }
 }
 
@@ -40,12 +38,12 @@ export class AppHeaderComponent implements OnInit {
 export class AppLogoutDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<AppLogoutDialogComponent>,
-        private authenticationService: AuthenticationService
+        private authService: AuthService
     ) {
     }
 
     handleLogout(): void {
-        this.authenticationService.logout();
+        this.authService.logout();
         this.dialogRef.close();
     }
 }

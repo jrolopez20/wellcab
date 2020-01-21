@@ -6,7 +6,7 @@ export interface User {
     email: string;
     firstName: string;
     lastName: string;
-    lang: Lang;
+    lang?: Lang;
 }
 
 export interface Users {

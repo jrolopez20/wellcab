@@ -18,6 +18,7 @@ import {AuthModule} from './modules/auth/auth.module';
 import {EffectsModule} from '@ngrx/effects';
 import {I18nModule} from './i18n.module';
 import {CoreModule} from './core/core.module';
+import {AuthService} from '@app/store/features/auth/auth.service';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import {CoreModule} from './core/core.module';
         EffectsModule.forRoot([]),
     ],
     providers: [
+        AuthService,
         {
             provide: LocationStrategy,
             useClass: PathLocationStrategy

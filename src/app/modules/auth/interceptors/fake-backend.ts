@@ -40,6 +40,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             .pipe(dematerialize());
 
         function handleRoute() {
+
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
                     return authenticate();
@@ -49,6 +50,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getCompanies();
                 case url.substr(url.lastIndexOf('/')).startsWith('/cities') && method === 'GET':
                     return getCities();
+                case url.substr(29).indexOf('users') !== -1 && method === 'PUT':
+                    return updateProfile();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -86,11 +89,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function getCities() {
-            console.log('fake backend request');
             return ok({
                 items: [...cities],
                 total: cities.length,
             });
+        }
+
+        function updateProfile() {
+            const {user} = body;
+            return ok({user});
         }
 
         // helper functions

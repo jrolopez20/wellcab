@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthenticationService} from '@app/modules/auth/services/authentication.service';
+// import {AuthenticationService} from '@app/modules/auth/services/authentication.service';
+import {AuthService} from '@app/store/features/auth/auth.service';
 import {first} from 'rxjs/operators';
 
 import {PageTitleService} from '@app/core/services/page-title.service';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-login',
@@ -12,26 +14,28 @@ import {PageTitleService} from '@app/core/services/page-title.service';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    loginForm: FormGroup;
-    loading = false;
-    returnUrl: string;
-    error: '';
-    appTitle = 'Gestvtc';
+    public error$: Observable<any>;
+    public isLoading$: Observable<boolean>;
+    public loginForm: FormGroup;
+    private appTitle = 'Gestvtc';
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService,
+        private authService: AuthService,
         private pageTitleService: PageTitleService
     ) {
-        if (this.authenticationService.currentUserValue) {
-            // Redirect to secure area if already logged in
-            this.router.navigate(['/']);
-        }
+        // if (this.authService.currentUserValue) {
+        //     // Redirect to secure area if already logged in
+        //     this.router.navigate(['/']);
+        // }
     }
 
     ngOnInit() {
+        this.error$ = this.authService.getError$();
+        this.isLoading$ = this.authService.getIsLoading$();
+
         this.pageTitleService.title = 'Login';
         this.loginForm = this.formBuilder.group({
             // Do not use expression for validate email, This field allow to input username too
@@ -40,12 +44,18 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    // Convenience getter for easy access to form fields
-    get f() {
+    /**
+     * Convenience getter for easy access to form fields
+     */
+    private get f() {
         return this.loginForm.controls;
     }
 
-    /* Get errors */
+    /**
+     * Get errors
+     * @param controlName
+     * @param errorName
+     */
     public handleError = (controlName: string, errorName: string) => {
         return this.f[controlName].hasError(errorName);
     };
@@ -53,18 +63,18 @@ export class LoginComponent implements OnInit {
     onSubmit(): void {
         // Stop here if form is invalid
         if (this.loginForm.valid) {
-            this.loading = true;
-            this.authenticationService.login(this.f.email.value, this.f.password.value)
-                .pipe(first())
-                .subscribe(
-                    data => {
-                        this.router.navigate(['/']);
-                    },
-                    error => {
-                        this.error = error;
-                        this.loading = false;
-                    }
-                );
+            this.authService.login(this.f.email.value, this.f.password.value);
+            // this.authenticationService.login(this.f.email.value, this.f.password.value)
+            //     .pipe(first())
+            //     .subscribe(
+            //         data => {
+            //             this.router.navigate(['/']);
+            //         },
+            //         error => {
+            //             this.error = error;
+            //             this.loading = false;
+            //         }
+            //     );
         }
     }
 

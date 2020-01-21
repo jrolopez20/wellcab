@@ -4,13 +4,14 @@ import * as CityActions from './city.actions';
 import {City} from '@app/store/models/city.model';
 import {Observable} from 'rxjs';
 import * as CitySelectors from '@app/store/features/city/city.selectors';
+import {AppState} from '@app/reducers';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CityService {
 
-    constructor(private store: Store<City>) {
+    constructor(private store: Store<AppState>) {
     }
 
     /**

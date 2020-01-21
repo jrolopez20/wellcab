@@ -4,15 +4,14 @@ import {Router} from '@angular/router';
 import {
     ChangeDetectorRef,
     Component,
-    NgZone,
     OnDestroy,
-    ViewChild,
-    HostListener,
-    Directive,
-    AfterViewInit, OnInit
+    OnInit
 } from '@angular/core';
 import {MenuItems} from '../../shared/menu-items/menu-items';
 import {PageTitleService} from '../services/page-title.service';
+import {AuthService} from '@app/store/features/auth/auth.service';
+import {Observable} from 'rxjs';
+import {User} from '@app/store/models/user.model';
 
 /** @title Responsive sidenav */
 @Component({
@@ -22,14 +21,15 @@ import {PageTitleService} from '../services/page-title.service';
 })
 export class MasterComponent implements OnDestroy, OnInit {
     mobileQuery: MediaQueryList;
-
     private _mobileQueryListener: () => void;
+    public user$: Observable<User>;
 
     constructor(
         changeDetectorRef: ChangeDetectorRef,
         media: MediaMatcher,
         private pageTitleService: PageTitleService,
-        public menuItems: MenuItems
+        public menuItems: MenuItems,
+        public authService: AuthService
     ) {
         this.mobileQuery = media.matchMedia('(min-width: 768px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -42,5 +42,6 @@ export class MasterComponent implements OnDestroy, OnInit {
 
     ngOnInit() {
         this.pageTitleService.title = 'Dashboard';
+        this.user$ = this.authService.getAuthenticatedUser$();
     }
 }

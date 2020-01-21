@@ -4,7 +4,7 @@ import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
 import {Lang} from './store/models/user.model';
-import {AuthenticationService} from './modules/auth/services/authentication.service';
+import {AuthService} from '@app/store/features/auth/auth.service';
 
 export const createTranslateLoader = (http: HttpClient) => {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -27,10 +27,10 @@ export const createTranslateLoader = (http: HttpClient) => {
 export class I18nModule {
     private language = Lang.es;
 
-    constructor(private translateService: TranslateService, private authenticationService: AuthenticationService) {
-        if (authenticationService.currentUserValue) {
-            this.language = authenticationService.currentUserValue.lang;
-        }
+    constructor(private translateService: TranslateService, private authService: AuthService) {
+        // if (authenticationService.currentUserValue) {
+        //     this.language = authenticationService.currentUserValue.lang;
+        // }
         this.translateService.setDefaultLang(this.language);
         this.translateService.use(this.language);
     }

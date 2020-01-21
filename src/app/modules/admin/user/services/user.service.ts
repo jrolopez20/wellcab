@@ -2,14 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User, Lang, Users} from '../../../../store/models/user.model';
 import {Observable} from 'rxjs';
-import {AuthenticationService} from '../../../auth/services/authentication.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
-    constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
+    constructor(private http: HttpClient, privat) {
     }
 
     /**
@@ -44,9 +43,4 @@ export class UserService {
         return this.http.delete(`users/${id}`);
     }
 
-    updateProfile(language: Lang): void {
-        const user = this.authenticationService.currentUserValue;
-        user.lang = language;
-        localStorage.setItem('currentUser', JSON.stringify(user));
-    }
 }

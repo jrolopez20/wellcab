@@ -18,13 +18,14 @@
                         {{'Common.ValidationMessage.FieldRequired' | translate}}
                     </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="error && !loading" align="center">
-                    {{error}}
+                <mat-error *ngIf="(error$ | async) && !(isLoading$ | async)" align="center">
+                    {{error$ | async}}
                 </mat-error>
-                <mat-progress-bar mode="indeterminate" [style.display]="loading ? 'block' : 'none'"></mat-progress-bar>
+                <mat-progress-bar mode="indeterminate"
+                                  [style.display]="(isLoading$ | async) ? 'block' : 'none'"></mat-progress-bar>
             </mat-card-content>
             <mat-card-actions>
-                <button [disabled]="loading" mat-flat-button color="primary" class="btn-block">
+                <button [disabled]="isLoading$ | async" mat-flat-button color="primary" class="btn-block">
                     {{'Auth.Label.Login' | translate | uppercase}}
                 </button>
 
