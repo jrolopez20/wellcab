@@ -48,7 +48,6 @@ export class AuthService {
         const user = JSON.parse(window.localStorage.getItem('user'));
         if (token && user) {
             this.store.dispatch(AuthActions.loginCompleted({user}));
-            this.router.navigate(['/']);
         }
     }
 
