@@ -27,4 +27,20 @@ export class CityEffects {
         )
     );
 
+    public deleteCity$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(CityActions.deleteCityRequest),
+            concatMap(({city}) => {
+                return this.http.delete<any>(`cities/${city.id}`).pipe(
+                    map(response =>
+                        CityActions.deleteCityCompleted({city})
+                    ),
+                    catchError(error => {
+                        return of(CityActions.citiesError(error));
+                    })
+                );
+            })
+        )
+    );
+
 }

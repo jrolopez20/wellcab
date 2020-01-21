@@ -41,13 +41,25 @@ export class CityService {
         return this.store.select(CitySelectors.getError);
     }
 
-    /**
-     * Add a new city
-     * @param city
-     */
     public addCity(city: City) {
         this.store.dispatch(
-            CityActions.addCity({
+            CityActions.addCityRequest({
+                city: {...city}
+            })
+        );
+    }
+
+    public setCity(city: City) {
+        this.store.dispatch(
+            CityActions.setCityRequest({
+                city: {...city}
+            })
+        );
+    }
+
+    public deleteCity(city: City) {
+        this.store.dispatch(
+            CityActions.deleteCityRequest({
                 city: {...city}
             })
         );

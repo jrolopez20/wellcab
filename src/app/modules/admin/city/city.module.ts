@@ -13,9 +13,11 @@ import {StoreModule} from '@ngrx/store';
 import * as fromCityStore from '@app/store/features/city/city.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {CityEffects} from '@app/store/features/city/city.effects';
+import { CityListComponent } from './components/city-list/city-list.component';
+import { CityFormComponent } from './components/city-form/city-form.component';
 
 @NgModule({
-    declarations: [AddCityComponent, EditCityComponent, ListCityComponent],
+    declarations: [AddCityComponent, EditCityComponent, ListCityComponent, CityListComponent, CityFormComponent],
     imports: [
         CommonModule,
         CityRoutingModule,

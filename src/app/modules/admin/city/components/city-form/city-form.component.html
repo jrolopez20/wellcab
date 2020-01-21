@@ -1,0 +1,21 @@
+<form [formGroup]="cityForm" (ngSubmit)="submit()">
+    <mat-card>
+        <mat-card-title>
+            {{title | translate}}
+        </mat-card-title>
+        <mat-card-content>
+            <mat-form-field>
+                <input matInput placeholder="{{'Common.Label.Name' | translate}}" formControlName="name"
+                       maxlength="45"/>
+                <mat-error *ngIf="handleError('name', 'required')">
+                    {{'Common.ValidationMessage.FieldRequired' | translate}}
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button [disabled]="loading" mat-flat-button color="primary">
+                {{'Common.Button.Save' | translate }}
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>

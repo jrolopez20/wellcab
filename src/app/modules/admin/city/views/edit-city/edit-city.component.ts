@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {City} from '@app/store/models/city.model';
+import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
+import {CityService} from '@app/store/features/city/city.service';
 
 @Component({
     selector: 'app-edit-city',
@@ -11,18 +14,18 @@ import {MatSnackBar} from '@angular/material';
 export class EditCityComponent implements OnInit {
     cityForm: FormGroup;
     loading = false;
-    error: '';
-    cityId: number;
+    error = null;
+    cityId = null;
+    public city: City;
 
     constructor(
         private formBuilder: FormBuilder,
         public router: Router,
         private activatedRoute: ActivatedRoute,
+        private cityService: CityService,
         private snackBar: MatSnackBar
     ) {
-        this.activatedRoute.params.subscribe(params => {
-            this.cityId = params.id;
-        });
+        this.cityId = this.activatedRoute.snapshot.paramMap.get('id');
     }
 
     ngOnInit() {
@@ -36,29 +39,17 @@ export class EditCityComponent implements OnInit {
         });
     }
 
-    loadCityData(id: number) {
-        // this.cityService.findById(id).subscribe(res => {
-        //     this.cityForm.patchValue({
-        //         ...res
-        //     });
-        // });
+    loadCityData(id) {
+        this.cityService.getCitiesList$().subscribe(cities => {
+            this.city = cities.find(city => city.id.toString() === id);
+            if (!this.city) {
+                this.router.navigateByUrl('');
+            }
+        });
     }
 
-    // Convenience getter for easy access to form fields
-    get f() {
-        return this.cityForm.controls;
-    }
-
-    /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
-        return this.f[controlName].hasError(errorName);
-    };
-
-    onSubmit(): void {
-        // Stop here if form is invalid
-        if (this.cityForm.valid) {
-            this.loading = true;
-        }
+    handleSubmit(city: City) {
+        this.cityService.setCity(city);
     }
 
 }

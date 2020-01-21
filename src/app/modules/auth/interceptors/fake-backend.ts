@@ -24,14 +24,13 @@ const companies: Company[] = [
 
 const cities: City[] = [
     {id: 1, name: 'Madrid'},
-    {id: 2, name: 'Barcelona'}
+    {id: 234567890123, name: 'Barcelona'}
 ];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const {url, method, headers, body} = request;
-
         // wrap in delayed observable to simulate server api call
         return of(null)
             .pipe(mergeMap(handleRoute))
@@ -50,6 +49,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getCompanies();
                 case url.substr(url.lastIndexOf('/')).startsWith('/cities') && method === 'GET':
                     return getCities();
+                case url.substr(29).indexOf('cities') !== -1 && method === 'DELETE':
+                    return deleteCity();
                 case url.substr(29).indexOf('users') !== -1 && method === 'PUT':
                     return updateProfile();
                 default:
@@ -93,6 +94,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 items: [...cities],
                 total: cities.length,
             });
+        }
+
+        function deleteCity() {
+            return ok();
         }
 
         function updateProfile() {

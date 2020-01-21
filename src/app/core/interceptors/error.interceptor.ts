@@ -4,7 +4,6 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {AuthService} from '@app/store/features/auth/auth.service';
 
-
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
@@ -18,7 +17,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.authService.logout();
                 location.reload(true);
             }
-
             const error = err.error.message || err.statusText;
 
             return throwError(error);

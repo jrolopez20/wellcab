@@ -6,7 +6,6 @@ export const featureKey = 'city';
 
 const cityReducer = createReducer(
     initialState,
-
     on(CityActions.loadCities,
         (state) => {
             return {
@@ -15,39 +14,60 @@ const cityReducer = createReducer(
             };
         }
     ),
-
     on(CityActions.loadCitiesSuccess,
         (state, {cities, total}) => {
             return {
                 ...state,
                 cities: [...cities],
                 total: total,
-                loading: false
+                loading: false,
+                error: null
             };
         }
     ),
-
     on(CityActions.citiesError,
         (state, {error}) => {
             return {
                 ...state,
-                error: {...error},
+                error: error,
                 loading: false
             };
         }
     ),
-
-    on(CityActions.addCity,
+    on(CityActions.addCityRequest,
+        (state) => {
+            return {
+                ...state,
+                loading: true
+            };
+        }),
+    on(CityActions.addCityCompleted,
         (state, {city}) => {
             return {
                 ...state,
-                cities: {
-                    ...state.cities,
-                    items: [...state.cities, city],
-                    total: state.total++ // TODO - Test this
-                }
+                cities: [...state.cities, city],
+                total: state.total++,
+                loading: false,
+                error: null
             };
-        })
+        }),
+    on(CityActions.deleteCityRequest,
+        (state) => {
+            return {
+                ...state,
+                loading: true
+            };
+        }),
+    on(CityActions.deleteCityCompleted,
+        (state, {city}) => {
+            return {
+                ...state,
+                cities: [...state.cities.filter(item => item.id !== city.id)],
+                total: state.total - 1,
+                loading: false,
+                error: null
+            };
+        }),
 );
 
 export function reducer(state: CityState | undefined, action: Action) {

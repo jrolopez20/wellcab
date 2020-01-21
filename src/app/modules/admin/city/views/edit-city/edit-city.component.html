@@ -1,21 +1,6 @@
-<form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
-    <mat-card>
-        <mat-card-title>
-            {{'City.Label.EditCity' | translate}}
-        </mat-card-title>
-        <mat-card-content>
-            <mat-form-field>
-                <input matInput placeholder="{{'Common.Label.Name' | translate}}" formControlName="name"
-                       maxlength="45"/>
-                <mat-error *ngIf="handleError('name', 'required')">
-                    {{'Common.ValidationMessage.FieldRequired' | translate}}
-                </mat-error>
-            </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions align="end">
-            <button [disabled]="loading" mat-flat-button color="primary">
-                {{'Common.Button.Save' | translate }}
-            </button>
-        </mat-card-actions>
-    </mat-card>
-</form>
+<app-city-form
+        [title]="'City.Label.EditCity'"
+        [city]="city"
+        (onSubmit)="handleSubmit($event)"
+>
+</app-city-form>
