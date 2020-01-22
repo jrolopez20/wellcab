@@ -5,9 +5,9 @@ import {Injectable} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {delay, dematerialize, materialize, mergeMap} from 'rxjs/operators';
-import {Lang} from '../../../store/models/user.model';
-import {AuthUser} from '../../../store/models/auth-user.model';
-import {Company} from '../../../store/models/company.model';
+import {Lang} from '../../store/models/user.model';
+import {AuthUser} from '../../store/models/auth-user.model';
+import {Company} from '../../store/models/company.model';
 import {City} from '@app/store/models/city.model';
 
 
@@ -45,7 +45,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return authenticate();
                 case url.endsWith('/users') && method === 'GET':
                     return getUsers();
-                case url.endsWith('/companies') && method === 'GET':
+                case url.substr(url.lastIndexOf('/')).startsWith('/companies') && method === 'GET':
                     return getCompanies();
                 case url.substr(url.lastIndexOf('/')).startsWith('/cities') && method === 'GET':
                     return getCities();

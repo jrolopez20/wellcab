@@ -1,12 +1,12 @@
 import {Action, createReducer, on} from '@ngrx/store';
-import {CityState, initialState} from '@app/store/features/city/city.state';
-import * as CityActions from './city.actions';
+import {CompanyState, initialState} from '@app/store/features/company/company.state';
+import * as CompanyActions from './company.actions';
 
-export const featureKey = 'city';
+export const featureKey = 'company';
 
-const cityReducer = createReducer(
+const companyReducer = createReducer(
     initialState,
-    on(CityActions.loadCities,
+    on(CompanyActions.loadCompanies,
         (state) => {
             return {
                 ...state,
@@ -14,18 +14,18 @@ const cityReducer = createReducer(
             };
         }
     ),
-    on(CityActions.loadCitiesSuccess,
-        (state, {cities, total}) => {
+    on(CompanyActions.loadCompaniesSuccess,
+        (state, {companies, total}) => {
             return {
                 ...state,
-                cities: [...cities],
+                companies: [...companies],
                 total: total,
                 loading: false,
                 error: null
             };
         }
     ),
-    on(CityActions.citiesError,
+    on(CompanyActions.companiesError,
         (state, {error}) => {
             return {
                 ...state,
@@ -34,35 +34,35 @@ const cityReducer = createReducer(
             };
         }
     ),
-    on(CityActions.addCityRequest,
+    on(CompanyActions.addCompanyRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
         }),
-    on(CityActions.addCityCompleted,
-        (state, {city}) => {
+    on(CompanyActions.addCompanyCompleted,
+        (state, {company}) => {
             return {
                 ...state,
-                cities: [...state.cities, city],
+                companies: [...state.companies, company],
                 total: state.total + 1,
                 loading: false,
                 error: null
             };
         }),
-    on(CityActions.deleteCityRequest,
+    on(CompanyActions.deleteCompanyRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
         }),
-    on(CityActions.deleteCityCompleted,
-        (state, {city}) => {
+    on(CompanyActions.deleteCompanyCompleted,
+        (state, {company}) => {
             return {
                 ...state,
-                cities: [...state.cities.filter(item => item.id !== city.id)],
+                companies: [...state.companies.filter(item => item.id !== company.id)],
                 total: state.total - 1,
                 loading: false,
                 error: null
@@ -70,6 +70,6 @@ const cityReducer = createReducer(
         }),
 );
 
-export function reducer(state: CityState | undefined, action: Action) {
-    return cityReducer(state, action);
+export function reducer(state: CompanyState | undefined, action: Action) {
+    return companyReducer(state, action);
 }

@@ -9,9 +9,15 @@ import {FlexModule} from '@angular/flex-layout';
 import {AppMaterialModule} from '@app/app-material.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CompanyFormComponent } from './components/company-form/company-form.component';
+import { CompanyListComponent } from './components/company-list/company-list.component';
+import {StoreModule} from '@ngrx/store';
+import * as CompanyReducer from '@app/store/features/company/company.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {CompanyEffects} from '@app/store/features/company/company.effects';
 
 @NgModule({
-    declarations: [AddCompanyComponent, EditCompanyComponent, ListCompanyComponent],
+    declarations: [AddCompanyComponent, EditCompanyComponent, ListCompanyComponent, CompanyFormComponent, CompanyListComponent],
     imports: [
         CommonModule,
         CompanyRoutingModule,
@@ -19,7 +25,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         AppMaterialModule,
         TranslateModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        StoreModule.forFeature(
+            CompanyReducer.featureKey,
+            CompanyReducer.reducer
+        ),
+        EffectsModule.forFeature([CompanyEffects])
     ]
 })
 export class CompanyModule {

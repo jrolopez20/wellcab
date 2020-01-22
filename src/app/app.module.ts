@@ -19,6 +19,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {I18nModule} from './i18n.module';
 import {CoreModule} from './core/core.module';
 import {AuthService} from '@app/store/features/auth/auth.service';
+import {fakeBackendProvider} from '@app/shared/services/fake-backend';
 
 @NgModule({
     declarations: [
@@ -50,7 +51,10 @@ import {AuthService} from '@app/store/features/auth/auth.service';
         {
             provide: LocationStrategy,
             useClass: PathLocationStrategy
-        }
+        },
+
+        // provider used to create fake backend
+        fakeBackendProvider
     ],
     bootstrap: [AppComponent]
 })

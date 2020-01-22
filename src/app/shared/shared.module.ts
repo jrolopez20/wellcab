@@ -22,7 +22,9 @@ import {AppMaterialModule} from '@app/app-material.module';
         TranslateModule
     ],
     entryComponents: [DeleteConfirmDialogComponent],
-    providers: [MenuItems]
+    providers: [
+        MenuItems
+    ]
 })
 export class SharedModule {
 }
