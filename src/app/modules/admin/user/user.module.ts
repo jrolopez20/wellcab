@@ -7,12 +7,17 @@ import {AddUserComponent} from './views/add-user/add-user.component';
 import {ListUserComponent} from './views/list-user/list-user.component';
 import {AppMaterialModule} from '@app/app-material.module';
 import {TranslateModule} from '@ngx-translate/core';
-import {UserService} from './services/user.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@angular/flex-layout';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import {StoreModule} from '@ngrx/store';
+import * as fromUserStore from '@app/store/features/user/user.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {UserEffects} from '@app/store/features/user/user.effects';
 
 @NgModule({
-    declarations: [EditUserComponent, AddUserComponent, ListUserComponent],
+    declarations: [EditUserComponent, AddUserComponent, ListUserComponent, UserListComponent, UserFormComponent],
     imports: [
         CommonModule,
         FlexModule,
@@ -20,10 +25,14 @@ import {FlexModule} from '@angular/flex-layout';
         UserRoutingModule,
         TranslateModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        StoreModule.forFeature(
+            fromUserStore.featureKey,
+            fromUserStore.reducer
+        ),
+        EffectsModule.forFeature([UserEffects])
     ],
     providers: [
-        UserService
     ]
 })
 export class UserModule {

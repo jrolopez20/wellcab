@@ -1,14 +1,14 @@
-import {Company} from '@app/store/models/company.model';
+import {User} from '@app/store/models/user.model';
 
-export interface CompanyState {
-    companies: Company[] | null;
+export interface UserState {
+    users: User[] | null;
     total: number;
     loading: boolean;
     error: any;
 }
 
-export const initialState: CompanyState = {
-    companies: null,
+export const initialState: UserState = {
+    users: null,
     total: 0,
     loading: true,
     error: null

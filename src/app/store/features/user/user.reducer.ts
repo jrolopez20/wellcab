@@ -1,12 +1,12 @@
 import {Action, createReducer, on} from '@ngrx/store';
-import {CityState, initialState} from '@app/store/features/city/city.state';
-import * as CityActions from './city.actions';
+import {UserState, initialState} from '@app/store/features/user/user.state';
+import * as UserActions from './user.actions';
 
-export const featureKey = 'city';
+export const featureKey = 'user';
 
-const cityReducer = createReducer(
+const userReducer = createReducer(
     initialState,
-    on(CityActions.loadCities,
+    on(UserActions.loadUsersRequest,
         (state) => {
             return {
                 ...state,
@@ -14,18 +14,18 @@ const cityReducer = createReducer(
             };
         }
     ),
-    on(CityActions.loadCitiesSuccess,
-        (state, {cities, total}) => {
+    on(UserActions.loadUsersCompleted,
+        (state, {users, total}) => {
             return {
                 ...state,
-                cities: [...cities],
+                users: [...users],
                 total: total,
                 loading: false,
                 error: null
             };
         }
     ),
-    on(CityActions.citiesError,
+    on(UserActions.usersError,
         (state, {error}) => {
             return {
                 ...state,
@@ -34,42 +34,25 @@ const cityReducer = createReducer(
             };
         }
     ),
-    on(CityActions.addCityRequest,
+    on(UserActions.addUserRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
         }),
-    on(CityActions.addCityCompleted,
-        (state, {city}) => {
+    on(UserActions.addUserCompleted,
+        (state, {user}) => {
             return {
                 ...state,
-                cities: [...state.cities, city],
+                users: [...state.users, user],
                 total: state.total + 1,
                 loading: false,
                 error: null
             };
-        }),
-    on(CityActions.deleteCityRequest,
-        (state) => {
-            return {
-                ...state,
-                loading: true
-            };
-        }),
-    on(CityActions.deleteCityCompleted,
-        (state, {city}) => {
-            return {
-                ...state,
-                cities: [...state.cities.filter(item => item.id !== city.id)],
-                total: state.total - 1,
-                loading: false,
-                error: null
-            };
-        }),
+        })
 );
 
-export function reducer(state: CityState | undefined, action: Action) {
-    return cityReducer(state, action);
+export function reducer(state: UserState | undefined, action: Action) {
+    return userReducer(state, action);
 }

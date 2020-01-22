@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../services/user.service';
 import {MatSnackBar} from '@angular/material';
 import {isNumeric} from 'rxjs/internal-compatibility';
 
@@ -20,7 +19,6 @@ export class EditUserComponent implements OnInit {
         private formBuilder: FormBuilder,
         public router: Router,
         private activatedRoute: ActivatedRoute,
-        private userService: UserService,
         private snackBar: MatSnackBar
     ) {
         this.activatedRoute.params.subscribe(params => {
@@ -43,11 +41,11 @@ export class EditUserComponent implements OnInit {
     }
 
     loadUserData(id: number) {
-        this.userService.findById(id).subscribe(res => {
-            this.userForm.patchValue({
-                ...res
-            });
-        });
+        // this.userService.findById(id).subscribe(res => {
+        //     this.userForm.patchValue({
+        //         ...res
+        //     });
+        // });
     }
 
     // Convenience getter for easy access to form fields

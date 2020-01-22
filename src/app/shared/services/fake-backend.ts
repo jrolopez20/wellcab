@@ -5,16 +5,13 @@ import {Injectable} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {delay, dematerialize, materialize, mergeMap} from 'rxjs/operators';
-import {Lang} from '../../store/models/user.model';
-import {AuthUser} from '../../store/models/auth-user.model';
-import {Company} from '../../store/models/company.model';
+import {Lang, User} from '@app/store/models/user.model';
+import {Company} from '@app/store/models/company.model';
 import {City} from '@app/store/models/city.model';
 
 
-const users: AuthUser[] = [
-    {id: 1, username: 'oscar', email: 'oscar@gmail.com', password: 'oscar', firstName: 'Oscar', lastName: 'Wilde', lang: Lang.es},
-    {id: 2, username: 'mario', email: 'mario@gmail.com', password: 'mario', firstName: 'Mario', lastName: 'Puzo', lang: Lang.es},
-    {id: 3, username: 'valerio', email: 'valerio@gmail.com', password: 'valerio', firstName: 'Valerio', lastName: 'Massimo', lang: Lang.es}
+const users: User[] = [
+    {id: 1, email: 'oscar@gmail.com', username: 'oscar', remove_at: '2020-5-20 12:00:00', has_access: 0, lang: Lang.es},
 ];
 
 const companies: Company[] = [
@@ -62,7 +59,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // Route functions
         function authenticate() {
             const {email, password} = body;
-            const user = users.find(x => x.email === email && x.password === password);
+            const user = users.find(x => x.email === email && 'secret' === password);
             if (!user) {
                 return error('Username or password is incorrect');
             }
@@ -78,7 +75,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
             return ok({
                 items: [...users],
-                total_count: users.length,
+                total: users.length,
             });
         }
 

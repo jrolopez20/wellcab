@@ -1,42 +1,42 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import * as CityActions from './city.actions';
-import {catchError, concatMap, map, switchMap} from 'rxjs/operators';
+import * as UserActions from './user.actions';
+import {catchError, concatMap, map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
 
 @Injectable()
-export class CityEffects {
+export class UserEffects {
 
     constructor(private actions$: Actions, private http: HttpClient) {
     }
 
-    public loadCities$ = createEffect(() =>
+    public loadUsers$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(CityActions.loadCities),
+            ofType(UserActions.loadUsersRequest),
             concatMap(({sort, order, page, filter}) => {
-                return this.http.get<any>(`cities?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+                return this.http.get<any>(`users?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
                     map(response =>
-                        CityActions.loadCitiesSuccess({cities: response.items, total: response.total})
+                        UserActions.loadUsersCompleted({users: response.items, total: response.total})
                     ),
                     catchError(error =>
-                        of(CityActions.citiesError(error))
+                        of(UserActions.usersError(error))
                     )
                 );
             })
         )
     );
 
-    public deleteCity$ = createEffect(() =>
+    public deleteUser$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(CityActions.deleteCityRequest),
-            concatMap(({city}) => {
-                return this.http.delete<any>(`cities/${city.id}`).pipe(
+            ofType(UserActions.deleteUserRequest),
+            concatMap(({user}) => {
+                return this.http.delete<any>(`users/${user.id}`).pipe(
                     map(response =>
-                        CityActions.deleteCityCompleted({city})
+                        UserActions.deleteUserCompleted({user})
                     ),
                     catchError(error => {
-                        return of(CityActions.citiesError(error));
+                        return of(UserActions.usersError(error));
                     })
                 );
             })

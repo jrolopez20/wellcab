@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../services/user.service';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -19,7 +18,6 @@ export class AddUserComponent implements OnInit {
         private formBuilder: FormBuilder,
         public router: Router,
         private activatedRoute: ActivatedRoute,
-        private userService: UserService,
         private snackBar: MatSnackBar
     ) {
         this.activatedRoute.params.subscribe(params => {

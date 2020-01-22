@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import * as CityActions from './city.actions';
-import {catchError, concatMap, map, switchMap} from 'rxjs/operators';
+import {catchError, concatMap, map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
 

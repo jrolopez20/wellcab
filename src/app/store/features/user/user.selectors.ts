@@ -1,25 +1,25 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {featureKey} from './city.reducer';
-import {CityState} from './city.state';
+import {featureKey} from './user.reducer';
+import {UserState} from './user.state';
 
-export const getCityState = createFeatureSelector<CityState>(featureKey);
+export const getUserState = createFeatureSelector<UserState>(featureKey);
 
-export const getCitiesList = createSelector(
-    getCityState,
-    (state: CityState) => state.cities
+export const getUsersList = createSelector(
+    getUserState,
+    (state: UserState) => state.users
 );
 
-export const getCitiesTotal = createSelector(
-    getCityState,
-    (state: CityState) => state.total
+export const getUsersTotal = createSelector(
+    getUserState,
+    (state: UserState) => state.total
 );
 
 export const getIsLoading = createSelector(
-    getCityState,
-    (state: CityState) => state.loading
+    getUserState,
+    (state: UserState) => state.loading
 );
 
 export const getError = createSelector(
-    getCityState,
-    (state: CityState) => state.error
+    getUserState,
+    (state: UserState) => state.error
 );

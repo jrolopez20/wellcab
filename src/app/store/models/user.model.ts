@@ -1,15 +1,27 @@
 export enum Lang { en = 'en', es = 'es'}
 
-export interface User {
-    id: number;
-    username: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    lang?: Lang;
+export interface UserDriverDetail {
+    socialSecurityNumber: string;
 }
 
-export interface Users {
-    items: User[];
-    total: number;
+export interface UserDetail {
+    name: string;
+    lastName: string;
+    identificationDocument: string;
+    documentType: number;
+    address: string;
+    mainContactPhone: string;
+    secondaryContactPhone: string;
+    bankAccountNumber: string;
+    driver?: UserDriverDetail;
+}
+
+export interface User {
+    id: number;
+    email: string;
+    username: string;
+    remove_at: any;
+    has_access: number;
+    detail?: UserDetail;
+    lang?: Lang;
 }

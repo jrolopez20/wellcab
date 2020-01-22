@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, concatMap, map, switchMap, tap} from 'rxjs/operators';
+import {catchError, concatMap, map, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
 import * as AuthActions from './auth.actions';
@@ -26,11 +26,11 @@ export class AuthEffects {
                     map(response => {
                         const user: User = {
                             id: response.id,
-                            username: response.username,
                             email: response.email,
+                            username: response.username,
+                            remove_at: response.remove_at,
+                            has_access: response.has_access,
                             lang: response.lang,
-                            firstName: response.firstName,
-                            lastName: response.lastName
                         };
                         window.localStorage.setItem('token', JSON.stringify(response.token));
                         // TODO ===== IMPORTANT =====

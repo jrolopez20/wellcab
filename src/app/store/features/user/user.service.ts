@@ -1,66 +1,66 @@
 import {Injectable} from '@angular/core';
 import {props, Store} from '@ngrx/store';
-import * as CityActions from './city.actions';
-import {City} from '@app/store/models/city.model';
+import * as UserActions from './user.actions';
+import {User} from '@app/store/models/user.model';
 import {Observable} from 'rxjs';
-import * as CitySelectors from '@app/store/features/city/city.selectors';
+import * as UserSelectors from './user.selectors';
 import {AppState} from '@app/reducers';
 
 @Injectable({
     providedIn: 'root'
 })
-export class CityService {
+export class UserService {
 
     constructor(private store: Store<AppState>) {
     }
 
     /**
-     * Load cities
+     * Load users
      * @param sort
      * @param order
      * @param page
      * @param filter
      */
-    public loadCities({sort, order, page, filter}) {
-        this.store.dispatch(CityActions.loadCities({sort, order, page, filter}));
+    public loadUsers({sort, order, page, filter}) {
+        this.store.dispatch(UserActions.loadUsersRequest({sort, order, page, filter}));
     }
 
-    public getCitiesList$(): Observable<City[]> {
-        return this.store.select(CitySelectors.getCitiesList);
+    public getUsersList$(): Observable<User[]> {
+        return this.store.select(UserSelectors.getUsersList);
     }
 
-    public getCitiesTotal$(): Observable<number> {
-        return this.store.select(CitySelectors.getCitiesTotal);
+    public getUsersTotal$(): Observable<number> {
+        return this.store.select(UserSelectors.getUsersTotal);
     }
 
     public getIsLoading$(): Observable<boolean> {
-        return this.store.select(CitySelectors.getIsLoading);
+        return this.store.select(UserSelectors.getIsLoading);
     }
 
     public getError$(): Observable<boolean> {
-        return this.store.select(CitySelectors.getError);
+        return this.store.select(UserSelectors.getError);
     }
 
-    public addCity(city: City) {
+    public addUser(user: User) {
         this.store.dispatch(
-            CityActions.addCityRequest({
-                city: {...city}
+            UserActions.addUserRequest({
+                user: {...user}
             })
         );
     }
 
-    public setCity(city: City) {
+    public setUser(user: User) {
         this.store.dispatch(
-            CityActions.setCityRequest({
-                city: {...city}
+            UserActions.setUserRequest({
+                user: {...user}
             })
         );
     }
 
-    public deleteCity(city: City) {
+    public deleteUser(user: User) {
         this.store.dispatch(
-            CityActions.deleteCityRequest({
-                city: {...city}
+            UserActions.deleteUserRequest({
+                user: {...user}
             })
         );
     }
