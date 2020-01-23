@@ -35,10 +35,15 @@ const MENU: { [key: string]: MenuCategory[] } = {
                     id: 'cities',
                     name: 'Ciudades',
                     summary: 'Gestión de ciudades.'
+                },
+                {
+                    id: 'vehicles',
+                    name: 'Vehiculos',
+                    summary: 'Gestión de vehículos.'
                 }
             ]
         },
-        {
+        /*{
             id: 'other',
             name: 'Other module',
             summary: 'Módulo de administración.',
@@ -49,7 +54,7 @@ const MENU: { [key: string]: MenuCategory[] } = {
                     summary: 'Menu example for testing only.'
                 }
             ]
-        }
+        }*/
     ]
 };
 
