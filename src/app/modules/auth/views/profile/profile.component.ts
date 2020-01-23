@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {User} from '@app/store/models/user.model';
+import {AuthService} from '@app/store/features/auth/auth.service';
 
 @Component({
     selector: 'app-profile',
@@ -7,38 +8,19 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-    profileForm: FormGroup;
-    loading = false;
-    returnUrl: string;
-    error: '';
+    private user: User;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private authService: AuthService) {
     }
 
     ngOnInit() {
-        this.profileForm = this.formBuilder.group({
-            // Do not use expression for validate email, This field allow to input username too
-            username: ['', Validators.required],
-            email: ['', Validators.required],
-            firstname: ['', Validators.required],
-            lastname: ['', Validators.required],
+        this.authService.getAuthenticatedUser$().subscribe(user => {
+            this.user = user;
         });
     }
 
-    // Convenience getter for easy access to form fields
-    get f() {
-        return this.profileForm.controls;
-    }
-
-    /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
-        return this.f[controlName].hasError(errorName);
-    };
-
-    onSubmit(): void {
-        // Stop here if form is invalid
-        if (this.profileForm.valid) {
-            this.loading = true;
-        }
+    handleSubmit(user: User) {
+        console.log(user)
+        // this.userService.setUser(user);
     }
 }

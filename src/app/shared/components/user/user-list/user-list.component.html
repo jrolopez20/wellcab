@@ -1,0 +1,105 @@
+<mat-card>
+    <mat-card-content>
+        <div class="d-flex flex-wrap">
+            <div>
+                <mat-card-title>
+                    {{'User.Label.Users' | translate}}
+                </mat-card-title>
+                <mat-card-subtitle>Gestionar datos de los usuarios</mat-card-subtitle>
+            </div>
+            <div class="ml-auto" fxLayout="row">
+                <form [formGroup]="searchForm" (ngSubmit)="loadUsers()">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'Common.Label.Search' | translate }}"
+                               formControlName="filter" maxlength="20"/>
+                        <button mat-icon-button matSuffix matTooltip="Buscar">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a mat-flat-button color="accent" routerLink="add">
+                <mat-icon>add</mat-icon>
+                {{'Common.Button.Add' | translate}}
+            </a>
+        </div>
+
+        <table mat-table [dataSource]="userList$ | async" class="table table-rasponsive" matSort matSortActive="name"
+               matSortDirection="desc">
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Common.Label.FirstName' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{row.detail.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Common.Label.LastName' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{row.detail.lastName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'User.Label.Username' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{row.username}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Common.Label.Email' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{row.email}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="hasAccess">
+                <th mat-header-cell *matHeaderCellDef class="text-center">{{'User.Label.Access' | translate}}</th>
+
+                <td mat-cell *matCellDef="let row" class="text-center">
+                    <mat-slide-toggle
+                            matTooltip="Conceder o Quitar acceso al sistema"
+                            [checked]="!!row.hasAccess"
+                            [disabled]="row.removeAt ? 'disabled' : null"
+                            (change)="updateUser($event, row)"
+                    >
+                    </mat-slide-toggle>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="active">
+                <th mat-header-cell *matHeaderCellDef class="text-center">{{'Common.Label.Active' | translate}}</th>
+
+                <td mat-cell *matCellDef="let row" class="text-center">
+                    <mat-icon *ngIf="!row.removeAt">check</mat-icon>
+                    <span *ngIf="row.removeAt" style="color: red">Eliminado</span>
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef class="text-center">{{'Common.Label.Action' | translate}}</th>
+                <td mat-cell *matCellDef="let row" class="text-center">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <a mat-menu-item color="primary" [routerLink]="[row.id]">
+                            <mat-icon>edit</mat-icon>
+                            <span> {{'Common.Button.Edit' | translate}}</span>
+                        </a>
+                        <button mat-menu-item (click)="deleteUser(row.id)">
+                            <mat-icon>delete</mat-icon>
+                            <span> {{'Common.Button.Delete' | translate}}</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+
+        <mat-paginator [length]="usersTotal$ | async" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>

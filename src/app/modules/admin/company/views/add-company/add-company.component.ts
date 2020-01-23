@@ -16,7 +16,6 @@ export class AddCompanyComponent implements OnInit {
     }
 
     handleSubmit(company: Company) {
-        console.log('Add company', company);
     }
 
 }

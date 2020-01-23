@@ -3,7 +3,7 @@
 <!-- ============================================================== -->
 
 <div class="sidebar-menu-container">
-    <nav *ngFor="let category of menuItems.getCategories(section); let last = last;">
+    <nav *ngFor="let category of this.menu; let last = last;">
         <button cdkAccordionItem #panel="cdkAccordionItem" (click)="panel.toggle()" expanded="true"
                 [attr.aria-label]="category.name + ', section toggle'"
                 [attr.aria-controls]="'panel-' + category.id"

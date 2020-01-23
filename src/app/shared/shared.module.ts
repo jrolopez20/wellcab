@@ -1,25 +1,37 @@
 import {NgModule} from '@angular/core';
 import {MenuItems} from './menu-items/menu-items';
-// import {SpinnerComponent} from './components/spinner.component';
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {DeleteConfirmDialogComponent} from './components/delete-confirm-dialog/delete-confirm-dialog.component';
 import {SpinnerComponent} from './components/spinner/spinner.component';
 import {AppMaterialModule} from '@app/app-material.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {FlexModule} from '@angular/flex-layout';
+import {RouterModule} from '@angular/router';
+
+import {UserFormComponent} from '@app/shared/components/user/user-form/user-form.component';
+import {UserListComponent} from '@app/shared/components/user/user-list/user-list.component';
 
 @NgModule({
     declarations: [
         SpinnerComponent,
-        DeleteConfirmDialogComponent
+        DeleteConfirmDialogComponent,
+        UserFormComponent,
+        UserListComponent
     ],
     exports: [
         SpinnerComponent,
-        DeleteConfirmDialogComponent
+        DeleteConfirmDialogComponent,
+        UserFormComponent,
+        UserListComponent
     ],
     imports: [
         CommonModule,
         AppMaterialModule,
-        TranslateModule
+        TranslateModule,
+        ReactiveFormsModule,
+        FlexModule,
+        RouterModule
     ],
     entryComponents: [DeleteConfirmDialogComponent],
     providers: [

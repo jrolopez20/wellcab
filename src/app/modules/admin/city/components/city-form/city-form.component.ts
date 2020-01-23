@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {City} from '@app/store/models/city.model';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-city-form',
@@ -19,7 +20,8 @@ export class CityFormComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         public router: Router,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private location: Location
     ) {
     }
 
@@ -31,6 +33,10 @@ export class CityFormComponent implements OnInit {
         this.cityForm = this.formBuilder.group({
             name: [this.city ? this.city.name : '', Validators.required]
         });
+
+        if (this.city) {
+            this.cityForm.patchValue(this.city);
+        }
     }
 
     // Convenience getter for easy access to form fields

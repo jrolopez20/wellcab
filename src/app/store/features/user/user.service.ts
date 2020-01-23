@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {props, Store} from '@ngrx/store';
 import * as UserActions from './user.actions';
-import {User} from '@app/store/models/user.model';
+import {Role, User} from '@app/store/models/user.model';
 import {Observable} from 'rxjs';
 import * as UserSelectors from './user.selectors';
 import {AppState} from '@app/reducers';
@@ -39,6 +39,11 @@ export class UserService {
 
     public getError$(): Observable<boolean> {
         return this.store.select(UserSelectors.getError);
+    }
+
+    public getRolesAvailable(): Role[] {
+        const roles: Role[] = [Role.ADMIN, Role.MANAGER, Role.DRIVER, Role.SHAREDACCOUNT, Role.OWNER];
+        return roles;
     }
 
     public addUser(user: User) {

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {Company} from '@app/store/models/company.model';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-company-form',
@@ -19,7 +20,8 @@ export class CompanyFormComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         public router: Router,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private location: Location
     ) {
     }
 
@@ -31,6 +33,10 @@ export class CompanyFormComponent implements OnInit {
         this.companyForm = this.formBuilder.group({
             name: [this.company ? this.company.name : '', Validators.required]
         });
+
+        if (this.company) {
+            this.companyForm.patchValue(this.company);
+        }
     }
 
     // Convenience getter for easy access to form fields

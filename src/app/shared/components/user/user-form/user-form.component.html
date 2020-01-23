@@ -1,0 +1,159 @@
+<form [formGroup]="userForm">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{title | translate}}
+            </mat-card-title>
+            <mat-card-subtitle *ngIf="subtitle">
+                {{subtitle | translate}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'User.Label.Username' | translate}}" formControlName="username"
+                               maxlength="255"/>
+                        <mat-error *ngIf="handleError('username', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'Common.Label.Email' | translate}}" formControlName="email"
+                               maxlength="255"/>
+                        <mat-error *ngIf="handleError('email', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="handleError('email', 'email')">
+                            {{'Common.ValidationMessage.InvalidEmail' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" *ngIf="!hideRole">
+                    <mat-form-field>
+                        <mat-select placeholder="{{'User.Label.Roles' | translate}}" formControlName="roles"
+                                    multiple >
+                            <mat-select-trigger>
+                                <mat-chip-list #chipList aria-label="Fruit selection">
+                                    <mat-chip *ngFor="let selectedRole of userForm.value.roles"
+                                              [removable]="removable" (removed)="removeSelectedRole(selectedRole)">
+                                        {{'Role.' + selectedRole  | translate}}
+                                        <mat-icon matChipRemove>cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </mat-select-trigger>
+                            <mat-option *ngFor="let role of roles"
+                                        [value]="role">{{'Role.' + role  | translate}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="handleError('roles', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-tab-group formGroupName="detail" dynamicHeight>
+                <mat-tab label="{{'Common.Label.Detail' | translate}}">
+                    <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+                        <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'Common.Label.FirstName' | translate}}"
+                                       formControlName="name" maxlength="45"/>
+                                <mat-error *ngIf="handleError('name', 'required')">
+                                    {{'Common.ValidationMessage.FieldRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'Common.Label.LastName' | translate}}"
+                                       formControlName="lastName" maxlength="45"/>
+                                <mat-error *ngIf="handleError('lastName', 'required')">
+                                    {{'Common.ValidationMessage.FieldRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+                        <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'User.Label.DocumentType' | translate}}"
+                                       formControlName="documentType" maxlength="5"/>
+                                <mat-error *ngIf="handleError('documentType', 'required')">
+                                    {{'Common.ValidationMessage.FieldRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'User.Label.IdentificationDocument' | translate}}"
+                                       formControlName="identificationDocument" maxlength="9"/>
+                                <mat-error *ngIf="handleError('identificationDocument', 'required')">
+                                    {{'Common.ValidationMessage.FieldRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+                        <div fxFlex.gt-xs="calc(30%-10px)" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'Common.Label.Phone' | translate}}"
+                                       formControlName="mainContactPhone" maxlength="20"/>
+                                <mat-error *ngIf="handleError('mainContactPhone', 'required')">
+                                    {{'Common.ValidationMessage.FieldRequired' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-xs="calc(30%-10px)" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'User.Label.SecondaryPhone' | translate}}"
+                                       formControlName="secondaryContactPhone" maxlength="20"/>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-xs="calc(40%-10px)" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'User.Label.BankAccountNumber' | translate}}"
+                                       formControlName="bankAccountNumber" maxlength="24"/>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'Common.Label.Address' | translate}}"
+                                       formControlName="address" maxlength="255"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{'Driver.Label.Driver' | translate}}"
+                         *ngIf="userForm.getRawValue().roles.indexOf('ROLE_DRIVER') !== -1">
+                    <div fxLayout="row wrap" formGroupName="driver">
+                        <div fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'Driver.Label.SocialSecurityNumber' | translate}}"
+                                       formControlName="socialSecurityNumber" maxlength="12"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{'User.Label.SharedAccount' | translate}}"
+                         *ngIf="userForm.getRawValue().roles.indexOf('ROLE_SHAREDACCOUNT') !== -1">
+                    <div fxLayout="row wrap">
+                        <div fxFlex="100">
+                            Shared account detail form
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+        <mat-card-actions align="end" fxLayoutGap.gt-xs="5px">
+            <button mat-button (click)="location.back()">
+                {{'Common.Button.Cancel' | translate }}
+            </button>
+            <button [disabled]="loading" mat-flat-button color="primary" (click)="submit()">
+                {{'Common.Button.Submit' | translate }}
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>

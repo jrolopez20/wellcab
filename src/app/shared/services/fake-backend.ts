@@ -5,13 +5,43 @@ import {Injectable} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {delay, dematerialize, materialize, mergeMap} from 'rxjs/operators';
-import {Lang, User} from '@app/store/models/user.model';
+import {Lang, Role, User} from '@app/store/models/user.model';
 import {Company} from '@app/store/models/company.model';
 import {City} from '@app/store/models/city.model';
 
-
 const users: User[] = [
-    {id: 1, email: 'oscar@gmail.com', username: 'oscar', remove_at: '2020-5-20 12:00:00', has_access: 0, lang: Lang.es},
+    {
+        id: 1, email: 'oscar@gmail.com', username: 'oscar', removeAt: '', hasAccess: 1, lang: Lang.es, roles: [Role.ADMIN],
+        detail: {
+            name: 'Oscar',
+            lastName: 'Wilde',
+            identificationDocument: '123456789',
+            documentType: 12345,
+            address: 'Paseo de la castellana #254, Madrid',
+            mainContactPhone: '+34640543270',
+            secondaryContactPhone: '',
+            bankAccountNumber: ''
+        }
+    },
+    {
+        id: 2,
+        email: 'pablo@gmail.com',
+        username: 'pablo',
+        removeAt: '2020-6-20 12:00:00',
+        hasAccess: 1,
+        lang: Lang.es,
+        roles: [Role.ADMIN, Role.DRIVER],
+        detail: {
+            name: 'Pablo',
+            lastName: 'Picasso',
+            identificationDocument: '483401482',
+            documentType: 12346,
+            address: 'Paseo de la castellana #487, Madrid',
+            mainContactPhone: '+34640583205',
+            secondaryContactPhone: '',
+            bankAccountNumber: ''
+        }
+    }
 ];
 
 const companies: Company[] = [
@@ -40,7 +70,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
                     return authenticate();
-                case url.endsWith('/users') && method === 'GET':
+                case url.substr(url.lastIndexOf('/')).startsWith('/users') && method === 'GET':
                     return getUsers();
                 case url.substr(url.lastIndexOf('/')).startsWith('/companies') && method === 'GET':
                     return getCompanies();

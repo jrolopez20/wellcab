@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
 import {City} from '@app/store/models/city.model';
-import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 import {CityService} from '@app/store/features/city/city.service';
 
 @Component({
@@ -12,31 +9,19 @@ import {CityService} from '@app/store/features/city/city.service';
     styleUrls: ['./edit-city.component.css']
 })
 export class EditCityComponent implements OnInit {
-    cityForm: FormGroup;
-    loading = false;
-    error = null;
     cityId = null;
     public city: City;
 
     constructor(
-        private formBuilder: FormBuilder,
         public router: Router,
         private activatedRoute: ActivatedRoute,
-        private cityService: CityService,
-        private snackBar: MatSnackBar
+        private cityService: CityService
     ) {
         this.cityId = this.activatedRoute.snapshot.paramMap.get('id');
     }
 
     ngOnInit() {
-        this.initCityForm();
         this.loadCityData(this.cityId);
-    }
-
-    initCityForm() {
-        this.cityForm = this.formBuilder.group({
-            name: ['', Validators.required]
-        });
     }
 
     loadCityData(id) {

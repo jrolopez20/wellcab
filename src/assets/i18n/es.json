@@ -1,68 +1,90 @@
 {
-    "Auth": {
-        "Label": {
-            "Welcome": "Bienvenido a",
-            "UsernameOrEmail": "Usuario o correo electrónico",
-            "Login": "Iniciar sesión",
-            "Logout": "Cerrar sesión",
-            "ForgotPassword": "¿Olvidaste tu contraseña?"
-        }
-    },
-    "Profile": {
-        "Label": {
-            "Profile": "Perfil",
-            "ChangeYourPersonalInfo": "Modifique su información personal"
-        }
-    },
-    "Common": {
-        "ValidationMessage": {
-            "FieldRequired": "Este campo es obligatorio",
-            "InvalidEmail": "Formato de email incorrecto"
-        },
-        "Label": {
-            "Action": "Acción",
-            "Search": "Buscar",
-            "Name": "Nombre",
-            "Address": "Dirección",
-            "ConfirmDelete": "Confirme por favor",
-            "ShureToDelete": "¿Está seguro que desea eliminar este elemento?",
-            "FirstName": "Nombre",
-            "LastName": "Apellidos",
-            "Password": "Contraseña",
-            "Email": "Email",
-            "Phone": "Teléfono",
-            "DateOfBirth": "Fecha de nacimiento"
-        },
-        "Button": {
-            "Save": "Guardar",
-            "Submit": "Enviar",
-            "Acept": "Aceptar",
-            "Cancel": "Cancelar",
-            "Add": "Adicionar",
-            "Edit": "Editar",
-            "Delete": "Eliminar"
-        }
-    },
-    "User": {
-        "Label": {
-            "Username": "Usuario",
-            "Users": "Usuarios",
-            "EditUser": "Editar usuario",
-            "AddUser": "Adicionar usuario"
-        }
-    },
-    "Company": {
-        "Label": {
-            "Companies": "Empresas",
-            "AddCompany": "Adicionar empresa",
-            "EditCompany": "Editar empresa"
-        }
-    },
-    "City": {
-        "Label": {
-            "Cities": "Ciudades",
-            "AddCity": "Adicionar ciudad",
-            "EditCity": "Editar ciudad"
-        }
+  "Auth": {
+    "Label": {
+      "Welcome": "Bienvenido a",
+      "UsernameOrEmail": "Usuario o correo electrónico",
+      "Login": "Iniciar sesión",
+      "Logout": "Cerrar sesión",
+      "ForgotPassword": "¿Olvidaste tu contraseña?"
     }
+  },
+  "Profile": {
+    "Label": {
+      "Profile": "Perfil",
+      "ChangeYourPersonalInfo": "Modifique su información personal"
+    }
+  },
+  "Common": {
+    "ValidationMessage": {
+      "FieldRequired": "Este campo es obligatorio",
+      "InvalidEmail": "Formato de email incorrecto"
+    },
+    "Label": {
+      "Action": "Acción",
+      "Active": "Activo",
+      "Search": "Buscar",
+      "Name": "Nombre",
+      "Address": "Dirección",
+      "ConfirmDelete": "Confirme por favor",
+      "ShureToDelete": "¿Está seguro que desea eliminar este elemento?",
+      "FirstName": "Nombre",
+      "LastName": "Apellidos",
+      "Password": "Contraseña",
+      "Email": "Email",
+      "Phone": "Teléfono",
+      "DateOfBirth": "Fecha de nacimiento",
+      "Detail": "Detalle"
+    },
+    "Button": {
+      "Save": "Guardar",
+      "Submit": "Enviar",
+      "Acept": "Aceptar",
+      "Cancel": "Cancelar",
+      "Add": "Adicionar",
+      "Edit": "Editar",
+      "Delete": "Eliminar"
+    }
+  },
+  "User": {
+    "Label": {
+      "Username": "Usuario",
+      "Roles": "Roles",
+      "IdentificationDocument": "Documento de identificación",
+      "DocumentType": "Tipo de documento",
+      "BankAccountNumber": "Cuenta bancaria",
+      "SecondaryPhone": "Teléfono secundario",
+      "Access": "Acceso",
+      "Users": "Usuarios",
+      "EditUser": "Editar usuario",
+      "AddUser": "Adicionar usuario",
+      "SharedAccount": "Cuenta partícipe"
+    }
+  },
+  "Company": {
+    "Label": {
+      "Companies": "Empresas",
+      "AddCompany": "Adicionar empresa",
+      "EditCompany": "Editar empresa"
+    }
+  },
+  "City": {
+    "Label": {
+      "Cities": "Ciudades",
+      "AddCity": "Adicionar ciudad",
+      "EditCity": "Editar ciudad"
+    }
+  },
+  "Driver": {
+    "Label": {
+      "Driver": "Conductor",
+      "SocialSecurityNumber": "No. seguridad social"
+    }
+  },
+  "Role": {
+    "ROLE_ADMIN": "Administrador",
+    "ROLE_DRIVER": "Conductor",
+    "ROLE_SHAREDACCOUNT": "Cuenta Partícipe",
+    "ROLE_MANAGER": "Gestor",
+    "ROLE_OWNER": "Propietario"
+  }
 }

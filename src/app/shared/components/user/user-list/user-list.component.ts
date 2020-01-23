@@ -1,10 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {User} from '@app/store/models/user.model';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {Router} from '@angular/router';
 import {DeleteConfirmDialogComponent} from '@app/shared/components/delete-confirm-dialog/delete-confirm-dialog.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {merge} from 'rxjs';
+import {merge, Observable} from 'rxjs';
+import {UserService} from '@app/store/features/user/user.service';
+import {User} from '@app/store/models/user.model';
 
 @Component({
     selector: 'app-user-list',
@@ -12,21 +13,20 @@ import {merge} from 'rxjs';
     styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit, AfterViewInit {
-    displayedColumns: string[] = ['username', 'email', 'firstName', 'lastName', 'action'];
+    public userList$: Observable<User[]>;
+    public usersTotal$: Observable<number>;
+    public isLoading$: Observable<boolean>;
+    public error$: Observable<any>;
+
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+    displayedColumns: string[] = ['name', 'lastName', 'username', 'email', 'hasAccess', 'active', 'action'];
     searchForm: FormGroup;
-
-    data: User[] = [];
-
-    resultsLength = 0;
-    isLoadingResults = true;
-    isRateLimitReached = false;
-
-    @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: false}) sort: MatSort;
 
     constructor(
         private formBuilder: FormBuilder,
-        // private userService: UserService,
+        private userService: UserService,
         private router: Router,
         public dialog: MatDialog
     ) {
@@ -36,6 +36,12 @@ export class UserListComponent implements OnInit, AfterViewInit {
         this.searchForm = this.formBuilder.group({
             filter: ['', Validators.maxLength(20)]
         });
+
+        this.isLoading$ = this.userService.getIsLoading$();
+        this.userList$ = this.userService.getUsersList$();
+        this.usersTotal$ = this.userService.getUsersTotal$();
+        this.error$ = this.userService.getError$();
+
         this.loadUsers();
     }
 
@@ -49,20 +55,25 @@ export class UserListComponent implements OnInit, AfterViewInit {
     }
 
     loadUsers() {
-        // this.cityService.loadCities({
-        //     sort: this.sort.active,
-        //     order: this.sort.direction,
-        //     page: this.paginator.pageIndex,
-        //     filter: this.searchForm.value.filter
-        // });
+        this.userService.loadUsers({
+            sort: this.sort.active,
+            order: this.sort.direction,
+            page: this.paginator.pageIndex,
+            filter: this.searchForm.value.filter
+        });
+    }
+
+    updateUser($event, user: User) {
+        const copy = {...user, hasAccess: $event.checked};
+        this.userService.setUser(copy);
     }
 
     // TODO - Test it
-    deleteUser(id: number): void {
+    deleteUser(user: User): void {
         const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                // this.userService.delete(id).subscribe((response) => {
+                // this.userService.deleteUser(user).subscribe((response) => {
                 //     console.log(response);
                 // }, error1 => {
                 //     console.log(error1);

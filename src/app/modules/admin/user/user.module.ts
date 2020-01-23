@@ -9,15 +9,14 @@ import {AppMaterialModule} from '@app/app-material.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@angular/flex-layout';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { UserFormComponent } from './components/user-form/user-form.component';
 import {StoreModule} from '@ngrx/store';
 import * as fromUserStore from '@app/store/features/user/user.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {UserEffects} from '@app/store/features/user/user.effects';
+import {SharedModule} from '@app/shared';
 
 @NgModule({
-    declarations: [EditUserComponent, AddUserComponent, ListUserComponent, UserListComponent, UserFormComponent],
+    declarations: [EditUserComponent, AddUserComponent, ListUserComponent],
     imports: [
         CommonModule,
         FlexModule,
@@ -26,14 +25,14 @@ import {UserEffects} from '@app/store/features/user/user.effects';
         TranslateModule,
         ReactiveFormsModule,
         FormsModule,
+        SharedModule,
         StoreModule.forFeature(
             fromUserStore.featureKey,
             fromUserStore.reducer
         ),
         EffectsModule.forFeature([UserEffects])
     ],
-    providers: [
-    ]
+    providers: []
 })
 export class UserModule {
 }

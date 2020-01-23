@@ -1,10 +1,10 @@
 import {
     ChangeDetectorRef,
-    Component,
+    Component, Input,
     OnDestroy, OnInit
 } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {MenuItems} from '../../../shared/menu-items/menu-items';
+import {MenuCategory, MenuItems} from '../../../shared/menu-items/menu-items';
 import {Params, Router} from '@angular/router';
 import { Subject} from 'rxjs';
 import {trigger, animate, state, style, transition} from '@angular/animations';
@@ -24,8 +24,7 @@ import {trigger, animate, state, style, transition} from '@angular/animations';
 export class AppSidebarComponent implements OnDestroy, OnInit {
     mobileQuery: MediaQueryList;
     private _mobileQueryListener: () => void;
-
-    section = 'ADMIN'; // TODO - Recive authenticate user role
+    @Input() menu: MenuCategory[];
     expansions: { [key: string]: boolean } = {};
     private _onDestroy = new Subject<void>();
 
@@ -56,8 +55,7 @@ export class AppSidebarComponent implements OnDestroy, OnInit {
 
     /** Set the expansions based on the route url */
     setExpansions(params: Params) {
-        const categories = this.menuItems.getCategories(params.section);
-        for (const category of (categories || [])) {
+        for (const category of (this.menu || [])) {
             if (this.expansions[category.id]) {
                 continue;
             }

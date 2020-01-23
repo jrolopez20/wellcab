@@ -43,4 +43,20 @@ export class UserEffects {
         )
     );
 
+    public setUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UserActions.setUserRequest),
+            concatMap(({user}) => {
+                return this.http.put<any>(`users/${user.id}`, {user}).pipe(
+                    map(response =>
+                        UserActions.setUserCompleted({user})
+                    ),
+                    catchError(error => {
+                        return of(UserActions.usersError(error));
+                    })
+                );
+            })
+        )
+    );
+
 }

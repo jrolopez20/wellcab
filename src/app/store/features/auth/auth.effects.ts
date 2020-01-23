@@ -21,21 +21,15 @@ export class AuthEffects {
         this.actions$.pipe(
             ofType(AuthActions.loginRequest),
             concatMap(({email, password}) => {
-                console.log('login effect');
                 return this.http.post<any>('users/authenticate', {email, password}).pipe(
                     map(response => {
                         const user: User = {
-                            id: response.id,
-                            email: response.email,
-                            username: response.username,
-                            remove_at: response.remove_at,
-                            has_access: response.has_access,
-                            lang: response.lang,
+                            ...response
                         };
                         window.localStorage.setItem('token', JSON.stringify(response.token));
                         // TODO ===== IMPORTANT =====
                         // There is not reason to store the authenticated user in locale storage,
-                        // because when the app start need to request to api the data of the authenticated user
+                        // because when the app start need to request the authenticated user to the api
                         // THIS IS FOR DEV WITHOUT BACKEND ONLY
                         window.localStorage.setItem('user', JSON.stringify(user));
 
@@ -78,10 +72,8 @@ export class AuthEffects {
         this.actions$.pipe(
             ofType(AuthActions.updateProfileRequest),
             concatMap(({user}) => {
-                console.log('effect', user);
                 return this.http.put<any>(`users/${user.id}`, {user}).pipe(
                     map(() => {
-                        console.log('effect back', user);
                         window.localStorage.setItem('user', JSON.stringify(user));
                         return AuthActions.updateProfileCompleted({user});
                     }),

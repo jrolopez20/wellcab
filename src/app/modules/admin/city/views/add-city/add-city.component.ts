@@ -16,7 +16,6 @@ export class AddCityComponent implements OnInit {
     }
 
     handleSubmit(city: City) {
-        console.log('Add city', city);
         // this.cityService.
     }
 

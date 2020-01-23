@@ -13,6 +13,7 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import * as authReducer from '@app/store/features/auth/auth.reducer';
 import {AuthEffects} from '@app/store/features/auth/auth.effects';
+import {SharedModule} from '@app/shared';
 
 @NgModule({
     declarations: [LoginComponent, ProfileComponent],
@@ -23,6 +24,7 @@ import {AuthEffects} from '@app/store/features/auth/auth.effects';
         FlexModule,
         TranslateModule,
         RouterModule,
+        SharedModule,
         StoreModule.forFeature(
             authReducer.featureKey,
             authReducer.reducer
@@ -31,9 +33,6 @@ import {AuthEffects} from '@app/store/features/auth/auth.effects';
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
-    ],
-    exports: [
-        ProfileComponent
     ]
 })
 export class AuthModule {

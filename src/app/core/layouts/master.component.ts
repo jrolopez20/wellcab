@@ -1,13 +1,11 @@
-import * as $ from 'jquery';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {Router} from '@angular/router';
 import {
     ChangeDetectorRef,
     Component,
     OnDestroy,
     OnInit
 } from '@angular/core';
-import {MenuItems} from '../../shared/menu-items/menu-items';
+import {MenuCategory, MenuItems} from '@app/shared/menu-items/menu-items';
 import {PageTitleService} from '../services/page-title.service';
 import {AuthService} from '@app/store/features/auth/auth.service';
 import {Observable} from 'rxjs';
@@ -23,6 +21,7 @@ export class MasterComponent implements OnDestroy, OnInit {
     mobileQuery: MediaQueryList;
     private _mobileQueryListener: () => void;
     public user$: Observable<User>;
+    menu: MenuCategory[];
 
     constructor(
         changeDetectorRef: ChangeDetectorRef,
@@ -34,6 +33,9 @@ export class MasterComponent implements OnDestroy, OnInit {
         this.mobileQuery = media.matchMedia('(min-width: 768px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
         this.mobileQuery.addListener(this._mobileQueryListener);
+        this.authService.getAuthenticatedUser$().subscribe(user => {
+            this.menu = this.menuItems.getCategories(user.roles[0]);
+        });
     }
 
     ngOnDestroy(): void {

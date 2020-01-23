@@ -23,7 +23,6 @@ export class CityListComponent implements OnInit, AfterViewInit {
     displayedColumns: string[] = ['name', 'action'];
     searchForm: FormGroup;
 
-
     constructor(
         private formBuilder: FormBuilder,
         private cityService: CityService,

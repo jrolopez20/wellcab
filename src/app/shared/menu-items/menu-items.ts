@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Role} from '@app/store/models/user.model';
 
 export interface MenuItem {
     id: string;
@@ -12,16 +13,6 @@ export interface MenuCategory {
     items: MenuItem[];
     summary?: string;
 }
-
-export enum Role {
-    ADMIN = 'ADMIN',
-    DRIVER = 'DRIVER',
-    GESTOR = 'GESTOR',
-}
-
-export const Roles: Role[] = [
-    Role.ADMIN, Role.DRIVER, Role.GESTOR
-];
 
 const MENU: { [key: string]: MenuCategory[] } = {
     [Role.ADMIN]: [
@@ -65,7 +56,7 @@ const MENU: { [key: string]: MenuCategory[] } = {
 
 @Injectable()
 export class MenuItems {
-    getCategories(section: string): MenuCategory[] {
+    getCategories(section: Role): MenuCategory[] {
         return MENU[section];
     }
 

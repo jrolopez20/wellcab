@@ -26,10 +26,6 @@ export class LoginComponent implements OnInit {
         private authService: AuthService,
         private pageTitleService: PageTitleService
     ) {
-        // if (this.authService.currentUserValue) {
-        //     // Redirect to secure area if already logged in
-        //     this.router.navigate(['/']);
-        // }
     }
 
     ngOnInit() {
@@ -64,17 +60,6 @@ export class LoginComponent implements OnInit {
         // Stop here if form is invalid
         if (this.loginForm.valid) {
             this.authService.login(this.f.email.value, this.f.password.value);
-            // this.authenticationService.login(this.f.email.value, this.f.password.value)
-            //     .pipe(first())
-            //     .subscribe(
-            //         data => {
-            //             this.router.navigate(['/']);
-            //         },
-            //         error => {
-            //             this.error = error;
-            //             this.loading = false;
-            //         }
-            //     );
         }
     }
 

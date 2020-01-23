@@ -12,7 +12,10 @@
                 </mat-error>
             </mat-form-field>
         </mat-card-content>
-        <mat-card-actions align="end">
+        <mat-card-actions align="end" fxLayoutGap.gt-xs="5px">
+            <button mat-button (click)="location.back()">
+                {{'Common.Button.Cancel' | translate }}
+            </button>
             <button [disabled]="loading" mat-flat-button color="primary">
                 {{'Common.Button.Save' | translate }}
             </button>

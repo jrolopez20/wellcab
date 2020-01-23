@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
-import {isNumeric} from 'rxjs/internal-compatibility';
+import {CityService} from '@app/store/features/city/city.service';
+import {User} from '@app/store/models/user.model';
+import {UserService} from '@app/store/features/user/user.service';
 
 @Component({
     selector: 'app-edit-user',
@@ -10,59 +10,36 @@ import {isNumeric} from 'rxjs/internal-compatibility';
     styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-    userForm: FormGroup;
-    loading = false;
-    error: '';
-    userId: number;
+    userId = null;
+    public user: User;
 
     constructor(
-        private formBuilder: FormBuilder,
         public router: Router,
         private activatedRoute: ActivatedRoute,
-        private snackBar: MatSnackBar
+        private userService: UserService
     ) {
-        this.activatedRoute.params.subscribe(params => {
-            this.userId = params.id;
-        });
+        this.userId = this.activatedRoute.snapshot.paramMap.get('id');
     }
 
     ngOnInit() {
-        this.initUserForm();
         this.loadUserData(this.userId);
     }
 
-    initUserForm() {
-        this.userForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            email: ['', Validators.required],
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
+    loadUserData(id) {
+        this.userService.getUsersList$().subscribe(users => {
+            if (users) {
+                this.user = users.find(user => user.id.toString() === id);
+                if (!this.user) {
+                    this.router.navigate(['admin/users']);
+                }
+            } else {
+                this.router.navigate(['admin/users']);
+            }
         });
     }
 
-    loadUserData(id: number) {
-        // this.userService.findById(id).subscribe(res => {
-        //     this.userForm.patchValue({
-        //         ...res
-        //     });
-        // });
-    }
-
-    // Convenience getter for easy access to form fields
-    get f() {
-        return this.userForm.controls;
-    }
-
-    /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
-        return this.f[controlName].hasError(errorName);
-    };
-
-    onSubmit(): void {
-        // Stop here if form is invalid
-        if (this.userForm.valid) {
-            this.loading = true;
-        }
+    handleSubmit(user: User) {
+        // this.userService.setUser(user);
     }
 
 }

@@ -50,6 +50,27 @@ const userReducer = createReducer(
                 loading: false,
                 error: null
             };
+        }),
+    on(UserActions.setUserRequest,
+        (state) => {
+            return {
+                ...state,
+                loading: true
+            };
+        }),
+    on(UserActions.setUserCompleted,
+        (state, {user}) => {
+            return {
+                ...state,
+                users: state.users.map(u => {
+                    if (u.id === user.id) {
+                        u = {...user};
+                    }
+                    return u;
+                }),
+                loading: false,
+                error: null
+            };
         })
 );
 
