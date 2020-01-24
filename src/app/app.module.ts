@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
@@ -48,10 +48,7 @@ import {fakeBackendProvider} from '@app/shared/services/fake-backend';
     ],
     providers: [
         AuthService,
-        {
-            provide: LocationStrategy,
-            useClass: PathLocationStrategy
-        },
+        {provide: LocationStrategy, useClass: PathLocationStrategy},
 
         // provider used to create fake backend
         fakeBackendProvider

@@ -1,0 +1,168 @@
+<form [formGroup]="vehicleForm">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{title | translate}}
+            </mat-card-title>
+            <mat-card-subtitle *ngIf="subtitle">
+                {{subtitle | translate}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'Vehicle.Label.PlateNumber' | translate}}"
+                               formControlName="plateNumber" maxlength="7"/>
+                        <mat-error *ngIf="handleError('plateNumber', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'Vehicle.Label.Name' | translate}}" formControlName="name"
+                               maxlength="45"/>
+                        <mat-error *ngIf="handleError('name', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100">
+                    <mat-form-field>
+                        <input readonly matInput placeholder="{{'Vehicle.Label.Owner' | translate}}"
+                               formControlName="owner" maxlength="45"/>
+                        <button mat-stroked-button matSuffix style="top: -10px;" matTooltip="Seleccionar propietario">
+                            <mat-icon>person_add</mat-icon>
+<!--                            Seleccionar-->
+                        </button>
+                        <mat-error *ngIf="handleError('owner', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="{{'Vehicle.Label.Brand' | translate}}" formControlName="brand">
+                            <mat-option *ngFor="let item of brands" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="handleError('brand', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="{{'Vehicle.Label.Model' | translate}}" formControlName="model">
+                            <mat-option *ngFor="let item of models" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="handleError('model', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="{{'Vehicle.Label.Status' | translate}}" formControlName="status">
+                            <mat-option *ngFor="let item of statuses" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="handleError('status', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="{{'Vehicle.Label.Color' | translate}}" formControlName="color">
+                            <mat-option *ngFor="let item of colors" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="handleError('color', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="dpMatriculationAt"
+                               placeholder="{{'Vehicle.Label.MatriculationAt' | translate}}"
+                               formControlName="matriculationAt">
+                        <mat-datepicker-toggle matSuffix [for]="dpMatriculationAt"></mat-datepicker-toggle>
+                        <mat-datepicker #dpMatriculationAt></mat-datepicker>
+                        <mat-error *ngIf="handleError('matriculationAt', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="dpItvExpirationAt" formControlName="itvExpirationAt"
+                               placeholder="{{'Vehicle.Label.ItvExpirationAt' | translate}}"/>
+                        <mat-datepicker-toggle matSuffix [for]="dpItvExpirationAt"></mat-datepicker-toggle>
+                        <mat-datepicker #dpItvExpirationAt></mat-datepicker>
+                        <mat-error *ngIf="handleError('itvExpirationAt', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput type="number" placeholder="{{'Vehicle.Label.Odometer' | translate}}"
+                               formControlName="currentOdometer"/>
+                        <mat-error *ngIf="handleError('currentOdometer', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput type="number" placeholder="{{'Vehicle.Label.OdometerNextRevision' | translate}}"
+                               formControlName="odometerNextRevision"/>
+                        <mat-error *ngIf="handleError('odometerNextRevision', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="dpInsuranceExpirationAt"
+                               formControlName="insuranceExpirationAt"
+                               placeholder="{{'Vehicle.Label.InsuranceExpirationAt' | translate}}"/>
+                        <mat-datepicker-toggle matSuffix [for]="dpInsuranceExpirationAt"></mat-datepicker-toggle>
+                        <mat-datepicker #dpInsuranceExpirationAt></mat-datepicker>
+                        <mat-error *ngIf="handleError('insuranceExpirationAt', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="dpRentExpirationAt" formControlName="rentExpirationAt"
+                               placeholder="{{'Vehicle.Label.RentExpirationAt' | translate}}"/>
+                        <mat-datepicker-toggle matSuffix [for]="dpRentExpirationAt"></mat-datepicker-toggle>
+                        <mat-datepicker #dpRentExpirationAt></mat-datepicker>
+                        <mat-error *ngIf="handleError('rentExpirationAt', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end" fxLayoutGap.gt-xs="5px">
+            <button mat-button (click)="location.back()">
+                {{'Common.Button.Cancel' | translate }}
+            </button>
+            <button [disabled]="loading" mat-flat-button color="primary" (click)="submit()">
+                {{'Common.Button.Save' | translate }}
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>

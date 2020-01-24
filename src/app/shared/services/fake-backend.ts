@@ -8,6 +8,7 @@ import {delay, dematerialize, materialize, mergeMap} from 'rxjs/operators';
 import {Lang, Role, User} from '@app/store/models/user.model';
 import {Company} from '@app/store/models/company.model';
 import {City} from '@app/store/models/city.model';
+import {Vehicle} from '@app/store/models/vehicle.model';
 
 const users: User[] = [
     {
@@ -54,6 +55,105 @@ const cities: City[] = [
     {id: 234567890123, name: 'Barcelona'}
 ];
 
+const vehicles: Vehicle[] = [
+    {
+        id: 1,
+        name: '478',
+        plateNumber: 'AZD7458',
+        status: 'OK',
+        brand: 'Hundai',
+        model: 'Accent',
+        color: 'Blanco',
+        currentOdometer: 10245,
+        insuranceExpirationAt: '10/10/2021',
+        itvExpirationAt: '8/12/2020',
+        matriculationAt: '1/3/2014',
+        odometerNextRevision: 100000,
+        rentExpirationAt: null,
+        removeAt: null
+    },
+    {
+        id: 2,
+        name: '798',
+        plateNumber: 'CZR1562',
+        status: 'OK',
+        brand: 'Hundai',
+        model: 'Sonata',
+        color: 'Negro',
+        currentOdometer: 78954,
+        insuranceExpirationAt: '10/10/2021',
+        itvExpirationAt: '8/12/2020',
+        matriculationAt: '1/3/2014',
+        odometerNextRevision: 98200,
+        rentExpirationAt: null,
+        removeAt: null
+    },
+    {
+        id: 3,
+        name: '6935',
+        plateNumber: 'HUR1562',
+        status: 'OK',
+        brand: 'VolskWagen',
+        model: 'Escarabajo',
+        color: 'Rojo',
+        currentOdometer: 123586,
+        insuranceExpirationAt: '10/10/2021',
+        itvExpirationAt: '8/12/2020',
+        matriculationAt: '1/3/2014',
+        odometerNextRevision: 250631,
+        rentExpirationAt: null,
+        removeAt: null
+    },
+    {
+        id: 3,
+        name: '45621',
+        plateNumber: 'OPR1597',
+        status: 'OK',
+        brand: 'Peugeot',
+        model: '406',
+        color: 'Amarillo',
+        currentOdometer: 123586,
+        insuranceExpirationAt: '10/10/2021',
+        itvExpirationAt: '8/12/2020',
+        matriculationAt: '1/3/2014',
+        odometerNextRevision: 250631,
+        rentExpirationAt: null,
+        removeAt: '5/6/2019'
+    },
+    {
+        id: 4,
+        name: '8965',
+        plateNumber: 'HVB7894',
+        status: 'OK',
+        brand: 'Chevrolet',
+        model: 'Camaro',
+        color: 'Negro',
+        currentOdometer: 120,
+        insuranceExpirationAt: '10/10/2021',
+        itvExpirationAt: '8/12/2020',
+        matriculationAt: '1/3/2014',
+        odometerNextRevision: 10000,
+        rentExpirationAt: null,
+        removeAt: null
+    },
+    {
+        id: 5,
+        name: '8965',
+        plateNumber: 'ZCQ9652',
+        status: 'OK',
+        brand: 'Ford',
+        model: 'Mustand',
+        color: 'Blanco',
+        currentOdometer: 120,
+        insuranceExpirationAt: '10/10/2021',
+        itvExpirationAt: '8/12/2020',
+        matriculationAt: '1/3/2014',
+        odometerNextRevision: 10000,
+        rentExpirationAt: null,
+        removeAt: null
+    }
+];
+
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -72,6 +172,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return authenticate();
                 case url.substr(url.lastIndexOf('/')).startsWith('/users') && method === 'GET':
                     return getUsers();
+                case url.substr(url.lastIndexOf('/')).startsWith('/vehicles') && method === 'GET':
+                    return getVehicles();
                 case url.substr(url.lastIndexOf('/')).startsWith('/companies') && method === 'GET':
                     return getCompanies();
                 case url.substr(url.lastIndexOf('/')).startsWith('/cities') && method === 'GET':
@@ -113,6 +215,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok({
                 items: [...companies],
                 total_count: companies.length,
+            });
+        }
+
+        function getVehicles() {
+            return ok({
+                items: [...vehicles],
+                total: vehicles.length,
             });
         }
 

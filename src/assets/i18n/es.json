@@ -22,6 +22,7 @@
     "Label": {
       "Action": "Acción",
       "Active": "Activo",
+      "Inactive": "Inactivo",
       "Search": "Buscar",
       "Name": "Nombre",
       "Address": "Dirección",
@@ -78,6 +79,26 @@
     "Label": {
       "Driver": "Conductor",
       "SocialSecurityNumber": "No. seguridad social"
+    }
+  },
+  "Vehicle": {
+    "Label": {
+      "Vehicles": "Vehículos",
+      "PlateNumber": "Matrícula",
+      "Name": "Nombre",
+      "Brand": "Marca",
+      "Model": "Modelo",
+      "Status": "Estado",
+      "Color": "Color",
+      "Owner": "Propietario",
+      "Odometer": "Odómetro",
+      "OdometerNextRevision": "Próxima revisión",
+      "MatriculationAt": "Fecha matriculación",
+      "ItvExpirationAt": "Fecha ITV",
+      "InsuranceExpirationAt": "Fecha expiración del seguro",
+      "RentExpirationAt": "Fecha expiración del alquiler",
+      "AddVehicle": "Adicionar vehículo",
+      "EditVehicle": "Editar vehículo"
     }
   },
   "Role": {

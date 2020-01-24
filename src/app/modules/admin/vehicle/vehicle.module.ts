@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {VehicleRoutingModule} from './vehicle-routing.module';
@@ -10,7 +10,12 @@ import {AppMaterialModule} from '@app/app-material.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '@app/shared';
-
+import {StoreModule} from '@ngrx/store';
+import * as VehicleReducer from '@app/store/features/vehicle/vehicle.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {VehicleEffects} from '@app/store/features/vehicle/vehicle.effects';
+import {DateAdapter} from '@angular/material';
+import {CustomDateAdapter} from '@app/shared/adapters/CustomDateAdapter';
 
 @NgModule({
     declarations: [AddVehicleComponent, EditVehicleComponent, ListVehicleComponent],
@@ -22,7 +27,12 @@ import {SharedModule} from '@app/shared';
         TranslateModule,
         ReactiveFormsModule,
         FormsModule,
-        SharedModule
+        SharedModule,
+        StoreModule.forFeature(
+            VehicleReducer.featureKey,
+            VehicleReducer.reducer
+        ),
+        EffectsModule.forFeature([VehicleEffects])
     ]
 })
 export class VehicleModule {

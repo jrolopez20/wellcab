@@ -12,4 +12,8 @@ export class AddVehicleComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleSubmit($event) {
+    console.log('Vehicle', $event);
+  }
+
 }

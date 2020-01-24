@@ -11,19 +11,25 @@ import {RouterModule} from '@angular/router';
 
 import {UserFormComponent} from '@app/shared/components/user/user-form/user-form.component';
 import {UserListComponent} from '@app/shared/components/user/user-list/user-list.component';
+import {VehicleListComponent} from './components/vehicle/vehicle-list/vehicle-list.component';
+import {VehicleFormComponent} from './components/vehicle/vehicle-form/vehicle-form.component';
 
 @NgModule({
     declarations: [
         SpinnerComponent,
         DeleteConfirmDialogComponent,
         UserFormComponent,
-        UserListComponent
+        UserListComponent,
+        VehicleListComponent,
+        VehicleFormComponent
     ],
     exports: [
         SpinnerComponent,
         DeleteConfirmDialogComponent,
         UserFormComponent,
-        UserListComponent
+        UserListComponent,
+        VehicleListComponent,
+        VehicleFormComponent
     ],
     imports: [
         CommonModule,
