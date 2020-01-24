@@ -29,8 +29,8 @@ export interface User {
     email: string;
     username: string;
     roles: any;
-    removeAt: any;
     hasAccess: number;
+    removeAt?: any;
     detail?: UserDetail;
     lang?: Lang;
 }

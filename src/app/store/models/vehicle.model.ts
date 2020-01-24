@@ -7,10 +7,10 @@ export interface Vehicle {
     status: any;
     color: any;
     matriculationAt: string;
-    itvExpirationAt: string;
     currentOdometer: number;
     odometerNextRevision: number;
-    removeAt: string;
     insuranceExpirationAt: string;
-    rentExpirationAt: string;
+    itvExpirationAt?: string;
+    removeAt?: string;
+    rentExpirationAt?: string;
 }

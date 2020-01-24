@@ -22,10 +22,9 @@ const routes: Routes = [
         loadChildren: () => import('./vehicle/vehicle.module').then(m => m.VehicleModule)
     },
     {
-        path: '**',
-        redirectTo: ''
-    },
-
+        path: 'licenses',
+        loadChildren: () => import('./license/license.module').then(m => m.LicenseModule)
+    }
 ];
 
 @NgModule({

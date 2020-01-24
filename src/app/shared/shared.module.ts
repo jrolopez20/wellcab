@@ -13,6 +13,8 @@ import {UserFormComponent} from '@app/shared/components/user/user-form/user-form
 import {UserListComponent} from '@app/shared/components/user/user-list/user-list.component';
 import {VehicleListComponent} from './components/vehicle/vehicle-list/vehicle-list.component';
 import {VehicleFormComponent} from './components/vehicle/vehicle-form/vehicle-form.component';
+import { LicenseListComponent } from './components/license/license-list/license-list.component';
+import { LicenseFormComponent } from './components/license/license-form/license-form.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +23,9 @@ import {VehicleFormComponent} from './components/vehicle/vehicle-form/vehicle-fo
         UserFormComponent,
         UserListComponent,
         VehicleListComponent,
-        VehicleFormComponent
+        VehicleFormComponent,
+        LicenseListComponent,
+        LicenseFormComponent
     ],
     exports: [
         SpinnerComponent,
@@ -29,7 +33,9 @@ import {VehicleFormComponent} from './components/vehicle/vehicle-form/vehicle-fo
         UserFormComponent,
         UserListComponent,
         VehicleListComponent,
-        VehicleFormComponent
+        VehicleFormComponent,
+        LicenseListComponent,
+        LicenseFormComponent
     ],
     imports: [
         CommonModule,

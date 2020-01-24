@@ -81,6 +81,16 @@
       "SocialSecurityNumber": "No. seguridad social"
     }
   },
+  "License": {
+    "Label": {
+      "Licenses": "Licencias",
+      "Code": "Código",
+      "IssuesAt": "Fecha de concesión",
+      "ExpirationAt": "Fecha de expiración",
+      "IsOperative": "Operativa",
+      "NotOperative": "No operativa"
+    }
+  },
   "Vehicle": {
     "Label": {
       "Vehicles": "Vehículos",

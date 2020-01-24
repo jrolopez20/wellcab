@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {props, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import * as UserActions from './user.actions';
 import {Role, User} from '@app/store/models/user.model';
 import {Observable} from 'rxjs';

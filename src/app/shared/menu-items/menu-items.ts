@@ -37,6 +37,11 @@ const MENU: { [key: string]: MenuCategory[] } = {
                     summary: 'Gestión de ciudades.'
                 },
                 {
+                    id: 'licenses',
+                    name: 'Licencias',
+                    summary: 'Gestión de licencias.'
+                },
+                {
                     id: 'vehicles',
                     name: 'Vehiculos',
                     summary: 'Gestión de vehículos.'

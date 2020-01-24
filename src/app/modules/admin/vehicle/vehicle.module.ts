@@ -14,8 +14,6 @@ import {StoreModule} from '@ngrx/store';
 import * as VehicleReducer from '@app/store/features/vehicle/vehicle.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {VehicleEffects} from '@app/store/features/vehicle/vehicle.effects';
-import {DateAdapter} from '@angular/material';
-import {CustomDateAdapter} from '@app/shared/adapters/CustomDateAdapter';
 
 @NgModule({
     declarations: [AddVehicleComponent, EditVehicleComponent, ListVehicleComponent],

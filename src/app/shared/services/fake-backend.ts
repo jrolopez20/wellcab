@@ -9,6 +9,7 @@ import {Lang, Role, User} from '@app/store/models/user.model';
 import {Company} from '@app/store/models/company.model';
 import {City} from '@app/store/models/city.model';
 import {Vehicle} from '@app/store/models/vehicle.model';
+import {License} from '@app/store/models/license.model';
 
 const users: User[] = [
     {
@@ -53,6 +54,14 @@ const companies: Company[] = [
 const cities: City[] = [
     {id: 1, name: 'Madrid'},
     {id: 234567890123, name: 'Barcelona'}
+];
+
+const licenses: License[] = [
+    {id: 1, code: 'A125689782045', issuesAt: '10/5/2020', expirationAt: '8/4/2021', isOperative: true, removeAt: ''},
+    {id: 2, code: 'Z455689478752', issuesAt: '12/12/2020', expirationAt: '1/2/2018', isOperative: false, removeAt: ''},
+    {id: 3, code: 'F456589202345', issuesAt: '8/5/2019', expirationAt: '4/3/2018', isOperative: false, removeAt: '1/1/2020'},
+    {id: 3, code: 'Q458925623256', issuesAt: '3/4/2019', expirationAt: '4/3/2022', isOperative: true, removeAt: ''},
+    {id: 3, code: 'M344523788989', issuesAt: '5/12/2019', expirationAt: '10/11/2022', isOperative: true, removeAt: ''}
 ];
 
 const vehicles: Vehicle[] = [
@@ -174,6 +183,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getUsers();
                 case url.substr(url.lastIndexOf('/')).startsWith('/vehicles') && method === 'GET':
                     return getVehicles();
+                case url.substr(url.lastIndexOf('/')).startsWith('/licenses') && method === 'GET':
+                    return getLicenses();
                 case url.substr(url.lastIndexOf('/')).startsWith('/companies') && method === 'GET':
                     return getCompanies();
                 case url.substr(url.lastIndexOf('/')).startsWith('/cities') && method === 'GET':
@@ -229,6 +240,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok({
                 items: [...cities],
                 total: cities.length,
+            });
+        }
+
+        function getLicenses() {
+            return ok({
+                items: [...licenses],
+                total: licenses.length,
             });
         }
 
