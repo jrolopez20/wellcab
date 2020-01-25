@@ -3,6 +3,7 @@ import {environment} from '@environments/environment';
 import {AuthState} from '@app/store/features/auth/auth.state';
 import * as fromAuth from '@app/store/features/auth/auth.reducer';
 
+
 export interface AppState {
     auth: AuthState;
 }
@@ -12,7 +13,7 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export function clearState(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
-    return function(state: AppState | undefined, action: Action): AppState {
+    return function (state: AppState | undefined, action: Action): AppState {
         if (action.type === '[Auth] Logout Completed') {
             state = undefined;
         }

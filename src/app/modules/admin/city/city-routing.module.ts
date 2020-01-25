@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {ListCityComponent} from './views/list-city/list-city.component';
 import {AddCityComponent} from './views/add-city/add-city.component';
 import {EditCityComponent} from './views/edit-city/edit-city.component';
+import {CityCompaniesComponent} from './views/city-companies/city-companies.component';
 
 const routes: Routes = [
     {
@@ -14,6 +15,12 @@ const routes: Routes = [
     }, {
         path: ':id',
         component: EditCityComponent
+    }, {
+        path: ':id/companies',
+        component: CityCompaniesComponent
+    }, {
+        path: '**',
+        redirectTo: ''
     }
 ];
 

@@ -65,6 +65,9 @@
   "Company": {
     "Label": {
       "Companies": "Empresas",
+      "Company": "Empresa",
+      "CompaniesOn": "Empresas en",
+      "PostalCode": "Código postal",
       "AddCompany": "Adicionar empresa",
       "EditCompany": "Editar empresa"
     }

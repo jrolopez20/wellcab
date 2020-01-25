@@ -9,33 +9,18 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
 
-import {UserFormComponent} from '@app/shared/components/user/user-form/user-form.component';
-import {UserListComponent} from '@app/shared/components/user/user-list/user-list.component';
-import {VehicleListComponent} from './components/vehicle/vehicle-list/vehicle-list.component';
-import {VehicleFormComponent} from './components/vehicle/vehicle-form/vehicle-form.component';
-import { LicenseListComponent } from './components/license/license-list/license-list.component';
-import { LicenseFormComponent } from './components/license/license-form/license-form.component';
+import {CityCompaniesListComponent} from './components/city/city-companies-list/city-companies-list.component';
+import {LicenseModule} from '@app/shared/components/license/license.module';
+import {UserModule} from '@app/shared/components/user/user.module';
+import {VehicleModule} from '@app/shared/components/vehicle/vehicle.module';
+import {CityModule} from '@app/shared/components/city/city.module';
+import {CompanyModule} from '@app/shared/components/company/company.module';
 
 @NgModule({
     declarations: [
         SpinnerComponent,
         DeleteConfirmDialogComponent,
-        UserFormComponent,
-        UserListComponent,
-        VehicleListComponent,
-        VehicleFormComponent,
-        LicenseListComponent,
-        LicenseFormComponent
-    ],
-    exports: [
-        SpinnerComponent,
-        DeleteConfirmDialogComponent,
-        UserFormComponent,
-        UserListComponent,
-        VehicleListComponent,
-        VehicleFormComponent,
-        LicenseListComponent,
-        LicenseFormComponent
+        CityCompaniesListComponent
     ],
     imports: [
         CommonModule,
@@ -44,6 +29,16 @@ import { LicenseFormComponent } from './components/license/license-form/license-
         ReactiveFormsModule,
         FlexModule,
         RouterModule
+    ],
+    exports: [
+        SpinnerComponent,
+        DeleteConfirmDialogComponent,
+        CityCompaniesListComponent,
+        UserModule,
+        CompanyModule,
+        CityModule,
+        LicenseModule,
+        VehicleModule
     ],
     entryComponents: [DeleteConfirmDialogComponent],
     providers: [

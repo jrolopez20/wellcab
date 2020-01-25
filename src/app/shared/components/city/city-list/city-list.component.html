@@ -38,15 +38,26 @@
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef class="text-center">{{'Common.Label.Action' | translate}}</th>
                 <td mat-cell *matCellDef="let row" class="text-center">
-                    <a mat-button color="primary" [routerLink]="[row.id]">
-                        {{'Common.Button.Edit' | translate}}
-                    </a>
-                    <button mat-button color="warn" (click)="(row)">
-                        {{'Common.Button.Delete' | translate}}
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
                     </button>
+                    <mat-menu #menu="matMenu">
+                        <a mat-menu-item color="primary" [routerLink]="[row.id] + '/companies'">
+                            <mat-icon>attachment</mat-icon>
+                            <span> {{'Common.Button.Attach' | translate}}</span>
+                        </a>
+                        <a mat-menu-item color="primary" [routerLink]="[row.id]">
+                            <mat-icon>edit</mat-icon>
+                            <span> {{'Common.Button.Edit' | translate}}</span>
+                        </a>
+                        <button mat-menu-item (click)="deleteCity(row)">
+                            <mat-icon>delete</mat-icon>
+                            <span> {{'Common.Button.Delete' | translate}}</span>
+                        </button>
+                    </mat-menu>
                 </td>
             </ng-container>
-            
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
