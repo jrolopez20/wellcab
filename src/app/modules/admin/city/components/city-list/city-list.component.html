@@ -41,12 +41,12 @@
                     <a mat-button color="primary" [routerLink]="[row.id]">
                         {{'Common.Button.Edit' | translate}}
                     </a>
-                    <button mat-button color="warn" (click)="deleteCity(row)">
+                    <button mat-button color="warn" (click)="(row)">
                         {{'Common.Button.Delete' | translate}}
                     </button>
                 </td>
             </ng-container>
-
+            
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>

@@ -1,1 +1,55 @@
-<p>license-form works!</p>
+<form [formGroup]="licenseForm">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{title | translate}}
+            </mat-card-title>
+            <mat-card-subtitle *ngIf="subtitle">
+                {{subtitle | translate}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+                <div fxFlex.gt-xs="calc(31%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'License.Label.Code' | translate}}" formControlName="code"
+                               maxlength="20"/>
+                        <mat-error *ngIf="handleError('code', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(34%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="dpIssuesAt" formControlName="issuesAt"
+                               placeholder="{{'License.Label.IssuesAt' | translate}}"/>
+                        <mat-datepicker-toggle matSuffix [for]="dpIssuesAt"></mat-datepicker-toggle>
+                        <mat-datepicker #dpIssuesAt></mat-datepicker>
+                        <mat-error *ngIf="handleError('issuesAt', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(34%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="dpExpirationAt" formControlName="expirationAt"
+                               placeholder="{{'License.Label.ExpirationAt' | translate}}"/>
+                        <mat-datepicker-toggle matSuffix [for]="dpExpirationAt"></mat-datepicker-toggle>
+                        <mat-datepicker #dpExpirationAt></mat-datepicker>
+                        <mat-error *ngIf="handleError('expirationAt', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end" fxLayoutGap.gt-xs="5px">
+            <button mat-button (click)="location.back()">
+                {{'Common.Button.Cancel' | translate }}
+            </button>
+            <button [disabled]="loading" mat-flat-button color="primary" (click)="submit()">
+                {{'Common.Button.Save' | translate }}
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>

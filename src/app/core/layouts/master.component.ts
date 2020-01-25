@@ -10,6 +10,7 @@ import {PageTitleService} from '../services/page-title.service';
 import {AuthService} from '@app/store/features/auth/auth.service';
 import {Observable} from 'rxjs';
 import {User} from '@app/store/models/user.model';
+import {first} from 'rxjs/operators';
 
 /** @title Responsive sidenav */
 @Component({
@@ -33,9 +34,13 @@ export class MasterComponent implements OnDestroy, OnInit {
         this.mobileQuery = media.matchMedia('(min-width: 768px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
         this.mobileQuery.addListener(this._mobileQueryListener);
-        this.authService.getAuthenticatedUser$().subscribe(user => {
+        /*this.authService.getAuthenticatedUser$().subscribe(user => {
             this.menu = this.menuItems.getCategories(user.roles[0]);
-        });
+        });*/
+        this.authService.getAuthenticatedUser$().pipe(first())
+            .subscribe(user => {
+                this.menu = this.menuItems.getCategories(user.roles[0]);
+            });
     }
 
     ngOnDestroy(): void {

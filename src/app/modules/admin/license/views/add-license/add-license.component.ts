@@ -12,4 +12,8 @@ export class AddLicenseComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleSubmit(license) {
+    console.log(license);
+  }
+
 }

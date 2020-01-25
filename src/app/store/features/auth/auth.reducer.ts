@@ -49,10 +49,10 @@ const authReducer = createReducer(
     on(AuthActions.logoutCompleted,
         (state) => {
             return {
-                ...state,
                 user: null,
-                isLoading: false,
-                isLoggedIn: false
+                isLoggedIn: false,
+                loading: false,
+                error: null
             };
         }
     ),

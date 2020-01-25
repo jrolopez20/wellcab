@@ -37,6 +37,7 @@
       "Detail": "Detalle"
     },
     "Button": {
+      "Attach": "Vincular",
       "Save": "Guardar",
       "Submit": "Enviar",
       "Acept": "Aceptar",
@@ -88,7 +89,9 @@
       "IssuesAt": "Fecha de concesión",
       "ExpirationAt": "Fecha de expiración",
       "IsOperative": "Operativa",
-      "NotOperative": "No operativa"
+      "NotOperative": "No operativa",
+      "AddLicense": "Adicionar licencia",
+      "EditLicense": "Editar licencia"
     }
   },
   "Vehicle": {

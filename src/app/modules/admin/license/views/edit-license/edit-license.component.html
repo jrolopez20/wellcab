@@ -1,1 +1,5 @@
-<p>edit-license works!</p>
+<app-license-form
+        [title]="'License.Label.EditLicense'"
+        [license]="license"
+        (onSubmit)="handleSubmit($event)">
+</app-license-form>
