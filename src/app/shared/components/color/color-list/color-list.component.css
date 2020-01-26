@@ -1,0 +1,6 @@
+.color-overview {
+    border: 1px solid black;
+    width: 30px;
+    min-height: 20px;
+    display: block;
+}

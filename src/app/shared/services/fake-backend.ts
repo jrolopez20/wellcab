@@ -10,7 +10,15 @@ import {Company} from '@app/store/models/company.model';
 import {City} from '@app/store/models/city.model';
 import {Vehicle} from '@app/store/models/vehicle.model';
 import {License} from '@app/store/models/license.model';
+import {Color} from '@app/store/models/color.model';
 
+const colors: Color[] = [
+    {id: 1, name: 'Blanco', value: '#ffffff'},
+    {id: 1, name: 'Negro', value: '#000000'},
+    {id: 1, name: 'Rojo', value: '#FF0000'},
+    {id: 1, name: 'Verde', value: '#00FF00'},
+    {id: 1, name: 'Azul', value: '#0000FF'}
+];
 const users: User[] = [
     {
         id: 1, email: 'oscar@gmail.com', username: 'oscar', removeAt: '', hasAccess: 1, lang: Lang.es, roles: [Role.ADMIN],
@@ -181,6 +189,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return authenticate();
                 case url.substr(url.lastIndexOf('/')).startsWith('/users') && method === 'GET':
                     return getUsers();
+                case url.substr(url.lastIndexOf('/')).startsWith('/colors') && method === 'GET':
+                    return getColors();
                 case url.substr(url.lastIndexOf('/')).startsWith('/vehicles') && method === 'GET':
                     return getVehicles();
                 case url.substr(url.lastIndexOf('/')).startsWith('/licenses') && method === 'GET':
@@ -226,6 +236,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok({
                 items: [...companies],
                 total_count: companies.length,
+            });
+        }
+
+        function getColors() {
+            return ok({
+                items: [...colors],
+                total: colors.length,
             });
         }
 

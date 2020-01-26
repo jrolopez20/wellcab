@@ -15,6 +15,8 @@ import {UserModule} from '@app/shared/components/user/user.module';
 import {VehicleModule} from '@app/shared/components/vehicle/vehicle.module';
 import {CityModule} from '@app/shared/components/city/city.module';
 import {CompanyModule} from '@app/shared/components/company/company.module';
+import {ColorModule} from '@app/shared/components/color/color.module';
+import {UtilsModule} from '@app/shared/utils/utils.module';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,9 @@ import {CompanyModule} from '@app/shared/components/company/company.module';
         CompanyModule,
         CityModule,
         LicenseModule,
-        VehicleModule
+        VehicleModule,
+        ColorModule,
+        UtilsModule
     ],
     entryComponents: [DeleteConfirmDialogComponent],
     providers: [

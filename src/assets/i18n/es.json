@@ -25,6 +25,7 @@
       "Inactive": "Inactivo",
       "Search": "Buscar",
       "Name": "Nombre",
+      "Value": "Valor",
       "Address": "Dirección",
       "ConfirmDelete": "Confirme por favor",
       "ShureToDelete": "¿Está seguro que desea eliminar este elemento?",
@@ -115,6 +116,14 @@
       "RentExpirationAt": "Fecha expiración del alquiler",
       "AddVehicle": "Adicionar vehículo",
       "EditVehicle": "Editar vehículo"
+    }
+  },
+  "Color": {
+    "Label": {
+      "Colors": "Colores",
+      "Color": "Color",
+      "AddColor": "Adicionar color",
+      "EditColor": "Editar color"
     }
   },
   "Role": {

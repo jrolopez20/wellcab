@@ -1,6 +1,5 @@
 import {License} from '@app/store/models/license.model';
 
-
 export interface LicenseState {
     licenses: License[] | null;
     total: number;

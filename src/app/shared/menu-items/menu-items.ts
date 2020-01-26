@@ -45,21 +45,31 @@ const MENU: { [key: string]: MenuCategory[] } = {
                     id: 'vehicles',
                     name: 'Vehiculos',
                     summary: 'Gestión de vehículos.'
-                }
-            ]
-        },
-        /*{
-            id: 'other',
-            name: 'Other module',
-            summary: 'Módulo de administración.',
-            items: [
+                },
                 {
-                    id: 'menu-example',
-                    name: 'Menu example',
-                    summary: 'Menu example for testing only.'
+                    id: 'colors',
+                    name: 'Colores',
+                    summary: 'Gestión de colores disponibles.'
+                },
+                {
+                    id: 'brands',
+                    name: 'Marcas y modelos',
+                    summary: 'Gestión de marcas y modelos de los vehículos.'
                 }
             ]
-        }*/
+        }
+        // {
+        //     id: 'admin',
+        //     name: 'Nomencladores',
+        //     summary: 'Nomencladores del sistema.',
+        //     items: [
+        //         {
+        //             id: 'colors',
+        //             name: 'Colores',
+        //             summary: 'Gestión de colores disponibles.'
+        //         }
+        //     ]
+        // }
     ]
 };
 
