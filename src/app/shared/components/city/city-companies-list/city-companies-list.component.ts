@@ -3,7 +3,7 @@ import {merge, Observable} from 'rxjs';
 import {CityCompany} from '@app/store/models/city-company.model';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DeleteConfirmDialogComponent} from '@app/shared/components/delete-confirm-dialog/delete-confirm-dialog.component';
+import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
 import {City} from '@app/store/models/city.model';
 import {CityCompanyService} from '@app/store/features/city-company/city-company.service';
 

@@ -80,7 +80,7 @@
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <mat-select placeholder="{{'Color.Label.Color' | translate}}" formControlName="color">
-                            <mat-option *ngFor="let item of colors" [value]="item.id">
+                            <mat-option *ngFor="let item of colors | async" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
                         </mat-select>

@@ -31,7 +31,7 @@
             <button mat-button (click)="location.back()">
                 {{'Common.Button.Cancel' | translate }}
             </button>
-            <button [disabled]="loading" mat-flat-button color="primary">
+            <button [disabled]="isLoading$ | async" mat-flat-button color="primary">
                 {{'Common.Button.Save' | translate }}
             </button>
         </mat-card-actions>

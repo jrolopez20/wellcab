@@ -1,1 +1,5 @@
-<p>edit-color works!</p>
+<app-color-form
+        [title]="'Color.Label.EditColor'"
+        [color]="color"
+        (onSubmit)="handleSubmit($event)">
+</app-color-form>

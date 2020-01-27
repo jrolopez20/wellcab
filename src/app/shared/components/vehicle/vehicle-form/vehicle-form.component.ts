@@ -5,6 +5,9 @@ import {MatSnackBar} from '@angular/material';
 import {Vehicle} from '@app/store/models/vehicle.model';
 import {VehicleService} from '@app/store/features/vehicle/vehicle.service';
 import {Location} from '@angular/common';
+import {Observable} from 'rxjs';
+import {Color} from '@app/store/models/color.model';
+import {ColorService} from '@app/store/features/color/color.service';
 
 @Component({
     selector: 'app-vehicle-form',
@@ -39,26 +42,23 @@ export class VehicleFormComponent implements OnInit {
         {id: 1, name: 'Activo'},
         {id: 2, name: 'Reparación'}
     ];
-    colors = [
-        {id: 1, name: 'Blanco'},
-        {id: 2, name: 'Negro'},
-        {id: 3, name: 'Rojo'},
-        {id: 4, name: 'Verde'},
-        {id: 5, name: 'Azul'},
-        {id: 6, name: 'Amarillo'}
-    ];
+
+    public colors: Observable<Color[]>;
 
     constructor(
         private formBuilder: FormBuilder,
         public router: Router,
         private snackBar: MatSnackBar,
         private vehicleService: VehicleService,
+        private colorService: ColorService,
         private location: Location
     ) {
     }
 
     ngOnInit() {
         this.initVehicleForm();
+        this.colorService.loadColors({sort: 'name', order: 'DESC', page: 1, filter: ''});
+        this.colors = this.colorService.getColorsList$();
     }
 
     initVehicleForm() {

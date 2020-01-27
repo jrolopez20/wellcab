@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {CityService} from '@app/store/features/city/city.service';
 import {Router} from '@angular/router';
-import {DeleteConfirmDialogComponent} from '@app/shared/components/delete-confirm-dialog/delete-confirm-dialog.component';
+import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
     selector: 'app-city-list',

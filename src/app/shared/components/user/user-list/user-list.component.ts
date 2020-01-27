@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {Router} from '@angular/router';
-import {DeleteConfirmDialogComponent} from '@app/shared/components/delete-confirm-dialog/delete-confirm-dialog.component';
+import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {merge, Observable} from 'rxjs';
 import {UserService} from '@app/store/features/user/user.service';

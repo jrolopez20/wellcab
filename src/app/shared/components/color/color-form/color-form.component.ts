@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {Location} from '@angular/common';
+import {ColorService} from '@app/store/features/color/color.service';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-color-form',
@@ -14,19 +16,21 @@ export class ColorFormComponent implements OnInit {
     @Input() title: string;
     @Input() color: Color;
     @Output() onSubmit = new EventEmitter<Color>();
+    public isLoading$: Observable<boolean>;
     colorForm: FormGroup;
-    loading = false;
     error: '';
 
     constructor(
         private formBuilder: FormBuilder,
         public router: Router,
         private snackBar: MatSnackBar,
-        private location: Location
+        private location: Location,
+        private colorService: ColorService
     ) {
     }
 
     ngOnInit() {
+        this.isLoading$ = this.colorService.getIsLoading$();
         this.initColorForm();
     }
 
@@ -54,8 +58,18 @@ export class ColorFormComponent implements OnInit {
     submit(): void {
         // Stop here if form is invalid
         if (this.colorForm.valid) {
-            const c = this.colorForm.value
-            this.onSubmit.emit(c);
+            const color = this.colorForm.value;
+            if (this.color) {
+                this.colorService.setColor(color);
+            } else {
+                this.colorService.addColor(color);
+            }
+            this.isLoading$.subscribe(loading => {
+                if (!loading) {
+                    this.onSubmit.emit(color);
+                    console.log(color);
+                }
+            });
         }
     }
 

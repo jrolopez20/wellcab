@@ -5,7 +5,7 @@ import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LicenseService} from '@app/store/features/license/license.service';
 import {Router} from '@angular/router';
-import {DeleteConfirmDialogComponent} from '@app/shared/components/delete-confirm-dialog/delete-confirm-dialog.component';
+import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
     selector: 'app-license-list',

@@ -10,6 +10,6 @@ export interface ColorState {
 export const initialState: ColorState = {
     colors: null,
     total: 0,
-    loading: true,
+    loading: false,
     error: null
 };

@@ -1,6 +1,7 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {featureKey} from './color.reducer';
 import {ColorState} from './color.state';
+import {Color} from '@app/store/models/color.model';
 
 export const getColorState = createFeatureSelector<ColorState>(featureKey);
 

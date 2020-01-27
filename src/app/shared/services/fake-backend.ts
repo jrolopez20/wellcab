@@ -13,11 +13,12 @@ import {License} from '@app/store/models/license.model';
 import {Color} from '@app/store/models/color.model';
 
 const colors: Color[] = [
-    {id: 1, name: 'Blanco', value: '#ffffff'},
-    {id: 1, name: 'Negro', value: '#000000'},
-    {id: 1, name: 'Rojo', value: '#FF0000'},
-    {id: 1, name: 'Verde', value: '#00FF00'},
-    {id: 1, name: 'Azul', value: '#0000FF'}
+    {id: 1, name: 'Blanco', value: '#FFFFFF'},
+    {id: 2, name: 'Negro', value: '#000000'},
+    {id: 3, name: 'Rojo', value: '#FF0000'},
+    {id: 4, name: 'Verde', value: '#00FF00'},
+    {id: 5, name: 'Azul', value: '#0000FF'},
+    {id: 6, name: 'Violeta', value: '#AA00FF'}
 ];
 const users: User[] = [
     {
@@ -80,7 +81,7 @@ const vehicles: Vehicle[] = [
         status: 'OK',
         brand: 'Hundai',
         model: 'Accent',
-        color: 'Blanco',
+        color: 2,
         currentOdometer: 10245,
         insuranceExpirationAt: '10/10/2021',
         itvExpirationAt: '8/12/2020',
@@ -96,7 +97,7 @@ const vehicles: Vehicle[] = [
         status: 'OK',
         brand: 'Hundai',
         model: 'Sonata',
-        color: 'Negro',
+        color: 3,
         currentOdometer: 78954,
         insuranceExpirationAt: '10/10/2021',
         itvExpirationAt: '8/12/2020',
@@ -112,7 +113,7 @@ const vehicles: Vehicle[] = [
         status: 'OK',
         brand: 'VolskWagen',
         model: 'Escarabajo',
-        color: 'Rojo',
+        color: 1,
         currentOdometer: 123586,
         insuranceExpirationAt: '10/10/2021',
         itvExpirationAt: '8/12/2020',
@@ -128,7 +129,7 @@ const vehicles: Vehicle[] = [
         status: 'OK',
         brand: 'Peugeot',
         model: '406',
-        color: 'Amarillo',
+        color: 3,
         currentOdometer: 123586,
         insuranceExpirationAt: '10/10/2021',
         itvExpirationAt: '8/12/2020',
@@ -144,7 +145,7 @@ const vehicles: Vehicle[] = [
         status: 'OK',
         brand: 'Chevrolet',
         model: 'Camaro',
-        color: 'Negro',
+        color: 2,
         currentOdometer: 120,
         insuranceExpirationAt: '10/10/2021',
         itvExpirationAt: '8/12/2020',
@@ -160,7 +161,7 @@ const vehicles: Vehicle[] = [
         status: 'OK',
         brand: 'Ford',
         model: 'Mustand',
-        color: 'Blanco',
+        color: 1,
         currentOdometer: 120,
         insuranceExpirationAt: '10/10/2021',
         itvExpirationAt: '8/12/2020',

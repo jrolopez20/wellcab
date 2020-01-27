@@ -2,8 +2,6 @@ import {NgModule} from '@angular/core';
 import {MenuItems} from './menu-items/menu-items';
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {DeleteConfirmDialogComponent} from './components/delete-confirm-dialog/delete-confirm-dialog.component';
-import {SpinnerComponent} from './components/spinner/spinner.component';
 import {AppMaterialModule} from '@app/app-material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@angular/flex-layout';
@@ -20,8 +18,6 @@ import {UtilsModule} from '@app/shared/utils/utils.module';
 
 @NgModule({
     declarations: [
-        SpinnerComponent,
-        DeleteConfirmDialogComponent,
         CityCompaniesListComponent
     ],
     imports: [
@@ -33,8 +29,6 @@ import {UtilsModule} from '@app/shared/utils/utils.module';
         RouterModule
     ],
     exports: [
-        SpinnerComponent,
-        DeleteConfirmDialogComponent,
         CityCompaniesListComponent,
         UserModule,
         CompanyModule,
@@ -44,7 +38,6 @@ import {UtilsModule} from '@app/shared/utils/utils.module';
         ColorModule,
         UtilsModule
     ],
-    entryComponents: [DeleteConfirmDialogComponent],
     providers: [
         MenuItems
     ]
