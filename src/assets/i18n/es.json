@@ -118,6 +118,20 @@
       "EditVehicle": "Editar vehículo"
     }
   },
+  "Brand": {
+    "Label": {
+      "Brands": "Marcas",
+      "AddBrand": "Adicionar marca",
+      "EditBrand": "Editar marca"
+    }
+  },
+  "Model": {
+    "Label": {
+      "Models": "Modelos",
+      "AddModel": "Adicionar modelo",
+      "EditModel": "Editar modelo"
+    }
+  },
   "Color": {
     "Label": {
       "Colors": "Colores",

@@ -10,6 +10,6 @@ export interface UserState {
 export const initialState: UserState = {
     users: null,
     total: 0,
-    loading: true,
+    loading: false,
     error: null
 };

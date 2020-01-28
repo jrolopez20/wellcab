@@ -11,6 +11,8 @@ import {City} from '@app/store/models/city.model';
 import {Vehicle} from '@app/store/models/vehicle.model';
 import {License} from '@app/store/models/license.model';
 import {Color} from '@app/store/models/color.model';
+import {Brand} from '@app/store/models/brand.model';
+import {Model} from '@app/store/models/model.model';
 
 const colors: Color[] = [
     {id: 1, name: 'Blanco', value: '#FFFFFF'},
@@ -172,6 +174,21 @@ const vehicles: Vehicle[] = [
     }
 ];
 
+const brands: Brand[] = [
+    {id: 1, name: 'Ford'},
+    {id: 2, name: 'Chevrolet'},
+    {id: 3, name: 'Peugeot'},
+    {id: 4, name: 'Hunday'},
+    {id: 4, name: 'VolskWagen'},
+];
+
+const models: Model[] = [
+    {id: 1, name: 'Camaro'},
+    {id: 2, name: '406'},
+    {id: 3, name: 'Othen Model'},
+    {id: 4, name: 'Test Model'}
+];
+
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -192,6 +209,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getUsers();
                 case url.substr(url.lastIndexOf('/')).startsWith('/colors') && method === 'GET':
                     return getColors();
+                case url.substr(url.lastIndexOf('/')).startsWith('/models') && method === 'GET':
+                    return getModels();
+                case url.substr(url.lastIndexOf('/')).startsWith('/brands') && method === 'GET':
+                    return getBrands();
                 case url.substr(url.lastIndexOf('/')).startsWith('/vehicles') && method === 'GET':
                     return getVehicles();
                 case url.substr(url.lastIndexOf('/')).startsWith('/licenses') && method === 'GET':
@@ -244,6 +265,20 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok({
                 items: [...colors],
                 total: colors.length,
+            });
+        }
+
+        function getBrands() {
+            return ok({
+                items: [...brands],
+                total: brands.length,
+            });
+        }
+
+        function getModels() {
+            return ok({
+                items: [...models],
+                total: models.length,
             });
         }
 

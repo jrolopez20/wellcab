@@ -3,15 +3,15 @@
         <div class="d-flex flex-wrap">
             <div>
                 <mat-card-title>
-                    {{'Color.Label.Colors' | translate}}
+                    {{'Model.Label.Models' | translate}}
                 </mat-card-title>
-                <mat-card-subtitle>Gestionar colores</mat-card-subtitle>
+                <mat-card-subtitle>Listado de modelos</mat-card-subtitle>
             </div>
             <div class="ml-auto" fxLayout="row">
-                <form [formGroup]="searchForm" (ngSubmit)="loadColors()">
+                <form [formGroup]="searchForm" (ngSubmit)="loadModels()">
                     <mat-form-field>
                         <input matInput placeholder="{{'Common.Label.Search' | translate }}"
-                               formControlName="filter" maxlength="20"/>
+                               formControlName="filter" maxlength="20" />
                         <button mat-icon-button matSuffix matTooltip="Buscar">
                             <mat-icon>search</mat-icon>
                         </button>
@@ -21,13 +21,13 @@
         </div>
 
         <div>
-            <a mat-flat-button color="accent" routerLink="add">
+            <button mat-flat-button color="accent" [disabled]="!currentBrand" (click)="showDialog()">
                 <mat-icon>add</mat-icon>
                 {{'Common.Button.Add' | translate}}
-            </a>
+            </button>
         </div>
 
-        <table mat-table [dataSource]="colorList$ | async" class="table table-rasponsive" matSort matSortActive="name"
+        <table mat-table [dataSource]="modelList$ | async" class="table table-rasponsive" matSort matSortActive="name"
                matSortDirection="desc">
 
             <ng-container matColumnDef="name">
@@ -35,25 +35,18 @@
                 <td mat-cell *matCellDef="let row">{{row.name}}</td>
             </ng-container>
 
-            <ng-container matColumnDef="value">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Common.Label.Value' | translate}}</th>
-                <td mat-cell *matCellDef="let row">
-                    <span class="color-overview" [ngStyle]="{'background-color': row.value}"></span>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="action">
+            <ng-container matColumnDef="action" >
                 <th mat-header-cell *matHeaderCellDef class="col-action">{{'Common.Label.Action' | translate}}</th>
-                <td mat-cell *matCellDef="let row" class="text-center">
+                <td mat-cell *matCellDef="let row" class="col-action">
                     <button mat-icon-button [matMenuTriggerFor]="menu">
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <a mat-menu-item color="primary" [routerLink]="[row.id]">
+                        <button mat-menu-item color="primary" (click)="showDialog(row)">
                             <mat-icon>edit</mat-icon>
                             <span> {{'Common.Button.Edit' | translate}}</span>
-                        </a>
-                        <button mat-menu-item (click)="deleteColor(row)">
+                        </button>
+                        <button mat-menu-item (click)="deleteModel(row)">
                             <mat-icon>delete</mat-icon>
                             <span> {{'Common.Button.Delete' | translate}}</span>
                         </button>
@@ -67,7 +60,7 @@
 
         <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
 
-        <mat-paginator [length]="colorsTotal$ | async" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]">
+        <mat-paginator [length]="modelsTotal$ | async" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]">
         </mat-paginator>
     </mat-card-content>
 </mat-card>

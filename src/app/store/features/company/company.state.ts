@@ -10,6 +10,6 @@ export interface CompanyState {
 export const initialState: CompanyState = {
     companies: null,
     total: 0,
-    loading: true,
+    loading: false,
     error: null
 };

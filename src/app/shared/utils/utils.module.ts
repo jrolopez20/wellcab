@@ -7,11 +7,14 @@ import {TranslateModule} from '@ngx-translate/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
+import {SnackBarComponent} from './snack-bar/snack-bar.component';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material';
 
 @NgModule({
     declarations: [
         SpinnerComponent,
-        DeleteConfirmDialogComponent
+        DeleteConfirmDialogComponent,
+        SnackBarComponent
     ],
     imports: [
         CommonModule,
@@ -23,9 +26,13 @@ import {RouterModule} from '@angular/router';
     ],
     exports: [
         SpinnerComponent,
-        DeleteConfirmDialogComponent
+        DeleteConfirmDialogComponent,
+        SnackBarComponent
     ],
-    entryComponents: [DeleteConfirmDialogComponent]
+    providers: [
+        {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 8000, horizontalPosition: 'end'}}
+    ],
+    entryComponents: [DeleteConfirmDialogComponent, SnackBarComponent]
 })
 export class UtilsModule {
 }

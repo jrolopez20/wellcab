@@ -15,6 +15,8 @@ import {CityModule} from '@app/shared/components/city/city.module';
 import {CompanyModule} from '@app/shared/components/company/company.module';
 import {ColorModule} from '@app/shared/components/color/color.module';
 import {UtilsModule} from '@app/shared/utils/utils.module';
+import {BrandModule} from '@app/shared/components/brand/brand.module';
+import {ModelModule} from '@app/shared/components/model/model.module';
 
 @NgModule({
     declarations: [
@@ -29,6 +31,10 @@ import {UtilsModule} from '@app/shared/utils/utils.module';
         RouterModule
     ],
     exports: [
+        AppMaterialModule,
+        FlexModule,
+        TranslateModule,
+        UtilsModule,
         CityCompaniesListComponent,
         UserModule,
         CompanyModule,
@@ -36,7 +42,8 @@ import {UtilsModule} from '@app/shared/utils/utils.module';
         LicenseModule,
         VehicleModule,
         ColorModule,
-        UtilsModule
+        BrandModule,
+        ModelModule
     ],
     providers: [
         MenuItems

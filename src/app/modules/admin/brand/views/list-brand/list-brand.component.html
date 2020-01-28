@@ -1,0 +1,10 @@
+<div fxLayout="row wrap" fxLayout.xs="column wrap" fxLayoutGap="10px">
+    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+        <app-brand-list (onBrandSelectedChange)="handleBrandChange($event)">
+        </app-brand-list>
+    </div>
+    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+        <app-model-list [brand]="selectedBrand">
+        </app-model-list>
+    </div>
+</div>

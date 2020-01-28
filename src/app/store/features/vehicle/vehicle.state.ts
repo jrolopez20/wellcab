@@ -10,6 +10,6 @@ export interface VehicleState {
 export const initialState: VehicleState = {
     vehicles: null,
     total: 0,
-    loading: true,
+    loading: false,
     error: null
 };

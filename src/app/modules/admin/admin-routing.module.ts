@@ -26,6 +26,10 @@ const routes: Routes = [
         loadChildren: () => import('./license/license.module').then(m => m.LicenseModule)
     },
     {
+        path: 'brands',
+        loadChildren: () => import('./brand/brand.module').then(m => m.BrandModule)
+    },
+    {
         path: 'colors',
         loadChildren: () => import('./color/color.module').then(m => m.ColorModule)
     }
