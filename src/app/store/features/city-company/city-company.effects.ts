@@ -15,7 +15,7 @@ export class CityCompanyEffects {
         this.actions$.pipe(
             ofType(CityCompanyActions.loadCityCompanies),
             concatMap(({city, sort, order, page, filter}) => {
-                return this.http.get<any>(`cities?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+                return this.http.get<any>(`citycompanies?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
                     map(response =>
                         CityCompanyActions.loadCityCompaniesSuccess({cityCompanies: response.items, total: response.total})
                     ),

@@ -788,6 +788,9 @@ Snack Bar
 /*******************
 Mat Dialog
 *******************/
+.mat-dialog-title{
+  margin: 0 0 10px !important;
+}
 .mat-dialog-actions {
   margin-bottom: -10px !important;
 }
@@ -858,6 +861,21 @@ Table
 .col-action {
   text-align: center;
   width: 55px;
+}
+
+tr.custom-row:not(.example-expanded-row):hover {
+  background: #fafafa;
+}
+
+tr.custom-row-selected {
+  background: #fafaff;
+}
+
+.search-input {
+  border: 1px solid lightgrey !important;
+  border-radius: 4px ;
+  height: 38px;
+  padding: 5px 10px !important;
 }
 
 /*******************

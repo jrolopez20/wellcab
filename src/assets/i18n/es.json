@@ -11,13 +11,15 @@
   "Profile": {
     "Label": {
       "Profile": "Perfil",
-      "ChangeYourPersonalInfo": "Modifique su información personal"
+      "ChangeYourPersonalInfo": "Modifique su información personal",
+      "LogoutConfirm": "¿Está seguro que desea cerrar la sesión?"
     }
   },
   "Common": {
     "ValidationMessage": {
       "FieldRequired": "Este campo es obligatorio",
-      "InvalidEmail": "Formato de email incorrecto"
+      "InvalidEmail": "Formato de email incorrecto",
+      "MaxLength": "Ha excedido la cantidad de caracteres"
     },
     "Label": {
       "Action": "Acción",
@@ -77,7 +79,9 @@
     "Label": {
       "Cities": "Ciudades",
       "AddCity": "Adicionar ciudad",
-      "EditCity": "Editar ciudad"
+      "EditCity": "Editar ciudad",
+      "AttachCompany": "Asociar empresa",
+      "CompanyDetail": "Detalles de la empresa"
     }
   },
   "Driver": {

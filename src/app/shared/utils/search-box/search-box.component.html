@@ -1,0 +1,13 @@
+<form [formGroup]="searchForm" (ngSubmit)="submit()">
+    <mat-form-field>
+        <input matInput type="search" placeholder="{{'Common.Label.Search' | translate }}"
+               formControlName="filter" maxlength="30"/>
+        <mat-icon matSuffix matRipple class="icon-as-handler"
+                  (click)="submit()"
+                  [matRippleUnbounded]="true"
+                  [matRippleCentered]="true"
+                  matTooltip="{{'Common.Label.Search' | translate }}">
+            search
+        </mat-icon>
+    </mat-form-field>
+</form>

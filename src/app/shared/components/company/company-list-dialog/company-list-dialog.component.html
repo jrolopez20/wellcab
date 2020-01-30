@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{data.title | translate}}</h2>
+<mat-dialog-content>
+    <app-company-list
+            [editable]="false"
+            [selectable]="true"
+    (onRowSelected)="handleSelection($event)">
+    </app-company-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        {{'Common.Button.Cancel' | translate }}
+    </button>
+        <button mat-flat-button [disabled]="!this.company" color="primary"
+                (click)="selectCompany()">
+            {{'Common.Button.Acept' | translate}}
+        </button>
+</mat-dialog-actions>

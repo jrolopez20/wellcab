@@ -11,6 +11,7 @@ import * as CityReducer from '@app/store/features/city/city.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {CityEffects} from '@app/store/features/city/city.effects';
 import {RouterModule} from '@angular/router';
+import {CityCompanyModule} from '@app/shared/components/city/city-company/city-company.module';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import {RouterModule} from '@angular/router';
         ),
         EffectsModule.forFeature([CityEffects]),
     ],
-    exports: [CityListComponent, CityFormComponent]
+    exports: [CityListComponent, CityFormComponent, CityCompanyModule]
 })
 export class CityModule {
 }

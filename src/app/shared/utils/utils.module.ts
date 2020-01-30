@@ -9,12 +9,14 @@ import {FlexModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
 import {SnackBarComponent} from './snack-bar/snack-bar.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
     declarations: [
         SpinnerComponent,
         DeleteConfirmDialogComponent,
-        SnackBarComponent
+        SnackBarComponent,
+        SearchBoxComponent
     ],
     imports: [
         CommonModule,
@@ -27,7 +29,8 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material';
     exports: [
         SpinnerComponent,
         DeleteConfirmDialogComponent,
-        SnackBarComponent
+        SnackBarComponent,
+        SearchBoxComponent
     ],
     providers: [
         {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 8000, horizontalPosition: 'end'}}

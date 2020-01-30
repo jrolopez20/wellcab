@@ -6,6 +6,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
 import {City} from '@app/store/models/city.model';
 import {CityCompanyService} from '@app/store/features/city-company/city-company.service';
+import {CityCompanyFormComponent} from '@app/shared/components/city/city-company/city-company-form/city-company-form.component';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-city-companies-list',
@@ -18,25 +20,22 @@ export class CityCompaniesListComponent implements OnInit, AfterViewInit {
     public cityCompaniesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    private filter: string;
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
     displayedColumns: string[] = ['company', 'postalCode', 'address', 'active', 'action'];
-    searchForm: FormGroup;
 
     constructor(
         private formBuilder: FormBuilder,
         private cityCompanyService: CityCompanyService,
+        private location: Location,
         public dialog: MatDialog
     ) {
     }
 
     ngOnInit() {
-        this.searchForm = this.formBuilder.group({
-            filter: ['', Validators.maxLength(20)]
-        });
-
         this.isLoading$ = this.cityCompanyService.getIsLoading$();
         this.cityCompanyList$ = this.cityCompanyService.geCityCompaniesList$();
         this.cityCompaniesTotal$ = this.cityCompanyService.getCityCompaniesTotal$();
@@ -54,18 +53,36 @@ export class CityCompaniesListComponent implements OnInit, AfterViewInit {
         });
     }
 
+    search(filter: string) {
+        this.filter = filter;
+        this.loadCityCompanies();
+    }
+
     loadCityCompanies() {
         this.cityCompanyService.loadCompaniesByCity({
             city: this.city,
             sort: this.sort.active,
             order: this.sort.direction,
             page: this.paginator.pageIndex,
-            filter: this.searchForm.value.filter
+            filter: this.filter
+        });
+    }
+
+    showDialog(cityCompany?: CityCompany) {
+        const dialogRef = this.dialog.open(CityCompanyFormComponent, {
+            minWidth: '340px',
+            data: {
+                title: cityCompany ? 'City.Label.CompanyDetail' : 'City.Label.AttachCompany',
+                cityCompany
+            }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The edit dialog was closed', result);
         });
     }
 
     // TODO - Test it
-    deleteLicense(cityCompany: CityCompany): void {
+    deleteCityCompany(cityCompany: CityCompany): void {
         const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {

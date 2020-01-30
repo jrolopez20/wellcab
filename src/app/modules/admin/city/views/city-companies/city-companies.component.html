@@ -1,3 +1,15 @@
-<app-city-companies-list
-        [city]="city">
-</app-city-companies-list>
+<mat-card>
+    <mat-card-content>
+        <div class="d-flex flex-wrap">
+            <div>
+                <mat-card-title>
+                    {{'Company.Label.CompaniesOn' | translate}} {{city.name}}
+                </mat-card-title>
+                <mat-card-subtitle>Listado de empresas vinculadas a la ciudad de {{city.name}}</mat-card-subtitle>
+            </div>
+        </div>
+        <app-city-companies-list
+                [city]="city">
+        </app-city-companies-list>
+    </mat-card-content>
+</mat-card>

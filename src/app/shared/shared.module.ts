@@ -7,7 +7,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
 
-import {CityCompaniesListComponent} from './components/city/city-companies-list/city-companies-list.component';
 import {LicenseModule} from '@app/shared/components/license/license.module';
 import {UserModule} from '@app/shared/components/user/user.module';
 import {VehicleModule} from '@app/shared/components/vehicle/vehicle.module';
@@ -19,9 +18,7 @@ import {BrandModule} from '@app/shared/components/brand/brand.module';
 import {ModelModule} from '@app/shared/components/model/model.module';
 
 @NgModule({
-    declarations: [
-        CityCompaniesListComponent
-    ],
+    declarations: [],
     imports: [
         CommonModule,
         AppMaterialModule,
@@ -35,7 +32,6 @@ import {ModelModule} from '@app/shared/components/model/model.module';
         FlexModule,
         TranslateModule,
         UtilsModule,
-        CityCompaniesListComponent,
         UserModule,
         CompanyModule,
         CityModule,

@@ -26,7 +26,7 @@ export class BrandListComponent implements OnInit, AfterViewInit {
     displayedColumns: string[] = ['select', 'name', 'action'];
     searchForm: FormGroup;
 
-    selection = new SelectionModel<Brand>(false, []);
+    private selection = new SelectionModel<Brand>(false, []);
 
     constructor(
         private formBuilder: FormBuilder,

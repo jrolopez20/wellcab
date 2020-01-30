@@ -1,0 +1,74 @@
+<div fxLayout="row wrap" fxLayoutGap="10px">
+    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+        <app-search-box (onSubmit)="search($event)"></app-search-box>
+    </div>
+    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100" fxLayoutGap="5px" style="padding-top: 3px;">
+        <button mat-flat-button color="accent" (click)="showDialog()">
+            <mat-icon>add</mat-icon>
+            {{'Common.Button.Add' | translate}}
+        </button>
+        <button mat-stroked-button (click)="location.back()">
+            Regresar
+        </button>
+    </div>
+</div>
+
+<table mat-table [dataSource]="cityCompanyList$ | async" class="table table-rasponsive" matSort
+       matSortActive="company"
+       matSortDirection="desc">
+
+    <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Company.Label.Company' | translate}}</th>
+        <td mat-cell *matCellDef="let row">{{row.company.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="postalCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Company.Label.PostalCode' | translate}}</th>
+        <td mat-cell *matCellDef="let row">{{row.postalCode}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Common.Label.Address' | translate}}</th>
+        <td mat-cell *matCellDef="let row">{{row.address}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef class="text-center">{{'Common.Label.Active' | translate}}</th>
+        <td mat-cell *matCellDef="let row" class="text-center">
+            <mat-icon *ngIf="row.removeAt; else activeIcon" matTooltip="{{'Common.Label.Inactive' | translate}}"
+                      color="warn">
+                remove_circle_outline
+            </mat-icon>
+            <ng-template #activeIcon>
+                <mat-icon matTooltip="{{'Common.Label.Active' | translate}}">check</mat-icon>
+            </ng-template>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="col-action">{{'Common.Label.Action' | translate}}</th>
+        <td mat-cell *matCellDef="let row" class="col-action">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="showDialog(row)">
+                    <mat-icon>edit</mat-icon>
+                    <span> {{'Common.Button.Edit' | translate}}</span>
+                </button>
+                <button mat-menu-item (click)="deleteCityCompany(row)">
+                    <mat-icon>delete</mat-icon>
+                    <span> {{'Common.Button.Delete' | translate}}</span>
+                </button>
+            </mat-menu>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+
+<mat-paginator [length]="cityCompaniesTotal$ | async" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]">
+</mat-paginator>

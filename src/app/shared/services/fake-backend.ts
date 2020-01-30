@@ -13,6 +13,7 @@ import {License} from '@app/store/models/license.model';
 import {Color} from '@app/store/models/color.model';
 import {Brand} from '@app/store/models/brand.model';
 import {Model} from '@app/store/models/model.model';
+import {CityCompany} from '@app/store/models/city-company.model';
 
 const colors: Color[] = [
     {id: 1, name: 'Blanco', value: '#FFFFFF'},
@@ -59,7 +60,13 @@ const users: User[] = [
 
 const companies: Company[] = [
     {id: 1, name: 'Asus'},
-    {id: 2, name: 'Google'}
+    {id: 2, name: 'Google'},
+    {id: 3, name: 'Apple'}
+];
+
+const cityCompanies: CityCompany[] = [
+    {id: 1, address: 'Paseo de la Castellana, $405', company: companies[0], postalCode: '10400'},
+    {id: 2, address: 'Calle Carlos Tercero, #807', company: companies[2], postalCode: '18520'}
 ];
 
 const cities: City[] = [
@@ -221,6 +228,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getCompanies();
                 case url.substr(url.lastIndexOf('/')).startsWith('/cities') && method === 'GET':
                     return getCities();
+                case url.substr(url.lastIndexOf('/')).startsWith('/citycompanies') && method === 'GET':
+                    return getCityCompanies();
                 case url.substr(29).indexOf('cities') !== -1 && method === 'DELETE':
                     return deleteCity();
                 case url.substr(29).indexOf('users') !== -1 && method === 'PUT':
@@ -293,6 +302,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok({
                 items: [...cities],
                 total: cities.length,
+            });
+        }
+
+        function getCityCompanies() {
+            return ok({
+                items: [...cityCompanies],
+                total: cityCompanies.length,
             });
         }
 

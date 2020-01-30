@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>{{data.title | translate}}</h2>
+<form [formGroup]="cityCompanyForm" >
+    <mat-dialog-content>
+        <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+            <div fxFlex="100" formGroupName="company">
+                <mat-form-field>
+                    <input readonly matInput placeholder="{{'Company.Label.Company' | translate}}"
+                           formControlName="name" maxlength="45"/>
+                    <button mat-stroked-button matSuffix matTooltip="Seleccionar empresa" style="top: -10px;"
+                            (click)="showCompanyDialog()">
+                        <mat-icon>attachment</mat-icon>
+                    </button>
+                    <mat-error *ngIf="handleError('name', 'required')">
+                        {{'Common.ValidationMessage.FieldRequired' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100">
+                <mat-form-field>
+                    <input matInput placeholder="{{'Company.Label.PostalCode' | translate}}"
+                           formControlName="postalCode"
+                           maxlength="5"/>
+                    <mat-error *ngIf="handleError('postalCode', 'maxlength')">
+                        {{'Common.ValidationMessage.MaxLength' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100">
+                <mat-form-field>
+                    <input matInput placeholder="{{'Common.Label.Address' | translate}}" formControlName="address"
+                           maxlength="255"/>
+                    <mat-error *ngIf="handleError('address', 'maxlength')">
+                        {{'Common.ValidationMessage.MaxLength' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>
+            {{'Common.Button.Cancel' | translate }}
+        </button>
+        <button mat-flat-button [disabled]="(isLoading$ | async) || cityCompanyForm.invalid" color="primary"
+                (click)="submit()">
+            {{'Common.Button.Save' | translate}}
+        </button>
+    </mat-dialog-actions>
+</form>
