@@ -1,13 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {Vehicle} from '@app/store/models/vehicle.model';
 import {VehicleService} from '@app/store/features/vehicle/vehicle.service';
 import {Location} from '@angular/common';
 import {Observable} from 'rxjs';
 import {Color} from '@app/store/models/color.model';
 import {ColorService} from '@app/store/features/color/color.service';
+import {UserListDialogComponent} from '@app/shared/components/user/user-list-dialog/user-list-dialog.component';
+import {User} from '@app/store/models/user.model';
 
 @Component({
     selector: 'app-vehicle-form',
@@ -21,6 +23,7 @@ export class VehicleFormComponent implements OnInit {
     @Output() onSubmit = new EventEmitter<Vehicle>();
 
     vehicleForm: FormGroup;
+    ownerForm: FormGroup;
     loading = false;
     error: '';
 
@@ -51,7 +54,8 @@ export class VehicleFormComponent implements OnInit {
         private snackBar: MatSnackBar,
         private vehicleService: VehicleService,
         private colorService: ColorService,
-        private location: Location
+        private location: Location,
+        public dialog: MatDialog
     ) {
     }
 
@@ -62,6 +66,10 @@ export class VehicleFormComponent implements OnInit {
     }
 
     initVehicleForm() {
+        this.ownerForm = this.formBuilder.group({
+            'username': ['', Validators.required],
+        });
+
         this.vehicleForm = this.formBuilder.group({
             name: ['', Validators.required],
             plateNumber: ['', Validators.required],
@@ -83,6 +91,15 @@ export class VehicleFormComponent implements OnInit {
         }
     }
 
+    showOwnerDialog() {
+        const dialogRef = this.dialog.open(UserListDialogComponent, {
+            minWidth: '800px'
+        });
+        dialogRef.afterClosed().subscribe((result: User) => {
+            this.vehicleForm.get('owner').setValue(result);
+        });
+    }
+
     // Convenience getter for easy access to form fields
     get f() {
         return this.vehicleForm.controls;
@@ -91,13 +108,24 @@ export class VehicleFormComponent implements OnInit {
     /* Get errors */
     public handleError = (controlName: string, errorName: string) => {
         return this.f[controlName].hasError(errorName);
+        if (this.vehicleForm.contains(controlName)) {
+            return this.vehicleForm.controls[controlName].hasError(errorName);
+        } else if (this.ownerForm.contains(controlName)) {
+            return this.ownerForm.controls[controlName].hasError(errorName);
+        }
+        return true;
     };
 
     submit(): void {
         // Stop here if form is invalid
         if (this.vehicleForm.valid) {
-            this.onSubmit.emit(this.vehicleForm.value);
+            this.onSubmit.emit(this.vehicleForm.getRawValue());
         }
     }
+
+    private getOwnerName = () => {
+        const owner = this.vehicleForm.value.owner;
+        return owner ? owner.detail.name + ' ' + owner.detail.lastName : null;
+    };
 
 }

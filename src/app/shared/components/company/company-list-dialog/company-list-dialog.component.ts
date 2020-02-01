@@ -12,7 +12,7 @@ export class CompanyListDialogComponent implements OnInit {
 
     constructor(
         public dialogRef: MatDialogRef<CompanyListDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { title: string },
+        @Inject(MAT_DIALOG_DATA) public data: { title: string }
     ) {
     }
 
@@ -23,8 +23,7 @@ export class CompanyListDialogComponent implements OnInit {
         this.company = company;
     }
 
-    selectCompany() {
-        // TODO emit event with the selected company
+    acept() {
         this.dialogRef.close(this.company);
     }
 

@@ -31,10 +31,11 @@
                 <div fxFlex="100">
                     <mat-form-field>
                         <input readonly matInput placeholder="{{'Vehicle.Label.Owner' | translate}}"
-                               formControlName="owner" maxlength="45"/>
-                        <button mat-stroked-button matSuffix style="top: -10px;" matTooltip="Seleccionar propietario">
+                               formControlName="owner" [value]="getOwnerName()"/>
+                        <button mat-stroked-button matSuffix style="top: -10px;"
+                                (click)="showOwnerDialog()"
+                                matTooltip="Seleccionar propietario">
                             <mat-icon>person_add</mat-icon>
-<!--                            Seleccionar-->
                         </button>
                         <mat-error *ngIf="handleError('owner', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}

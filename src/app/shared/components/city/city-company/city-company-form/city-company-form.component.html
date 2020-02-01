@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>{{data.title | translate}}</h2>
-<form [formGroup]="cityCompanyForm" >
+<form [formGroup]="cityCompanyForm">
     <mat-dialog-content>
         <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
             <div fxFlex="100" formGroupName="company">
@@ -27,8 +27,9 @@
             </div>
             <div fxFlex="100">
                 <mat-form-field>
-                    <input matInput placeholder="{{'Common.Label.Address' | translate}}" formControlName="address"
-                           maxlength="255"/>
+                    <input matInput placeholder="{{'Common.Label.Address' | translate}}"
+                           formControlName="address" #address maxlength="255"/>
+                    <mat-hint align="end">{{address.value?.length || 0}}/255</mat-hint>
                     <mat-error *ngIf="handleError('address', 'maxlength')">
                         {{'Common.ValidationMessage.MaxLength' | translate}}
                     </mat-error>

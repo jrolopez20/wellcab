@@ -11,10 +11,12 @@ import {StoreModule} from '@ngrx/store';
 import * as UserReducer from '@app/store/features/user/user.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {UserEffects} from '@app/store/features/user/user.effects';
+import {UtilsModule} from '@app/shared/utils/utils.module';
+import {UserListDialogComponent} from './user-list-dialog/user-list-dialog.component';
 
 
 @NgModule({
-    declarations: [UserFormComponent, UserListComponent],
+    declarations: [UserFormComponent, UserListComponent, UserListDialogComponent],
     imports: [
         CommonModule,
         AppMaterialModule,
@@ -26,9 +28,11 @@ import {UserEffects} from '@app/store/features/user/user.effects';
             UserReducer.featureKey,
             UserReducer.reducer
         ),
-        EffectsModule.forFeature([UserEffects])
+        EffectsModule.forFeature([UserEffects]),
+        UtilsModule
     ],
-    exports: [UserFormComponent, UserListComponent]
+    exports: [UserFormComponent, UserListComponent],
+    entryComponents: [UserListDialogComponent]
 })
 export class UserModule {
 }

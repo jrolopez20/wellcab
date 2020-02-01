@@ -34,7 +34,7 @@
                 <div fxFlex="100" *ngIf="!hideRole">
                     <mat-form-field>
                         <mat-select placeholder="{{'User.Label.Roles' | translate}}" formControlName="roles"
-                                    multiple >
+                                    multiple>
                             <mat-select-trigger>
                                 <mat-chip-list #chipList aria-label="Fruit selection">
                                     <mat-chip *ngFor="let selectedRole of userForm.value.roles"
@@ -121,7 +121,8 @@
                         <div fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="{{'Common.Label.Address' | translate}}"
-                                       formControlName="address" maxlength="255"/>
+                                       formControlName="address" #address maxlength="255"/>
+                                <mat-hint align="end">{{address.value?.length || 0}}/255</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>

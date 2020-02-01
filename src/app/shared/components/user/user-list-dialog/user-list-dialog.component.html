@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{'User.Label.Users' | translate}}</h2>
+<mat-dialog-content>
+    <app-user-list
+            [editable]="false"
+            [selectable]="true"
+            (onRowSelected)="handleSelection($event)">
+    </app-user-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        {{'Common.Button.Cancel' | translate }}
+    </button>
+    <button mat-flat-button [disabled]="!selectedItem" color="primary"
+            (click)="acept()">
+        {{'Common.Button.Acept' | translate}}
+    </button>
+</mat-dialog-actions>
+

@@ -7,7 +7,6 @@ import {CompanyService} from '@app/store/features/company/company.service';
 import {Router} from '@angular/router';
 import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Brand} from '@app/store/models/brand.model';
 
 @Component({
     selector: 'app-company-list',
@@ -29,7 +28,7 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
 
     displayedColumns: string[] = ['name'];
 
-    private selection = new SelectionModel<Brand>(false, []);
+    private selection = new SelectionModel<Company>(false, []);
 
     constructor(
         private formBuilder: FormBuilder,
