@@ -18,8 +18,18 @@
                 </div>
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
-                        <input matInput placeholder="{{'Common.Label.Value' | translate}}" formControlName="value"
-                               maxlength="7"/>
+                        <input
+                                matInput  readonly maxlength="7" formControlName="value"
+                                placeholder="{{'Common.Label.Value' | translate}}"
+                                [cpAlphaChannel]="'disabled'"
+                                [cpOKButton]="true"
+                                (colorPickerChange)="colorPickerChanged($event)"
+                                [cpOutputFormat]="'hex'"
+                                [(colorPicker)]="colorForm.value.value"
+                                [cpPosition]="'bottom'"
+                                [cpPositionOffset]="'0%'"
+                        />
+                        <mat-icon matSuffix [ngStyle]="{'color': colorForm.value.value}">palette</mat-icon>
                         <mat-error *ngIf="handleError('value', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
                         </mat-error>

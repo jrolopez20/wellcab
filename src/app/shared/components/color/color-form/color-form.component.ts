@@ -67,10 +67,13 @@ export class ColorFormComponent implements OnInit {
             this.isLoading$.subscribe(loading => {
                 if (!loading) {
                     this.onSubmit.emit(color);
-                    console.log(color);
                 }
             });
         }
+    }
+
+    private colorPickerChanged = (colorValue) => {
+        this.colorForm.get('value').setValue(colorValue);
     }
 
 }
