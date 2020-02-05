@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {License} from '@app/store/models/license.model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {LicenseService} from '@app/store/features/license/license.service';
 import {Location} from '@angular/common';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-license-form',
@@ -17,9 +18,9 @@ export class LicenseFormComponent implements OnInit {
     @Input() license: License;
     @Output() onSubmit = new EventEmitter<License>();
 
+    public isLoading$: Observable<boolean>;
+    public error$: Observable<any>;
     licenseForm: FormGroup;
-    loading = false;
-    error: '';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -31,12 +32,18 @@ export class LicenseFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isLoading$ = this.licenseService.getIsLoading$();
+        this.error$ = this.licenseService.getError$();
         this.initLicenseForm();
     }
 
     initLicenseForm() {
         this.licenseForm = this.formBuilder.group({
-            code: ['', Validators.required],
+            code: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.minLength(15),
+                Validators.maxLength(20)
+            ])),
             issuesAt: ['', Validators.required],
             expirationAt: ['', Validators.required],
         });
@@ -56,11 +63,17 @@ export class LicenseFormComponent implements OnInit {
         return this.f[controlName].hasError(errorName);
     };
 
-
     submit(): void {
         // Stop here if form is invalid
         if (this.licenseForm.valid) {
-            this.onSubmit.emit(this.licenseForm.value);
+            const license = this.licenseForm.getRawValue();
+            if (this.license) {
+                license.id = this.license.id;
+                this.licenseService.setLicense(license);
+            } else {
+                this.licenseService.addLicense(license);
+            }
+            this.onSubmit.emit(license);
         }
     }
 

@@ -14,24 +14,11 @@ export class ModelEffects {
     public loadModels$ = createEffect(() =>
         this.actions$.pipe(
             ofType(ModelActions.loadModelsRequest),
-            concatMap(({sort, order, page, filter}) => {
-                return this.http.get<any>(`models?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+            concatMap(({brandId, sort, order, page, limit, filter}) => {
+                return this.http.get<any>
+                (`brands/${brandId}/models?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
-                        ModelActions.loadModelsCompleted({models: response.items, total: response.total})
-                    ),
-                    catchError(error => of(ModelActions.modelsError({error})))
-                );
-            })
-        )
-    );
-
-    public deleteModel$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(ModelActions.deleteModelRequest),
-            concatMap(({model}) => {
-                return this.http.delete<any>(`models/${model.id}`).pipe(
-                    map(response =>
-                        ModelActions.deleteModelCompleted({model})
+                        ModelActions.loadModelsCompleted({models: response.data, total: response.pagination.total})
                     ),
                     catchError(error => of(ModelActions.modelsError({error})))
                 );
@@ -42,14 +29,12 @@ export class ModelEffects {
     public addModel$ = createEffect(() =>
         this.actions$.pipe(
             ofType(ModelActions.addModelRequest),
-            concatMap(({model}) => {
-                return this.http.post<any>('models', {model}).pipe(
+            concatMap(({brandId, model}) => {
+                return this.http.post<any>(`brands/${brandId}/models`, model).pipe(
                     map(response =>
-                        ModelActions.addModelCompleted({model})
+                        ModelActions.addModelCompleted({model: {...response}})
                     ),
-                    catchError(error => {
-                        return of(ModelActions.modelsError({error}));
-                    })
+                    catchError(error => of(ModelActions.modelsError({error})))
                 );
             })
         )
@@ -58,10 +43,11 @@ export class ModelEffects {
     public setModel$ = createEffect(() =>
         this.actions$.pipe(
             ofType(ModelActions.setModelRequest),
-            concatMap(({model}) => {
-                return this.http.put<any>(`models/${model.id}`, {model}).pipe(
+            concatMap(({brandId, model}) => {
+                const {id, ...modelCopy} = model;
+                return this.http.put<any>(`brands/${brandId}/models/${id}`, modelCopy).pipe(
                     map(response =>
-                        ModelActions.setModelCompleted({model})
+                        ModelActions.setModelCompleted({model: {...response}})
                     ),
                     catchError(error => of(ModelActions.modelsError({error})))
                 );

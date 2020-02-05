@@ -14,33 +14,50 @@ export class CityEffects {
     public loadCities$ = createEffect(() =>
         this.actions$.pipe(
             ofType(CityActions.loadCities),
-            concatMap(({sort, order, page, filter}) => {
-                return this.http.get<any>(`cities?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+            concatMap(({sort, order, page, limit, filter}) => {
+                return this.http.get<any>(`cities?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
-                        CityActions.loadCitiesSuccess({cities: response.items, total: response.total})
+                        CityActions.loadCitiesSuccess({cities: response.data, total: response.pagination.total})
                     ),
                     catchError(error =>
-                        of(CityActions.citiesError(error))
+                        of(CityActions.citiesError({error}))
                     )
                 );
             })
         )
     );
 
-    public deleteCity$ = createEffect(() =>
+    public addCity$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(CityActions.deleteCityRequest),
+            ofType(CityActions.addCityRequest),
             concatMap(({city}) => {
-                return this.http.delete<any>(`cities/${city.id}`).pipe(
+                return this.http.post<any>(`cities`, city).pipe(
                     map(response =>
-                        CityActions.deleteCityCompleted({city})
+                        CityActions.addCityCompleted({city: {...response}})
                     ),
-                    catchError(error => {
-                        return of(CityActions.citiesError(error));
-                    })
+                    catchError(error =>
+                        of(CityActions.citiesError({error}))
+                    )
                 );
             })
         )
     );
+
+    public editCity$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(CityActions.setCityRequest),
+            concatMap(({id, city}) => {
+                return this.http.put<any>(`cities/${id}`, city).pipe(
+                    map(response =>
+                        CityActions.setCityCompleted({city: {...response}})
+                    ),
+                    catchError(error =>
+                        of(CityActions.citiesError({error}))
+                    )
+                );
+            })
+        )
+    );
+
 
 }

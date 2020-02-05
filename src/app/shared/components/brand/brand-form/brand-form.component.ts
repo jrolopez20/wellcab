@@ -54,14 +54,16 @@ export class BrandFormComponent implements OnInit {
 
     submit(): void {
         if (this.brandForm.valid) {
+            const brand = this.brandForm.getRawValue();
             if (this.data.brand) {
-                this.brandService.setBrand(this.brandForm.getRawValue());
+                brand.id = this.data.brand.id;
+                this.brandService.setBrand(brand);
             } else {
-                this.brandService.addBrand(this.brandForm.getRawValue());
+                this.brandService.addBrand(brand);
             }
             this.isLoading$.subscribe(loading => {
                 if (!loading) {
-                    this.dialogRef.close(this.brandForm.getRawValue());
+                    this.dialogRef.close(brand);
                 }
             });
         }

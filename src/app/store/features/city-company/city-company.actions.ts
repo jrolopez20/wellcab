@@ -3,7 +3,7 @@ import {CityCompany} from '@app/store/models/city-company.model';
 
 export const loadCityCompanies = createAction(
     '[CityCompany] Load City Companies',
-    props<{ city: number, sort: string, order: string, page: number, filter?: string }>()
+    props<{ cityId: number, sort: string, order: string, page: number, limit: number, filter?: string }>()
 );
 
 export const loadCityCompaniesSuccess = createAction(
@@ -16,29 +16,19 @@ export const cityCompaniesError = createAction(
     props<{ error: any }>()
 );
 
-export const addCityCompanyRequest = createAction(
-    '[CityCompany] Add City Company Request',
-    props<{ cityCompany?: CityCompany }>()
+export const saveCityCompanyRequest = createAction(
+    '[CityCompany] Save City Company Request',
+    props<{ cityId: number,  cityCompany: CityCompany }>()
 );
 
-export const addCityCompanyCompleted = createAction(
-    '[CityCompany] Add City Company Completed',
-    props<{ cityCompany: CityCompany }>()
-);
-
-export const setCityCompanyRequest = createAction(
-    '[CityCompany] Set City Company Request',
-    props<{ cityCompany: CityCompany }>()
-);
-
-export const setCityCompanyCompleted = createAction(
-    '[CityCompany] Set City Company Completed',
+export const saveCityCompanyCompleted = createAction(
+    '[CityCompany] Save City Company Completed',
     props<{ cityCompany: CityCompany }>()
 );
 
 export const deleteCityCompanyRequest = createAction(
     '[CityCompany] Delete City Company Request',
-    props<{ cityCompany: CityCompany }>()
+    props<{ cityId: number, cityCompanyId: number}>()
 );
 
 export const deleteCityCompanyCompleted = createAction(

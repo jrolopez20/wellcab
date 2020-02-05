@@ -3,7 +3,7 @@ import {License} from '@app/store/models/license.model';
 
 export const loadLicensesRequest = createAction(
     '[License] Load Licenses',
-    props<{ sort: string, order: string, page: number, filter?: string }>()
+    props<{ sort: string, order: string, page: number, limit: number, filter?: string }>()
 );
 
 export const loadLicensesCompleted = createAction(
@@ -18,7 +18,7 @@ export const licensesError = createAction(
 
 export const addLicenseRequest = createAction(
     '[License] Add License Request',
-    props<{ license?: License }>()
+    props<{ license: License }>()
 );
 
 export const addLicenseCompleted = createAction(
@@ -36,12 +36,3 @@ export const setLicenseCompleted = createAction(
     props<{ license: License }>()
 );
 
-export const deleteLicenseRequest = createAction(
-    '[License] Delete License Request',
-    props<{ license: License }>()
-);
-
-export const deleteLicenseCompleted = createAction(
-    '[License] Delete License Completed',
-    props<{ license: License }>()
-);

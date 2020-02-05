@@ -12,6 +12,7 @@ import * as ColorReducer from '@app/store/features/color/color.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {ColorEffects} from '@app/store/features/color/color.effects';
 import { ColorPickerModule } from 'ngx-color-picker';
+import {UtilsModule} from '@app/shared/utils/utils.module';
 
 @NgModule({
     declarations: [ColorListComponent, ColorFormComponent],
@@ -28,7 +29,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
             ColorReducer.featureKey,
             ColorReducer.reducer
         ),
-        EffectsModule.forFeature([ColorEffects])
+        EffectsModule.forFeature([ColorEffects]),
+        UtilsModule
     ],
     exports: [ColorListComponent, ColorFormComponent]
 })

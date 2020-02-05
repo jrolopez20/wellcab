@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Brand} from '@app/store/models/brand.model';
 import {merge, Observable} from 'rxjs';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BrandService} from '@app/store/features/brand/brand.service';
-import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
 import {SelectionModel} from '@angular/cdk/collections';
 import {BrandFormComponent} from '@app/shared/components/brand/brand-form/brand-form.component';
 
@@ -14,6 +13,7 @@ import {BrandFormComponent} from '@app/shared/components/brand/brand-form/brand-
     styleUrls: ['./brand-list.component.css']
 })
 export class BrandListComponent implements OnInit, AfterViewInit {
+    @Input() editable = true;
     @Output() onBrandSelectedChange = new EventEmitter<Brand>();
     public brandList$: Observable<Brand[]>;
     public brandsTotal$: Observable<number>;
@@ -23,8 +23,9 @@ export class BrandListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    displayedColumns: string[] = ['select', 'name', 'action'];
-    searchForm: FormGroup;
+    private filter: string;
+    private initialPageSize = 25;
+    private displayedColumns: string[] = ['select', 'name', 'action'];
 
     private selection = new SelectionModel<Brand>(false, []);
 
@@ -36,10 +37,6 @@ export class BrandListComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.searchForm = this.formBuilder.group({
-            filter: ['', Validators.maxLength(20)]
-        });
-
         this.isLoading$ = this.brandService.getIsLoading$();
         this.brandList$ = this.brandService.getBrandsList$();
         this.brandsTotal$ = this.brandService.getBrandsTotal$();
@@ -60,12 +57,19 @@ export class BrandListComponent implements OnInit, AfterViewInit {
         });
     }
 
+    search(filter: string) {
+        this.filter = filter;
+        this.loadBrands();
+    }
+
     loadBrands() {
+        this.selection.clear();
         this.brandService.loadBrands({
             sort: this.sort.active,
             order: this.sort.direction,
             page: this.paginator.pageIndex,
-            filter: this.searchForm.value.filter
+            limit: this.paginator.pageSize || this.initialPageSize,
+            filter: this.filter
         });
     }
 
@@ -78,20 +82,9 @@ export class BrandListComponent implements OnInit, AfterViewInit {
             }
         });
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The edit dialog was closed', result);
-        });
-    }
-
-    // TODO - Test it
-    deleteBrand(brand: Brand): void {
-        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                // this.brandService.deleteBrand(brand).subscribe((response) => {
-                //     console.log(response);
-                // }, error1 => {
-                //     console.log(error1);
-                // });
+            if (!brand) {
+                // Load all brands only if a new Brand is added
+                this.loadBrands();
             }
         });
     }

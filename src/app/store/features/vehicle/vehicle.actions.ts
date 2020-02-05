@@ -3,7 +3,7 @@ import {Vehicle} from '@app/store/models/vehicle.model';
 
 export const loadVehiclesRequest = createAction(
     '[Vehicle] Load Vehicles',
-    props<{ sort: string, order: string, page: number, filter?: string }>()
+    props<{ sort: string, order: string, page: number, limit: number, filter?: string }>()
 );
 
 export const loadVehiclesCompleted = createAction(

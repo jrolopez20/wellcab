@@ -14,13 +14,13 @@ export class UserEffects {
     public loadUsers$ = createEffect(() =>
         this.actions$.pipe(
             ofType(UserActions.loadUsersRequest),
-            concatMap(({sort, order, page, filter}) => {
-                return this.http.get<any>(`users?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+            concatMap(({sort, order, page, limit, filter}) => {
+                return this.http.get<any>(`users?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
-                        UserActions.loadUsersCompleted({users: response.items, total: response.total})
+                        UserActions.loadUsersCompleted({users: response.data, total: response.pagination.total})
                     ),
                     catchError(error =>
-                        of(UserActions.usersError(error))
+                        of(UserActions.usersError({error}))
                     )
                 );
             })
@@ -36,7 +36,7 @@ export class UserEffects {
                         UserActions.deleteUserCompleted({user})
                     ),
                     catchError(error => {
-                        return of(UserActions.usersError(error));
+                        return of(UserActions.usersError({error}));
                     })
                 );
             })
@@ -52,7 +52,7 @@ export class UserEffects {
                         UserActions.setUserCompleted({user})
                     ),
                     catchError(error => {
-                        return of(UserActions.usersError(error));
+                        return of(UserActions.usersError({error}));
                     })
                 );
             })

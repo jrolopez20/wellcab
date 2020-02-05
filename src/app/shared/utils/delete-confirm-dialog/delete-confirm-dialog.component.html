@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>{{'Common.Label.ConfirmDelete' | translate}}</h2>
 <mat-dialog-content class="mat-typography">
-    <h3>{{'Common.Label.ShureToDelete' | translate}}</h3>
+    <h3> {{ (data && data.message ? data.message : 'Common.Confirm.ShureToDelete') | translate}}</h3>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>{{'Common.Button.Cancel' | translate}}</button>

@@ -51,23 +51,21 @@ const cityReducer = createReducer(
                 error: null
             };
         }),
-    on(CityActions.deleteCityRequest,
+    on(CityActions.setCityRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
         }),
-    on(CityActions.deleteCityCompleted,
+    on(CityActions.setCityCompleted,
         (state, {city}) => {
             return {
                 ...state,
-                cities: [...state.cities.filter(item => item.id !== city.id)],
-                total: state.total - 1,
                 loading: false,
                 error: null
             };
-        }),
+        })
 );
 
 export function reducer(state: CityState | undefined, action: Action) {

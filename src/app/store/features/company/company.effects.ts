@@ -14,30 +14,46 @@ export class CompanyEffects {
     public loadCompanies$ = createEffect(() =>
         this.actions$.pipe(
             ofType(CompanyActions.loadCompanies),
-            concatMap(({sort, order, page, filter}) => {
-                return this.http.get<any>(`companies?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+            concatMap(({sort, order, page, limit, filter}) => {
+                return this.http.get<any>(`compaines?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
-                        CompanyActions.loadCompaniesSuccess({companies: response.items, total: response.total})
+                        CompanyActions.loadCompaniesSuccess({companies: response.data, total: response.pagination.total})
                     ),
                     catchError(error =>
-                        of(CompanyActions.companiesError(error))
+                        of(CompanyActions.companiesError({error}))
                     )
                 );
             })
         )
     );
 
-    public deleteCompany$ = createEffect(() =>
+    public addCompany$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(CompanyActions.deleteCompanyRequest),
+            ofType(CompanyActions.addCompanyRequest),
             concatMap(({company}) => {
-                return this.http.delete<any>(`companies/${company.id}`).pipe(
+                return this.http.post<any>(`companies`, company).pipe(
                     map(response =>
-                        CompanyActions.deleteCompanyCompleted({company})
+                        CompanyActions.addCompanyCompleted({company: {...response}})
                     ),
-                    catchError(error => {
-                        return of(CompanyActions.companiesError(error));
-                    })
+                    catchError(error =>
+                        of(CompanyActions.companiesError({error}))
+                    )
+                );
+            })
+        )
+    );
+
+    public setCompany$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(CompanyActions.setCompanyRequest),
+            concatMap(({id, company}) => {
+                return this.http.put<any>(`companies/${id}`, company).pipe(
+                    map(response =>
+                        CompanyActions.setCompanyCompleted({company: {...response}})
+                    ),
+                    catchError(error =>
+                        of(CompanyActions.companiesError({error}))
+                    )
                 );
             })
         )

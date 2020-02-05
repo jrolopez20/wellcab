@@ -22,7 +22,8 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    displayedColumns: string[] = ['plateNumber', 'name', 'brand', 'model', 'active', 'action'];
+    private initialPageSize = 25;
+    displayedColumns: string[] = ['plateNumber', 'name', 'brand', 'model', 'ownerCompany', 'active', 'action'];
     searchForm: FormGroup;
 
     constructor(
@@ -60,6 +61,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
             sort: this.sort.active,
             order: this.sort.direction,
             page: this.paginator.pageIndex,
+            limit: this.paginator.pageSize || this.initialPageSize,
             filter: this.searchForm.value.filter
         });
     }

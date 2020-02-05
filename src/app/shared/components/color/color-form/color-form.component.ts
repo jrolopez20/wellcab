@@ -60,6 +60,7 @@ export class ColorFormComponent implements OnInit {
         if (this.colorForm.valid) {
             const color = this.colorForm.value;
             if (this.color) {
+                color.id = this.color.id;
                 this.colorService.setColor(color);
             } else {
                 this.colorService.addColor(color);
@@ -74,6 +75,6 @@ export class ColorFormComponent implements OnInit {
 
     private colorPickerChanged = (colorValue) => {
         this.colorForm.get('value').setValue(colorValue);
-    }
+    };
 
 }

@@ -21,6 +21,7 @@ export class CityCompaniesListComponent implements OnInit, AfterViewInit {
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
     private filter: string;
+    private initialPageSize = 25;
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -60,10 +61,11 @@ export class CityCompaniesListComponent implements OnInit, AfterViewInit {
 
     loadCityCompanies() {
         this.cityCompanyService.loadCompaniesByCity({
-            city: this.city,
+            cityId: this.city.id,
             sort: this.sort.active,
             order: this.sort.direction,
             page: this.paginator.pageIndex,
+            limit: this.paginator.pageSize || this.initialPageSize,
             filter: this.filter
         });
     }
@@ -73,21 +75,35 @@ export class CityCompaniesListComponent implements OnInit, AfterViewInit {
             minWidth: '340px',
             data: {
                 title: cityCompany ? 'City.Label.CompanyDetail' : 'City.Label.AttachCompany',
+                cityId: this.city.id,
                 cityCompany
             }
         });
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The edit dialog was closed', result);
+            if (!cityCompany) {
+                // Load all city companies only if a new cityCompany is added
+                this.loadCityCompanies();
+            }
         });
     }
 
-    // TODO - Test it
-    deleteCityCompany(cityCompany: CityCompany): void {
-        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
+    unAttachCityCompany(cityCompany: CityCompany): void {
+        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+            data: {
+                message: 'Common.Confirm.ShureToUnAttach'
+            }
+        });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                // this.cityCompanyService.deleteCityCompany(cityCompany);
+                this.cityCompanyService.deleteCityCompany(this.city.id, cityCompany.id);
             }
+        });
+    }
+
+    attachCityCompany(cityCompany: CityCompany): void {
+        this.cityCompanyService.saveCityCompany(this.city.id, {
+            ...cityCompany,
+            removedAt: null
         });
     }
 }

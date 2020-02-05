@@ -14,29 +14,29 @@ export class ColorEffects {
     public loadColors$ = createEffect(() =>
         this.actions$.pipe(
             ofType(ColorActions.loadColorsRequest),
-            concatMap(({sort, order, page, filter}) => {
-                return this.http.get<any>(`colors?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+            concatMap(({sort, order, page, limit, filter}) => {
+                return this.http.get<any>(`colors?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
-                        ColorActions.loadColorsCompleted({colors: response.items, total: response.total})
+                        ColorActions.loadColorsCompleted({colors: response.data, total: response.pagination.total})
                     ),
                     catchError(error =>
-                        of(ColorActions.colorsError(error))
+                        of(ColorActions.colorsError({error}))
                     )
                 );
             })
         )
     );
 
-    public deleteColor$ = createEffect(() =>
+    public addColor$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(ColorActions.deleteColorRequest),
+            ofType(ColorActions.addColorRequest),
             concatMap(({color}) => {
-                return this.http.delete<any>(`colors/${color.id}`).pipe(
+                return this.http.post<any>('colors', color).pipe(
                     map(response =>
-                        ColorActions.deleteColorCompleted({color})
+                        ColorActions.setColorCompleted({color: {...response}})
                     ),
                     catchError(error => {
-                        return of(ColorActions.colorsError(error));
+                        return of(ColorActions.colorsError({error}));
                     })
                 );
             })
@@ -47,12 +47,14 @@ export class ColorEffects {
         this.actions$.pipe(
             ofType(ColorActions.setColorRequest),
             concatMap(({color}) => {
-                return this.http.put<any>(`colors/${color.id}`, {color}).pipe(
+                // Extract ID from color into a separate variable and put the rest in other one.
+                const {id, ...colorCopy} = color;
+                return this.http.put<any>(`colors/${id}`, colorCopy).pipe(
                     map(response =>
                         ColorActions.setColorCompleted({color})
                     ),
                     catchError(error => {
-                        return of(ColorActions.colorsError(error));
+                        return of(ColorActions.colorsError({error}));
                     })
                 );
             })

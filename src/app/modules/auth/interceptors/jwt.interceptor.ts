@@ -18,8 +18,13 @@ export class JwtInterceptor implements HttpInterceptor {
             // const currentUser = this.authService.currentUserValue;
             const token = JSON.parse(window.localStorage.getItem('token'));
 
+            let baseUrl = environment.apiUrl;
+            if (request.url.startsWith('auth/login')) {
+                baseUrl = environment.authUrl;
+            }
+
             request = request.clone({
-                url: `${environment.apiUrl + request.url}`,
+                url: `${baseUrl + request.url}`,
                 setHeaders: (token) ? {
                     Authorization: `Bearer ${token}`
                 } : {}

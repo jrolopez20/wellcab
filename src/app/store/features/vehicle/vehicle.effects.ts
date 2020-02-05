@@ -14,30 +14,14 @@ export class VehicleEffects {
     public loadVehicles$ = createEffect(() =>
         this.actions$.pipe(
             ofType(VehicleActions.loadVehiclesRequest),
-            concatMap(({sort, order, page, filter}) => {
-                return this.http.get<any>(`vehicles?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+            concatMap(({sort, order, page, limit, filter}) => {
+                return this.http.get<any>(`vehicles?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
-                        VehicleActions.loadVehiclesCompleted({vehicles: response.items, total: response.total})
+                        VehicleActions.loadVehiclesCompleted({vehicles: response.data, total: response.pagination.total})
                     ),
                     catchError(error =>
-                        of(VehicleActions.vehiclesError(error))
+                        of(VehicleActions.vehiclesError({error}))
                     )
-                );
-            })
-        )
-    );
-
-    public deleteVehicle$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(VehicleActions.deleteVehicleRequest),
-            concatMap(({vehicle}) => {
-                return this.http.delete<any>(`users/${vehicle.id}`).pipe(
-                    map(response =>
-                        VehicleActions.deleteVehicleCompleted({vehicle})
-                    ),
-                    catchError(error => {
-                        return of(VehicleActions.vehiclesError(error));
-                    })
                 );
             })
         )
@@ -52,7 +36,7 @@ export class VehicleEffects {
                         VehicleActions.setVehicleCompleted({vehicle})
                     ),
                     catchError(error => {
-                        return of(VehicleActions.vehiclesError(error));
+                        return of(VehicleActions.vehiclesError({error}));
                     })
                 );
             })

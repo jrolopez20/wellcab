@@ -14,10 +14,10 @@ export class CityCompanyEffects {
     public loadCityCompanies$ = createEffect(() =>
         this.actions$.pipe(
             ofType(CityCompanyActions.loadCityCompanies),
-            concatMap(({city, sort, order, page, filter}) => {
-                return this.http.get<any>(`citycompanies?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+            concatMap(({cityId, sort, order, page, limit, filter}) => {
+                return this.http.get<any>(`cities/${cityId}/companies-detail?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
-                        CityCompanyActions.loadCityCompaniesSuccess({cityCompanies: response.items, total: response.total})
+                        CityCompanyActions.loadCityCompaniesSuccess({cityCompanies: response.data, total: response.pagination.total})
                     ),
                     catchError(error =>
                         of(CityCompanyActions.cityCompaniesError(error))
@@ -27,16 +27,36 @@ export class CityCompanyEffects {
         )
     );
 
+    public saveCityCompany$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(CityCompanyActions.saveCityCompanyRequest),
+            concatMap(({cityId, cityCompany}) => {
+                return this.http.put<any>(`cities/${cityId}/companies/${cityCompany.company.id}/detail`, {
+                    postalCode: cityCompany.postalCode,
+                    address: cityCompany.address,
+                    removedAt: cityCompany.removedAt || null
+                }).pipe(
+                    map(response =>
+                        CityCompanyActions.saveCityCompanyCompleted({cityCompany: response})
+                    ),
+                    catchError(error =>
+                        of(CityCompanyActions.cityCompaniesError({error}))
+                    )
+                );
+            })
+        )
+    );
+
     public deleteCityCompany$ = createEffect(() =>
         this.actions$.pipe(
             ofType(CityCompanyActions.deleteCityCompanyRequest),
-            concatMap(({cityCompany}) => {
-                return this.http.delete<any>(`cities/${cityCompany.id}`).pipe(
+            concatMap(({cityId, cityCompanyId}) => {
+                return this.http.delete<any>(`cities/${cityId}/companies-detail/${cityCompanyId}`).pipe(
                     map(response =>
-                        CityCompanyActions.deleteCityCompanyCompleted({cityCompany})
+                        CityCompanyActions.deleteCityCompanyCompleted({cityCompany: response})
                     ),
                     catchError(error => {
-                        return of(CityCompanyActions.cityCompaniesError(error));
+                        return of(CityCompanyActions.cityCompaniesError({error}));
                     })
                 );
             })

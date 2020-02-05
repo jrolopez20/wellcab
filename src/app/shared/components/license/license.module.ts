@@ -11,6 +11,7 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import * as LicenseReducer from '@app/store/features/license/license.reducer';
 import {LicenseEffects} from '@app/store/features/license/license.effects';
+import {UtilsModule} from '@app/shared/utils/utils.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {LicenseEffects} from '@app/store/features/license/license.effects';
             LicenseReducer.featureKey,
             LicenseReducer.reducer
         ),
-        EffectsModule.forFeature([LicenseEffects])
+        EffectsModule.forFeature([LicenseEffects]),
+        UtilsModule
     ],
     exports: [
         LicenseListComponent,

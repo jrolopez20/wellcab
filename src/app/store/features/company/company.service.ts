@@ -19,10 +19,11 @@ export class CompanyService {
      * @param sort
      * @param order
      * @param page
+     * @param limit
      * @param filter
      */
-    public loadCompanies({sort, order, page, filter}) {
-        this.store.dispatch(CompanyActions.loadCompanies({sort, order, page, filter}));
+    public loadCompanies({sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(CompanyActions.loadCompanies({sort, order, page, limit, filter}));
     }
 
     public getCompaniesList$(): Observable<Company[]> {
@@ -42,26 +43,10 @@ export class CompanyService {
     }
 
     public addCompany(company: Company) {
-        this.store.dispatch(
-            CompanyActions.addCompanyRequest({
-                company: {...company}
-            })
-        );
+        this.store.dispatch(CompanyActions.addCompanyRequest({company}));
     }
 
-    public setCompany(company: Company) {
-        this.store.dispatch(
-            CompanyActions.setCompanyRequest({
-                company: {...company}
-            })
-        );
-    }
-
-    public deleteCompany(company: Company) {
-        this.store.dispatch(
-            CompanyActions.deleteCompanyRequest({
-                company: {...company}
-            })
-        );
+    public setCompany(id, company: Company) {
+        this.store.dispatch(CompanyActions.setCompanyRequest({id, company}));
     }
 }

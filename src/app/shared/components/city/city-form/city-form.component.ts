@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {City} from '@app/store/models/city.model';
 import {Location} from '@angular/common';
+import {CityService} from '@app/store/features/city/city.service';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-city-form',
@@ -13,11 +15,12 @@ export class CityFormComponent implements OnInit {
     @Input() title: string;
     @Input() city: City;
     @Output() onSubmit = new EventEmitter<City>();
+    public isLoading$: Observable<boolean>;
+    public error$: Observable<any>;
     cityForm: FormGroup;
-    loading = false;
-    error: '';
 
     constructor(
+        private cityService: CityService,
         private formBuilder: FormBuilder,
         public router: Router,
         private snackBar: MatSnackBar,
@@ -26,6 +29,8 @@ export class CityFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isLoading$ = this.cityService.getIsLoading$();
+        this.error$ = this.cityService.getError$();
         this.initCityForm();
     }
 
@@ -52,7 +57,11 @@ export class CityFormComponent implements OnInit {
     submit(): void {
         // Stop here if form is invalid
         if (this.cityForm.valid) {
-            this.onSubmit.emit(this.cityForm.value);
+            if(this.city) {
+                this.cityService.setCity(this.city.id, this.cityForm.getRawValue());
+            }else {
+                this.cityService.addCity(this.cityForm.getRawValue());
+            }
         }
     }
 

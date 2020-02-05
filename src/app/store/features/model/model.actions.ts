@@ -3,7 +3,7 @@ import {Model} from '@app/store/models/model.model';
 
 export const loadModelsRequest = createAction(
     '[Model] Load Models',
-    props<{ sort: string, order: string, page: number, filter?: string }>()
+    props<{ brandId: number, sort: string, order: string, page: number, limit: number, filter?: string }>()
 );
 
 export const loadModelsCompleted = createAction(
@@ -18,7 +18,7 @@ export const modelsError = createAction(
 
 export const addModelRequest = createAction(
     '[Model] Add Model Request',
-    props<{ model?: Model }>()
+    props<{ brandId: number, model: Model }>()
 );
 
 export const addModelCompleted = createAction(
@@ -28,21 +28,11 @@ export const addModelCompleted = createAction(
 
 export const setModelRequest = createAction(
     '[Model] Set Model Request',
-    props<{ model: Model }>()
+    props<{ brandId: number, model: Model }>()
 );
 
 export const setModelCompleted = createAction(
     '[Model] Set Model Completed',
-    props<{ model: Model }>()
-);
-
-export const deleteModelRequest = createAction(
-    '[Model] Delete Model Request',
-    props<{ model: Model }>()
-);
-
-export const deleteModelCompleted = createAction(
-    '[Model] Delete Model Completed',
     props<{ model: Model }>()
 );
 

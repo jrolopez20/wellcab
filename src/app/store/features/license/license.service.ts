@@ -19,10 +19,11 @@ export class LicenseService {
      * @param sort
      * @param order
      * @param page
+     * @param limit
      * @param filter
      */
-    public loadLicenses({sort, order, page, filter}) {
-        this.store.dispatch(LicenseActions.loadLicensesRequest({sort, order, page, filter}));
+    public loadLicenses({sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(LicenseActions.loadLicensesRequest({sort, order, page, limit, filter}));
     }
 
     public getLicensesList$(): Observable<License[]> {
@@ -42,26 +43,11 @@ export class LicenseService {
     }
 
     public addLicense(license: License) {
-        this.store.dispatch(
-            LicenseActions.addLicenseRequest({
-                license: {...license}
-            })
-        );
+        this.store.dispatch(LicenseActions.addLicenseRequest({license}));
     }
 
     public setLicense(license: License) {
-        this.store.dispatch(
-            LicenseActions.setLicenseRequest({
-                license: {...license}
-            })
-        );
+        this.store.dispatch(LicenseActions.setLicenseRequest({license}));
     }
 
-    public deleteLicense(license: License) {
-        this.store.dispatch(
-            LicenseActions.deleteLicenseRequest({
-                license: {...license}
-            })
-        );
-    }
 }

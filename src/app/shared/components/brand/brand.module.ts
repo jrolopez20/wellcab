@@ -11,6 +11,7 @@ import {StoreModule} from '@ngrx/store';
 import * as BrandReducer from '@app/store/features/brand/brand.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {BrandEffects} from '@app/store/features/brand/brand.effects';
+import {UtilsModule} from '@app/shared/utils/utils.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {BrandEffects} from '@app/store/features/brand/brand.effects';
             BrandReducer.reducer
         ),
         EffectsModule.forFeature([BrandEffects]),
+        UtilsModule,
     ],
     exports: [BrandListComponent, BrandFormComponent],
     entryComponents: [BrandFormComponent]

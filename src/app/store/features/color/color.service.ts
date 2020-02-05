@@ -19,10 +19,11 @@ export class ColorService {
      * @param sort
      * @param order
      * @param page
+     * @param limit
      * @param filter
      */
-    public loadColors({sort, order, page, filter}) {
-        this.store.dispatch(ColorActions.loadColorsRequest({sort, order, page, filter}));
+    public loadColors({sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(ColorActions.loadColorsRequest({sort, order, page, limit, filter}));
     }
 
     public getColorsList$(): Observable<Color[]> {
@@ -52,14 +53,6 @@ export class ColorService {
     public setColor(color: Color) {
         this.store.dispatch(
             ColorActions.setColorRequest({
-                color: {...color}
-            })
-        );
-    }
-
-    public deleteColor(color: Color) {
-        this.store.dispatch(
-            ColorActions.deleteColorRequest({
                 color: {...color}
             })
         );

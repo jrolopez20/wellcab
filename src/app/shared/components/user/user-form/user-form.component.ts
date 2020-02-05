@@ -20,11 +20,12 @@ export class UserFormComponent implements OnInit {
 
     userForm: FormGroup;
     detailFormGroup: FormGroup;
-    driverDetailFormGroup: FormGroup;
     loading = false;
     error: '';
     private roles: Role[];
-    removable = true;
+    private removable = true;
+    private hidePassword = true;
+    private hideRepeatedPassword = true;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -41,28 +42,51 @@ export class UserFormComponent implements OnInit {
     }
 
     initUserForm() {
-        this.driverDetailFormGroup = this.formBuilder.group({
-            socialSecurityNumber: ['']
-        });
-
         this.detailFormGroup = this.formBuilder.group({
-            name: ['', Validators.required],
-            lastName: ['', Validators.required],
-            documentType: ['', Validators.required],
-            identificationDocument: ['', Validators.required],
+            name: new FormControl('Javier', Validators.compose([
+                Validators.required,
+                Validators.maxLength(45)
+            ])),
+            lastName: new FormControl('Rodriguez', Validators.compose([
+                Validators.required,
+                Validators.maxLength(45)
+            ])),
+            documentType: ['0', Validators.required],
+            identificationDocument: new FormControl('123456789', Validators.compose([
+                Validators.required,
+                Validators.minLength(9),
+                Validators.maxLength(9)
+            ])),
             address: [''],
-            mainContactPhone: ['', Validators.required],
-            secondaryContactPhone: [''],
-            bankAccountNumber: [''],
-            driver: this.driverDetailFormGroup
+            mainContactPhone: new FormControl('5354171247', Validators.compose([
+                Validators.required,
+                Validators.minLength(9),
+                Validators.maxLength(20)
+            ])),
+            secondaryContactPhone: new FormControl('', Validators.compose([
+                Validators.minLength(9),
+                Validators.maxLength(45)
+            ])),
+            bankAccountNumber: new FormControl('', Validators.compose([
+                Validators.minLength(24),
+                Validators.maxLength(24)
+            ])),
+            socialSecurityNumber: new FormControl('', Validators.compose([
+                Validators.minLength(12),
+                Validators.maxLength(12)
+            ])),
         });
 
         this.userForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            email: new FormControl('', Validators.compose([
+            username: ['jhon', Validators.required],
+            email: new FormControl('jhon@gmail.com', Validators.compose([
                 Validators.required, Validators.email
             ])),
             roles: ['', Validators.required],
+            hasAccess: [true],
+            plainPassword: ['', Validators.required],
+            // TODO Create a validator function to check if password match
+            repeatPassword: [''],
             detail: this.detailFormGroup
         });
 
@@ -77,8 +101,6 @@ export class UserFormComponent implements OnInit {
             return this.userForm.controls[controlName].hasError(errorName);
         } else if (this.detailFormGroup.contains(controlName)) {
             return this.detailFormGroup.controls[controlName].hasError(errorName);
-        } else if (this.driverDetailFormGroup.contains(controlName)) {
-            return this.driverDetailFormGroup.controls[controlName].hasError(errorName);
         }
         return true;
     };
@@ -86,7 +108,14 @@ export class UserFormComponent implements OnInit {
     submit(): void {
         // Stop here if form is invalid
         if (this.userForm.valid && this.detailFormGroup.valid) {
-            this.onSubmit.emit(this.userForm.value);
+            const user = this.userForm.getRawValue();
+            console.log(user);
+            if (this.user) {
+                user.id = this.user.id;
+                this.userService.setUser(user);
+            } else {
+                this.userService.addUser(user);
+            }
         }
     }
 

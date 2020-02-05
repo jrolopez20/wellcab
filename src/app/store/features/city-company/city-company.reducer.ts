@@ -34,41 +34,57 @@ const cityCompanyReducer = createReducer(
             };
         }
     ),
-    on(CityCompanyActions.addCityCompanyRequest,
+    on(CityCompanyActions.saveCityCompanyRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
-        }),
-    on(CityCompanyActions.addCityCompanyCompleted,
+        }
+    ),
+    on(CityCompanyActions.saveCityCompanyCompleted,
         (state, {cityCompany}) => {
             return {
                 ...state,
-                cityCompanies: [...state.cityCompanies, cityCompany],
-                total: state.total + 1,
+                cityCompanies: updateCityCompanies(state.cityCompanies, cityCompany),
                 loading: false,
                 error: null
             };
-        }),
+        }
+    ),
     on(CityCompanyActions.deleteCityCompanyRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
-        }),
+        }
+    ),
     on(CityCompanyActions.deleteCityCompanyCompleted,
         (state, {cityCompany}) => {
             return {
                 ...state,
-                cityCompanies: [...state.cityCompanies.filter(item => item.id !== cityCompany.id)],
-                total: state.total - 1,
+                cityCompanies: updateCityCompanies(state.cityCompanies, cityCompany),
                 loading: false,
                 error: null
             };
-        }),
+        }
+    )
 );
+
+/**
+ * Update the city companies list
+ * @param cityCompanies
+ * @param cityCompany
+ */
+const updateCityCompanies = (cityCompanies, cityCompany) => {
+    return [...cityCompanies].map(item => {
+        if (item.id === cityCompany.id) {
+            return {...cityCompany};
+        }
+        return item;
+    });
+};
 
 export function reducer(state: CityCompanyState | undefined, action: Action) {
     return cityCompanyReducer(state, action);

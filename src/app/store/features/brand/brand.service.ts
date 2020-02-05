@@ -19,10 +19,11 @@ export class BrandService {
      * @param sort
      * @param order
      * @param page
+     * @param limit
      * @param filter
      */
-    public loadBrands({sort, order, page, filter}) {
-        this.store.dispatch(BrandActions.loadBrandsRequest({sort, order, page, filter}));
+    public loadBrands({sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(BrandActions.loadBrandsRequest({sort, order, page, limit, filter}));
     }
 
     public getBrandsList$(): Observable<Brand[]> {
@@ -57,11 +58,4 @@ export class BrandService {
         );
     }
 
-    public deleteBrand(brand: Brand) {
-        this.store.dispatch(
-            BrandActions.deleteBrandRequest({
-                brand: {...brand}
-            })
-        );
-    }
 }

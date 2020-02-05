@@ -7,24 +7,18 @@
                 </mat-card-title>
                 <mat-card-subtitle>Gestionar datos de las licencias</mat-card-subtitle>
             </div>
-            <div class="ml-auto" fxLayout="row">
-                <form [formGroup]="searchForm" (ngSubmit)="loadLicenses()">
-                    <mat-form-field>
-                        <input matInput placeholder="{{'Common.Label.Search' | translate }}"
-                               formControlName="filter" maxlength="20"/>
-                        <button mat-icon-button matSuffix matTooltip="Buscar">
-                            <mat-icon>search</mat-icon>
-                        </button>
-                    </mat-form-field>
-                </form>
-            </div>
         </div>
 
-        <div>
-            <a mat-flat-button color="accent" routerLink="add">
-                <mat-icon>add</mat-icon>
-                {{'Common.Button.Add' | translate}}
-            </a>
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                <app-search-box (onSubmit)="search($event)"></app-search-box>
+            </div>
+            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100" *ngIf="editable" style="padding-top: 3px;">
+                <a mat-flat-button color="accent" routerLink="add" *ngIf="editable">
+                    <mat-icon>add</mat-icon>
+                    {{'Common.Button.Add' | translate}}
+                </a>
+            </div>
         </div>
 
         <table mat-table [dataSource]="licenseList$ | async" class="table table-rasponsive" matSort matSortActive="code"
@@ -36,13 +30,13 @@
             </ng-container>
 
             <ng-container matColumnDef="issuesAt">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Common.Label.IssuesAt' | translate}}</th>
-                <td mat-cell *matCellDef="let row">{{row.issuesAt}}</td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'License.Label.IssuesAt' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{row.issuesAt | date:'dd-MM-yyyy'}}</td>
             </ng-container>
 
             <ng-container matColumnDef="expirationAt">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'License.Label.ExpirationAt' | translate}}</th>
-                <td mat-cell *matCellDef="let row">{{row.expirationAt}}</td>
+                <td mat-cell *matCellDef="let row">{{row.expirationAt | date:'dd-MM-yyyy'}}</td>
             </ng-container>
 
             <ng-container matColumnDef="isOperative">
@@ -82,10 +76,6 @@
                             <mat-icon>edit</mat-icon>
                             <span> {{'Common.Button.Edit' | translate}}</span>
                         </a>
-                        <button mat-menu-item (click)="deleteLicense(row)">
-                            <mat-icon>delete</mat-icon>
-                            <span> {{'Common.Button.Delete' | translate}}</span>
-                        </button>
                     </mat-menu>
                 </td>
             </ng-container>
@@ -96,7 +86,8 @@
 
         <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
 
-        <mat-paginator [length]="licensesTotal$ | async" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]">
+        <mat-paginator [length]="licensesTotal$ | async" [pageSize]="initialPageSize"
+                       [pageSizeOptions]="[10, 25, 50, 100]">
         </mat-paginator>
     </mat-card-content>
 </mat-card>

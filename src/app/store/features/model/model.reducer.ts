@@ -45,8 +45,6 @@ const modelReducer = createReducer(
         (state, {model}) => {
             return {
                 ...state,
-                models: [...state.models, model],
-                total: state.total + 1,
                 loading: false,
                 error: null
             };

@@ -31,7 +31,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div fxFlex="100" *ngIf="!hideRole">
+                <div fxFlex.gt-xs="calc(75%-10px)" fxFlex="100" *ngIf="!hideRole">
                     <mat-form-field>
                         <mat-select placeholder="{{'User.Label.Roles' | translate}}" formControlName="roles"
                                     multiple>
@@ -53,9 +53,42 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
+                <div fxFlex.gt-xs="calc(25%-10px)" fxFlex="100" *ngIf="!hideRole">
+                    <mat-slide-toggle formControlName="hasAccess" style="margin-top: 15px;">
+                        Acceso
+                    </mat-slide-toggle>
+                </div>
+                <ng-template [ngIf]="userForm.value.hasAccess && !user">
+                    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                        <mat-form-field>
+                            <input matInput placeholder="{{'Common.Label.Password' | translate}}"
+                                   [type]="hidePassword ? 'password' : 'text'" formControlName="plainPassword">
+                            <mat-error *ngIf="handleError('plainPassword', 'required')">
+                                {{'Common.ValidationMessage.FieldRequired' | translate}}
+                            </mat-error>
+                            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                        <mat-form-field>
+                            <input matInput placeholder="{{'Profile.Label.RepeatPassword' | translate}}"
+                                   [type]="hideRepeatedPassword ? 'password' : 'text'" formControlName="repeatPassword">
+                            <button mat-icon-button matSuffix (click)="hideRepeatedPassword = !hideRepeatedPassword"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeatedPassword">
+                                <mat-icon>{{hideRepeatedPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="handleError('repeatPassword', 'required')">
+                                las contraseñas no coinciden
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </ng-template>
             </div>
             <mat-tab-group formGroupName="detail" dynamicHeight>
-                <mat-tab label="{{'Common.Label.Detail' | translate}}">
+                <mat-tab label="{{'Common.Label.Details' | translate}}">
                     <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
                         <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                             <mat-form-field>
@@ -63,6 +96,9 @@
                                        formControlName="name" maxlength="45"/>
                                 <mat-error *ngIf="handleError('name', 'required')">
                                     {{'Common.ValidationMessage.FieldRequired' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="handleError('name', 'maxlength')">
+                                    {{'Common.ValidationMessage.MaxLength' | translate}}
                                 </mat-error>
                             </mat-form-field>
                         </div>
@@ -72,6 +108,9 @@
                                        formControlName="lastName" maxlength="45"/>
                                 <mat-error *ngIf="handleError('lastName', 'required')">
                                     {{'Common.ValidationMessage.FieldRequired' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="handleError('lastName', 'maxlength')">
+                                    {{'Common.ValidationMessage.MaxLength' | translate}}
                                 </mat-error>
                             </mat-form-field>
                         </div>
@@ -89,9 +128,15 @@
                         <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="{{'User.Label.IdentificationDocument' | translate}}"
-                                       formControlName="identificationDocument" maxlength="9"/>
+                                       formControlName="identificationDocument" maxlength="9" minlength="9"/>
                                 <mat-error *ngIf="handleError('identificationDocument', 'required')">
                                     {{'Common.ValidationMessage.FieldRequired' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="handleError('identificationDocument', 'minlength')">
+                                    {{'Common.ValidationMessage.MinLength' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="handleError('identificationDocument', 'maxlength')">
+                                    {{'Common.ValidationMessage.MaxLength' | translate}}
                                 </mat-error>
                             </mat-form-field>
                         </div>
@@ -100,22 +145,40 @@
                         <div fxFlex.gt-xs="calc(30%-10px)" fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="{{'Common.Label.Phone' | translate}}"
-                                       formControlName="mainContactPhone" maxlength="20"/>
+                                       formControlName="mainContactPhone" minlength="9" maxlength="20"/>
                                 <mat-error *ngIf="handleError('mainContactPhone', 'required')">
                                     {{'Common.ValidationMessage.FieldRequired' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="handleError('mainContactPhone', 'minlength')">
+                                    {{'Common.ValidationMessage.MinLength' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="handleError('mainContactPhone', 'maxlength')">
+                                    {{'Common.ValidationMessage.MaxLength' | translate}}
                                 </mat-error>
                             </mat-form-field>
                         </div>
                         <div fxFlex.gt-xs="calc(30%-10px)" fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="{{'User.Label.SecondaryPhone' | translate}}"
-                                       formControlName="secondaryContactPhone" maxlength="20"/>
+                                       formControlName="secondaryContactPhone" minlength="9" maxlength="45"/>
+                                <mat-error *ngIf="handleError('secondaryContactPhone', 'minlength')">
+                                    {{'Common.ValidationMessage.MinLength' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="handleError('secondaryContactPhone', 'maxlength')">
+                                    {{'Common.ValidationMessage.MaxLength' | translate}}
+                                </mat-error>
                             </mat-form-field>
                         </div>
                         <div fxFlex.gt-xs="calc(40%-10px)" fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="{{'User.Label.BankAccountNumber' | translate}}"
                                        formControlName="bankAccountNumber" maxlength="24"/>
+                                <mat-error *ngIf="handleError('bankAccountNumber', 'minlength')">
+                                    {{'Common.ValidationMessage.MinLength' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="handleError('bankAccountNumber', 'maxlength')">
+                                    {{'Common.ValidationMessage.MaxLength' | translate}}
+                                </mat-error>
                             </mat-form-field>
                         </div>
                         <div fxFlex="100">
@@ -127,22 +190,19 @@
                         </div>
                     </div>
                 </mat-tab>
-                <mat-tab label="{{'Driver.Label.Driver' | translate}}"
-                         *ngIf="userForm.getRawValue().roles.indexOf('ROLE_DRIVER') !== -1">
-                    <div fxLayout="row wrap" formGroupName="driver">
+                <mat-tab label="{{'Driver.Label.Driver' | translate}}">
+                    <div fxLayout="row wrap">
                         <div fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="{{'Driver.Label.SocialSecurityNumber' | translate}}"
-                                       formControlName="socialSecurityNumber" maxlength="12"/>
+                                       formControlName="socialSecurityNumber" minlength="12" maxlength="12"/>
+                                <mat-error *ngIf="handleError('socialSecurityNumber', 'minlength')">
+                                    {{'Common.ValidationMessage.MinLength' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="handleError('socialSecurityNumber', 'maxlength')">
+                                    {{'Common.ValidationMessage.MaxLength' | translate}}
+                                </mat-error>
                             </mat-form-field>
-                        </div>
-                    </div>
-                </mat-tab>
-                <mat-tab label="{{'User.Label.SharedAccount' | translate}}"
-                         *ngIf="userForm.getRawValue().roles.indexOf('ROLE_SHAREDACCOUNT') !== -1">
-                    <div fxLayout="row wrap">
-                        <div fxFlex="100">
-                            Shared account detail form
                         </div>
                     </div>
                 </mat-tab>

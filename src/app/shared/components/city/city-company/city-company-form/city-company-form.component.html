@@ -7,6 +7,7 @@
                     <input readonly matInput placeholder="{{'Company.Label.Company' | translate}}"
                            formControlName="name" maxlength="45"/>
                     <button mat-stroked-button matSuffix matTooltip="Seleccionar empresa" style="top: -10px;"
+                            *ngIf="!data.cityCompany"
                             (click)="showCompanyDialog()">
                         <mat-icon>attachment</mat-icon>
                     </button>
@@ -19,7 +20,10 @@
                 <mat-form-field>
                     <input matInput placeholder="{{'Company.Label.PostalCode' | translate}}"
                            formControlName="postalCode"
-                           maxlength="5"/>
+                           maxlength="5" minlength="5"/>
+                    <mat-error *ngIf="handleError('postalCode', 'minlength')">
+                        {{'Common.ValidationMessage.MinLength' | translate}}
+                    </mat-error>
                     <mat-error *ngIf="handleError('postalCode', 'maxlength')">
                         {{'Common.ValidationMessage.MaxLength' | translate}}
                     </mat-error>

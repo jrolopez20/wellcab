@@ -8,10 +8,6 @@ export enum Role {
     OWNER = 'ROLE_OWNER'
 }
 
-export interface UserDriverDetail {
-    socialSecurityNumber: string;
-}
-
 export interface UserDetail {
     name: string;
     lastName: string;
@@ -21,16 +17,16 @@ export interface UserDetail {
     mainContactPhone: string;
     secondaryContactPhone: string;
     bankAccountNumber: string;
-    driver?: UserDriverDetail;
+    socialSecurityNumber: string;
 }
 
 export interface User {
     id: number;
     email: string;
     username: string;
-    roles: any;
+    roles: Role[];
     hasAccess: number;
-    removeAt?: any;
+    removedAt?: any;
     detail?: UserDetail;
     lang?: Lang;
 }

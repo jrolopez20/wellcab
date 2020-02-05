@@ -40,24 +40,25 @@ const licenseReducer = createReducer(
                 ...state,
                 loading: true
             };
-        }),
+        }
+    ),
     on(LicenseActions.addLicenseCompleted,
-        (state, {license}) => {
+        (state) => {
             return {
                 ...state,
-                licenses: [...state.licenses, license],
-                total: state.total + 1,
                 loading: false,
                 error: null
             };
-        }),
+        }
+    ),
     on(LicenseActions.setLicenseRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
-        }),
+        }
+    ),
     on(LicenseActions.setLicenseCompleted,
         (state, {license}) => {
             return {
@@ -71,7 +72,8 @@ const licenseReducer = createReducer(
                 loading: false,
                 error: null
             };
-        })
+        }
+    )
 );
 
 export function reducer(state: LicenseState | undefined, action: Action) {

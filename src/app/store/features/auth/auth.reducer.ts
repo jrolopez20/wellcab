@@ -16,6 +16,25 @@ const authReducer = createReducer(
         }
     ),
     on(AuthActions.loginCompleted,
+        (state) => {
+            return {
+                ...state,
+                isLoggedIn: true,
+                loading: false,
+                error: null
+            };
+        }
+    ),
+    on(AuthActions.getAuthenticatedUserRequest,
+        (state) => {
+            return {
+                ...state,
+                loading: true,
+                error: null
+            };
+        }
+    ),
+    on(AuthActions.getAuthenticatedUserCompleted,
         (state, {user}) => {
             return {
                 ...state,

@@ -19,10 +19,11 @@ export class CityService {
      * @param sort
      * @param order
      * @param page
+     * @param limit
      * @param filter
      */
-    public loadCities({sort, order, page, filter}) {
-        this.store.dispatch(CityActions.loadCities({sort, order, page, filter}));
+    public loadCities({sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(CityActions.loadCities({sort, order, page, limit, filter}));
     }
 
     public getCitiesList$(): Observable<City[]> {
@@ -42,26 +43,10 @@ export class CityService {
     }
 
     public addCity(city: City) {
-        this.store.dispatch(
-            CityActions.addCityRequest({
-                city: {...city}
-            })
-        );
+        this.store.dispatch(CityActions.addCityRequest({city}));
     }
 
-    public setCity(city: City) {
-        this.store.dispatch(
-            CityActions.setCityRequest({
-                city: {...city}
-            })
-        );
-    }
-
-    public deleteCity(city: City) {
-        this.store.dispatch(
-            CityActions.deleteCityRequest({
-                city: {...city}
-            })
-        );
+    public setCity(id, city: City) {
+        this.store.dispatch(CityActions.setCityRequest({id, city}));
     }
 }

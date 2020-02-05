@@ -42,11 +42,9 @@ const colorReducer = createReducer(
             };
         }),
     on(ColorActions.addColorCompleted,
-        (state, {color}) => {
+        (state) => {
             return {
                 ...state,
-                colors: [...state.colors, color],
-                total: state.total + 1,
                 loading: false,
                 error: null
             };

@@ -12,13 +12,16 @@
     "Label": {
       "Profile": "Perfil",
       "ChangeYourPersonalInfo": "Modifique su información personal",
-      "LogoutConfirm": "¿Está seguro que desea cerrar la sesión?"
+      "LogoutConfirm": "¿Está seguro que desea cerrar la sesión?",
+      "OldPassword": "Contraseña antigua",
+      "RepeatPassword": "Repita la contraseña"
     }
   },
   "Common": {
     "ValidationMessage": {
       "FieldRequired": "Este campo es obligatorio",
       "InvalidEmail": "Formato de email incorrecto",
+      "MinLength": "No cumple con la cantidad mínima de caracteres",
       "MaxLength": "Ha excedido la cantidad de caracteres"
     },
     "Label": {
@@ -30,14 +33,13 @@
       "Value": "Valor",
       "Address": "Dirección",
       "ConfirmDelete": "Confirme por favor",
-      "ShureToDelete": "¿Está seguro que desea eliminar este elemento?",
       "FirstName": "Nombre",
       "LastName": "Apellidos",
       "Password": "Contraseña",
       "Email": "Email",
       "Phone": "Teléfono",
       "DateOfBirth": "Fecha de nacimiento",
-      "Detail": "Detalle"
+      "Details": "Detalles"
     },
     "Button": {
       "Attach": "Vincular",
@@ -47,7 +49,12 @@
       "Cancel": "Cancelar",
       "Add": "Adicionar",
       "Edit": "Editar",
-      "Delete": "Eliminar"
+      "Delete": "Eliminar",
+      "Unattach": "Desvincular"
+    },
+    "Confirm": {
+      "ShureToDelete": "¿Está seguro que desea eliminar este elemento?",
+      "ShureToUnAttach": "¿Está seguro que desea desvincular este elemento?"
     }
   },
   "User": {
@@ -67,8 +74,11 @@
   },
   "Company": {
     "Label": {
+      "Attached": "Vinculado",
+      "Unattached": "No vinculado",
       "Companies": "Empresas",
       "Company": "Empresa",
+      "Cif": "CIF",
       "CompaniesOn": "Empresas en",
       "PostalCode": "Código postal",
       "AddCompany": "Adicionar empresa",
@@ -80,7 +90,7 @@
       "Cities": "Ciudades",
       "AddCity": "Adicionar ciudad",
       "EditCity": "Editar ciudad",
-      "AttachCompany": "Asociar empresa",
+      "AttachCompany": "Vincular empresa",
       "CompanyDetail": "Detalles de la empresa"
     }
   },

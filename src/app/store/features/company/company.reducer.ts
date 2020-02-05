@@ -45,29 +45,27 @@ const companyReducer = createReducer(
         (state, {company}) => {
             return {
                 ...state,
-                companies: [...state.companies, company],
+                companies: [...state.companies || [], {...company}],
                 total: state.total + 1,
                 loading: false,
                 error: null
             };
         }),
-    on(CompanyActions.deleteCompanyRequest,
+    on(CompanyActions.setCompanyRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
         }),
-    on(CompanyActions.deleteCompanyCompleted,
+    on(CompanyActions.setCompanyCompleted,
         (state, {company}) => {
             return {
                 ...state,
-                companies: [...state.companies.filter(item => item.id !== company.id)],
-                total: state.total - 1,
                 loading: false,
                 error: null
             };
-        }),
+        })
 );
 
 export function reducer(state: CompanyState | undefined, action: Action) {

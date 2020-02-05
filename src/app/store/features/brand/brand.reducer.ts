@@ -42,11 +42,9 @@ const brandReducer = createReducer(
             };
         }),
     on(BrandActions.addBrandCompleted,
-        (state, {brand}) => {
+        (state) => {
             return {
                 ...state,
-                brands: [...state.brands, brand],
-                total: state.total + 1,
                 loading: false,
                 error: null
             };

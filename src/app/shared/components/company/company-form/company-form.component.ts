@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {Company} from '@app/store/models/company.model';
 import {Location} from '@angular/common';
+import {CompanyService} from '@app/store/features/company/company.service';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-company-form',
@@ -13,25 +15,35 @@ export class CompanyFormComponent implements OnInit {
     @Input() title: string;
     @Input() company: Company;
     @Output() onSubmit = new EventEmitter<Company>();
+
+    public isLoading$: Observable<boolean>;
+    public error$: Observable<any>;
     companyForm: FormGroup;
-    loading = false;
-    error: '';
 
     constructor(
         private formBuilder: FormBuilder,
         public router: Router,
         private snackBar: MatSnackBar,
-        private location: Location
+        private location: Location,
+        private companyService: CompanyService
     ) {
     }
 
     ngOnInit() {
+        this.isLoading$ = this.companyService.getIsLoading$();
+        this.error$ = this.companyService.getError$();
+
         this.initCompanyForm();
     }
 
     initCompanyForm() {
         this.companyForm = this.formBuilder.group({
-            name: [this.company ? this.company.name : '', Validators.required]
+            name: ['', Validators.required],
+            cif: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.minLength(9),
+                Validators.maxLength(9)
+            ])),
         });
 
         if (this.company) {
@@ -50,9 +62,13 @@ export class CompanyFormComponent implements OnInit {
     };
 
     submit(): void {
-        // Stop here if form is invalid
         if (this.companyForm.valid) {
-            this.onSubmit.emit(this.companyForm.value);
+            if (this.company) {
+                this.companyService.setCompany(this.company.id, this.companyForm.getRawValue());
+
+            } else {
+                this.companyService.addCompany(this.companyForm.getRawValue());
+            }
         }
     }
 

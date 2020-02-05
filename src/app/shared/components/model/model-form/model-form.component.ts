@@ -45,8 +45,7 @@ export class ModelFormComponent implements OnInit {
 
     initModelForm() {
         this.modelForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            brand: [this.data.brand, Validators.required]
+            name: ['', Validators.required]
         });
 
         if (this.data.model) {
@@ -66,14 +65,16 @@ export class ModelFormComponent implements OnInit {
 
     submit(): void {
         if (this.modelForm.valid) {
+            const model = this.modelForm.getRawValue();
             if (this.data.model) {
-                this.modelService.setModel(this.modelForm.getRawValue());
+                model.id = this.data.model.id;
+                this.modelService.setModel(this.data.brand.id, model);
             } else {
-                this.modelService.addModel(this.modelForm.getRawValue());
+                this.modelService.addModel(this.data.brand.id, model);
             }
             this.isLoading$.subscribe(loading => {
                 if (!loading) {
-                    this.dialogRef.close(this.modelForm.getRawValue());
+                    this.dialogRef.close(model);
                 }
             });
         }

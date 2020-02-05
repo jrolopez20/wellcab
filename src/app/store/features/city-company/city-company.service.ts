@@ -16,14 +16,16 @@ export class CityCompanyService {
     }
 
     /**
-     * Load cities
+     * Load Companies detail
+     * @param cityId
      * @param sort
      * @param order
      * @param page
+     * @param limit
      * @param filter
      */
-    public loadCompaniesByCity({city, sort, order, page, filter}) {
-        this.store.dispatch(CityCompanyActions.loadCityCompanies({city, sort, order, page, filter}));
+    public loadCompaniesByCity({cityId, sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(CityCompanyActions.loadCityCompanies({cityId, sort, order, page, limit, filter}));
     }
 
     public geCityCompaniesList$(): Observable<CityCompany[]> {
@@ -42,27 +44,11 @@ export class CityCompanyService {
         return this.store.select(CityCompanySelectors.getError);
     }
 
-    public addCityCompany(cityCompany: CityCompany) {
-        this.store.dispatch(
-            CityCompanyActions.addCityCompanyRequest({
-                cityCompany: {...cityCompany}
-            })
-        );
+    public saveCityCompany(cityId: number, cityCompany: CityCompany) {
+        this.store.dispatch(CityCompanyActions.saveCityCompanyRequest({cityId, cityCompany}));
     }
 
-    public setCityCompany(cityCompany: CityCompany) {
-        this.store.dispatch(
-            CityCompanyActions.setCityCompanyRequest({
-                cityCompany: {...cityCompany}
-            })
-        );
-    }
-
-    public deleteCityCompany(cityCompany: CityCompany) {
-        this.store.dispatch(
-            CityCompanyActions.deleteCityCompanyRequest({
-                cityCompany: {...cityCompany}
-            })
-        );
+    public deleteCityCompany(cityId: number, cityCompanyId: number) {
+        this.store.dispatch(CityCompanyActions.deleteCityCompanyRequest({cityId, cityCompanyId}));
     }
 }

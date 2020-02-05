@@ -3,7 +3,7 @@ import {Brand} from '@app/store/models/brand.model';
 
 export const loadBrandsRequest = createAction(
     '[Brand] Load Brands',
-    props<{ sort: string, order: string, page: number, filter?: string }>()
+    props<{ sort: string, order: string, page: number, limit: number, filter?: string }>()
 );
 
 export const loadBrandsCompleted = createAction(
@@ -18,7 +18,7 @@ export const brandsError = createAction(
 
 export const addBrandRequest = createAction(
     '[Brand] Add Brand Request',
-    props<{ brand?: Brand }>()
+    props<{ brand: Brand }>()
 );
 
 export const addBrandCompleted = createAction(
@@ -33,15 +33,5 @@ export const setBrandRequest = createAction(
 
 export const setBrandCompleted = createAction(
     '[Brand] Set Brand Completed',
-    props<{ brand: Brand }>()
-);
-
-export const deleteBrandRequest = createAction(
-    '[Brand] Delete Brand Request',
-    props<{ brand: Brand }>()
-);
-
-export const deleteBrandCompleted = createAction(
-    '[Brand] Delete Brand Completed',
     props<{ brand: Brand }>()
 );

@@ -7,24 +7,18 @@
                 </mat-card-title>
                 <mat-card-subtitle>Listado de marcas</mat-card-subtitle>
             </div>
-            <div class="ml-auto" fxLayout="row">
-                <form [formGroup]="searchForm" (ngSubmit)="loadBrands()">
-                    <mat-form-field>
-                        <input matInput placeholder="{{'Common.Label.Search' | translate }}"
-                               formControlName="filter" maxlength="20"/>
-                        <button mat-icon-button matSuffix matTooltip="Buscar">
-                            <mat-icon>search</mat-icon>
-                        </button>
-                    </mat-form-field>
-                </form>
-            </div>
         </div>
 
-        <div>
-            <button mat-flat-button color="accent" (click)="showDialog()">
-                <mat-icon>add</mat-icon>
-                {{'Common.Button.Add' | translate}}
-            </button>
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                <app-search-box (onSubmit)="search($event)"></app-search-box>
+            </div>
+            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100" *ngIf="editable" style="padding-top: 3px;">
+                <button mat-flat-button color="accent" (click)="showDialog()" *ngIf="editable">
+                    <mat-icon>add</mat-icon>
+                    {{'Common.Button.Add' | translate}}
+                </button>
+            </div>
         </div>
 
         <table mat-table [dataSource]="brandList$ | async" class="table table-rasponsive" matSort matSortActive="name"
@@ -57,10 +51,6 @@
                         <button mat-menu-item color="primary" (click)="showDialog(row)">
                             <mat-icon>edit</mat-icon>
                             <span> {{'Common.Button.Edit' | translate}}</span>
-                        </button>
-                        <button mat-menu-item (click)="deleteBrand(row)">
-                            <mat-icon>delete</mat-icon>
-                            <span> {{'Common.Button.Delete' | translate}}</span>
                         </button>
                     </mat-menu>
                 </td>

@@ -1,13 +1,11 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Model} from '@app/store/models/model.model';
-import { merge, Observable} from 'rxjs';
+import {merge, Observable} from 'rxjs';
 import {MatDialog, MatPaginator, MatSnackBar, MatSort} from '@angular/material';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {ModelService} from '@app/store/features/model/model.service';
-import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
 import {Brand} from '@app/store/models/brand.model';
 import {ModelFormComponent} from '@app/shared/components/model/model-form/model-form.component';
-import {SnackBarComponent} from '@app/shared/utils/snack-bar/snack-bar.component';
 
 @Component({
     selector: 'app-model-list',
@@ -15,6 +13,7 @@ import {SnackBarComponent} from '@app/shared/utils/snack-bar/snack-bar.component
     styleUrls: ['./model-list.component.css']
 })
 export class ModelListComponent implements OnInit, AfterViewInit {
+    @Input() editable = true;
     @Input() brand: Observable<Brand>;
     private currentBrand = null;
     public modelList$: Observable<Model[]>;
@@ -25,8 +24,9 @@ export class ModelListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    displayedColumns: string[] = ['name', 'action'];
-    searchForm: FormGroup;
+    private initialPageSize = 25;
+    private displayedColumns: string[] = ['name', 'action'];
+    private filter: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,10 +37,6 @@ export class ModelListComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.searchForm = this.formBuilder.group({
-            filter: ['', Validators.maxLength(20)]
-        });
-
         this.isLoading$ = this.modelService.getIsLoading$();
         this.modelList$ = this.modelService.getModelsList$();
         this.modelsTotal$ = this.modelService.getModelsTotal$();
@@ -62,13 +58,20 @@ export class ModelListComponent implements OnInit, AfterViewInit {
         });
     }
 
+    search(filter: string) {
+        this.filter = filter;
+        this.loadModels();
+    }
+
     loadModels() {
         if (this.currentBrand) {
             this.modelService.loadModels({
+                brandId: this.currentBrand.id,
                 sort: this.sort.active,
                 order: this.sort.direction,
                 page: this.paginator.pageIndex,
-                filter: this.searchForm.value.filter
+                limit: this.paginator.pageSize || this.initialPageSize,
+                filter: this.filter
             });
         } else {
             this.modelService.clearStore();
@@ -85,20 +88,9 @@ export class ModelListComponent implements OnInit, AfterViewInit {
             }
         });
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The edit dialog was closed', result);
-        });
-    }
-
-    // TODO - Test it
-    deleteModel(model: Model): void {
-        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                // this.modelService.deleteModel(model).subscribe((response) => {
-                //     console.log(response);
-                // }, error1 => {
-                //     console.log(error1);
-                // });
+            if (!model) {
+                // Load all models only if a new Model is added
+                this.loadModels();
             }
         });
     }

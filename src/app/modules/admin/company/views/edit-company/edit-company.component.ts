@@ -48,7 +48,6 @@ export class EditCompanyComponent implements OnInit {
     }
 
     handleSubmit(company: Company) {
-        this.companyService.setCompany(company);
     }
 
 }

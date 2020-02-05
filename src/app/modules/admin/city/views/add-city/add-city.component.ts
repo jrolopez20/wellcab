@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {City} from '@app/store/models/city.model';
-import {CityService} from '@app/store/features/city/city.service';
 
 @Component({
     selector: 'app-add-city',
@@ -9,14 +8,13 @@ import {CityService} from '@app/store/features/city/city.service';
 })
 export class AddCityComponent implements OnInit {
 
-    constructor(private cityService: CityService) {
+    constructor() {
     }
 
     ngOnInit() {
     }
 
     handleSubmit(city: City) {
-        // this.cityService.
     }
 
 }

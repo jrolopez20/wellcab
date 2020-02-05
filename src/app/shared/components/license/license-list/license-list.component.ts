@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {License} from '@app/store/models/license.model';
 import {merge, Observable} from 'rxjs';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
@@ -13,6 +13,7 @@ import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dia
     styleUrls: ['./license-list.component.css']
 })
 export class LicenseListComponent implements OnInit, AfterViewInit {
+    @Input() editable = true;
     public licenseList$: Observable<License[]>;
     public licensesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
@@ -21,8 +22,9 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    displayedColumns: string[] = ['code', 'issuesAt', 'expirationAt', 'isOperative', 'active', 'action'];
-    searchForm: FormGroup;
+    private initialPageSize = 25;
+    private displayedColumns: string[] = ['code', 'issuesAt', 'expirationAt', 'isOperative', 'active', 'action'];
+    private filter: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -33,10 +35,6 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.searchForm = this.formBuilder.group({
-            filter: ['', Validators.maxLength(20)]
-        });
-
         this.isLoading$ = this.licenseService.getIsLoading$();
         this.licenseList$ = this.licenseService.getLicensesList$();
         this.licensesTotal$ = this.licenseService.getLicensesTotal$();
@@ -54,31 +52,18 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
         });
     }
 
+    search(filter: string) {
+        this.filter = filter;
+        this.loadLicenses();
+    }
+
     loadLicenses() {
         this.licenseService.loadLicenses({
             sort: this.sort.active,
             order: this.sort.direction,
             page: this.paginator.pageIndex,
-            filter: this.searchForm.value.filter
-        });
-    }
-
-    updateLicense($event, license: License) {
-        const copy = {...license, hasAccess: $event.checked};
-        this.licenseService.setLicense(copy);
-    }
-
-    // TODO - Test it
-    deleteLicense(license: License): void {
-        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                // this.licenseService.deleteLicense(license).subscribe((response) => {
-                //     console.log(response);
-                // }, error1 => {
-                //     console.log(error1);
-                // });
-            }
+            limit: this.paginator.pageSize || this.initialPageSize,
+            filter: this.filter
         });
     }
 

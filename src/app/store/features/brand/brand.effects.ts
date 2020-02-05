@@ -4,6 +4,7 @@ import * as BrandActions from './brand.actions';
 import {catchError, concatMap, map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
+import {Brand} from '@app/store/models/brand.model';
 
 @Injectable()
 export class BrandEffects {
@@ -14,29 +15,29 @@ export class BrandEffects {
     public loadBrands$ = createEffect(() =>
         this.actions$.pipe(
             ofType(BrandActions.loadBrandsRequest),
-            concatMap(({sort, order, page, filter}) => {
-                return this.http.get<any>(`brands?filter=${filter}&sort=${sort}&order=${order}&page=${page}`).pipe(
+            concatMap(({sort, order, page, limit, filter}) => {
+                return this.http.get<any>(`brands?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
-                        BrandActions.loadBrandsCompleted({brands: response.items, total: response.total})
+                        BrandActions.loadBrandsCompleted({brands: response.data, total: response.pagination.total})
                     ),
                     catchError(error =>
-                        of(BrandActions.brandsError(error))
+                        of(BrandActions.brandsError({error}))
                     )
                 );
             })
         )
     );
 
-    public deleteBrand$ = createEffect(() =>
+    public addBrand$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(BrandActions.deleteBrandRequest),
+            ofType(BrandActions.addBrandRequest),
             concatMap(({brand}) => {
-                return this.http.delete<any>(`brands/${brand.id}`).pipe(
+                return this.http.post<Brand>('brands', brand).pipe(
                     map(response =>
-                        BrandActions.deleteBrandCompleted({brand})
+                        BrandActions.addBrandCompleted({brand: response})
                     ),
                     catchError(error => {
-                        return of(BrandActions.brandsError(error));
+                        return of(BrandActions.brandsError({error}));
                     })
                 );
             })
@@ -47,12 +48,14 @@ export class BrandEffects {
         this.actions$.pipe(
             ofType(BrandActions.setBrandRequest),
             concatMap(({brand}) => {
-                return this.http.put<any>(`brands/${brand.id}`, {brand}).pipe(
+                // Extract ID from brand into a separate variable and put the rest in other one.
+                const {id, ...brandCopy} = brand;
+                return this.http.put<Brand>(`brands/${id}`, brandCopy).pipe(
                     map(response =>
-                        BrandActions.setBrandCompleted({brand})
+                        BrandActions.setBrandCompleted({brand: response})
                     ),
                     catchError(error => {
-                        return of(BrandActions.brandsError(error));
+                        return of(BrandActions.brandsError({error}));
                     })
                 );
             })

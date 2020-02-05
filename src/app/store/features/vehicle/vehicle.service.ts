@@ -19,10 +19,11 @@ export class VehicleService {
      * @param sort
      * @param order
      * @param page
+     * @param limit
      * @param filter
      */
-    public loadVehicles({sort, order, page, filter}) {
-        this.store.dispatch(VehicleActions.loadVehiclesRequest({sort, order, page, filter}));
+    public loadVehicles({sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(VehicleActions.loadVehiclesRequest({sort, order, page, limit, filter}));
     }
 
     public getVehiclesList$(): Observable<Vehicle[]> {

@@ -11,6 +11,7 @@ import * as ModelReducer from '@app/store/features/model/model.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {ModelEffects} from '@app/store/features/model/model.effects';
 import {ModelFormComponent} from './model-form/model-form.component';
+import {UtilsModule} from '@app/shared/utils/utils.module';
 
 @NgModule({
     declarations: [ModelListComponent, ModelFormComponent],
@@ -27,6 +28,7 @@ import {ModelFormComponent} from './model-form/model-form.component';
             ModelReducer.reducer
         ),
         EffectsModule.forFeature([ModelEffects]),
+        UtilsModule,
     ],
     exports: [ModelListComponent],
     entryComponents: [ModelFormComponent]

@@ -34,7 +34,6 @@ export class EditCityComponent implements OnInit {
     }
 
     handleSubmit(city: City) {
-        this.cityService.setCity(city);
     }
 
 }

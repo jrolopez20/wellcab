@@ -4,19 +4,38 @@
             {{title | translate}}
         </mat-card-title>
         <mat-card-content>
-            <mat-form-field>
-                <input matInput placeholder="{{'Common.Label.Name' | translate}}" formControlName="name"
-                       maxlength="45"/>
-                <mat-error *ngIf="handleError('name', 'required')">
-                    {{'Common.ValidationMessage.FieldRequired' | translate}}
-                </mat-error>
-            </mat-form-field>
+            <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'Common.Label.Name' | translate}}" formControlName="name"
+                               maxlength="45"/>
+                        <mat-error *ngIf="handleError('name', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'Company.Label.Cif' | translate}}" formControlName="cif"
+                               maxlength="9" minlength="9"/>
+                        <mat-error *ngIf="handleError('cif', 'required')">
+                            {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="handleError('cif', 'minlength')">
+                            {{'Common.ValidationMessage.MinLength' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="handleError('cif', 'maxlength')">
+                            {{'Common.ValidationMessage.MaxLength' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
         </mat-card-content>
         <mat-card-actions align="end" fxLayoutGap.gt-xs="5px">
             <button mat-button (click)="location.back()">
                 {{'Common.Button.Cancel' | translate }}
             </button>
-            <button [disabled]="loading" mat-flat-button color="primary">
+            <button [disabled]="isLoading$ | async" mat-flat-button color="primary">
                 {{'Common.Button.Save' | translate }}
             </button>
         </mat-card-actions>

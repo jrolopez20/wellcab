@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, concatMap, map, tap} from 'rxjs/operators';
+import {catchError, concatMap, map, tap, switchMap, mergeAll, merge} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
 import * as AuthActions from './auth.actions';
@@ -20,22 +20,13 @@ export class AuthEffects {
     public login$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AuthActions.loginRequest),
-            concatMap(({email, password}) => {
-                return this.http.post<any>('users/authenticate', {email, password}).pipe(
-                    map(response => {
-                        const user: User = {
-                            ...response
-                        };
-                        window.localStorage.setItem('token', JSON.stringify(response.token));
-                        // TODO ===== IMPORTANT =====
-                        // There is not reason to store the authenticated user in locale storage,
-                        // because when the app start need to request the authenticated user to the api
-                        // THIS IS FOR DEV WITHOUT BACKEND ONLY
-                        window.localStorage.setItem('user', JSON.stringify(user));
-
-                        return AuthActions.loginCompleted({user});
-                    }),
-                    tap(() => this.router.navigate(['/'])),
+            switchMap(({email, password}) => {
+                return this.http.post<any>('auth/login', {username: email, password}).pipe(
+                    switchMap(response => {
+                            window.localStorage.setItem('token', JSON.stringify(response.token));
+                            return [AuthActions.loginCompleted(), AuthActions.getAuthenticatedUserRequest()];
+                        }
+                    ),
                     catchError(error => {
                         return of(AuthActions.loginFailed({error}));
                     })
@@ -65,6 +56,27 @@ export class AuthEffects {
                     )
                 );
             })*/
+        )
+    );
+
+    public getAuthenticatedUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AuthActions.getAuthenticatedUserRequest),
+            // ofType(AuthActions.getAuthenticatedUserRequest),
+            concatMap(() => {
+                console.log('request ');
+                return this.http.get<any>('user').pipe(
+                    map(response => {
+                        const user: User = response;
+                        window.localStorage.setItem('user', JSON.stringify(user));
+                        return AuthActions.getAuthenticatedUserCompleted({user});
+                    }),
+                    tap(() => this.router.navigate(['/'])),
+                    catchError(error => {
+                        return of(AuthActions.authError({error}));
+                    })
+                );
+            })
         )
     );
 

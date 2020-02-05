@@ -3,7 +3,7 @@ import {Color} from '@app/store/models/color.model';
 
 export const loadColorsRequest = createAction(
     '[Color] Load Colors',
-    props<{ sort: string, order: string, page: number, filter?: string }>()
+    props<{ sort: string, order: string, page: number, limit: number, filter?: string }>()
 );
 
 export const loadColorsCompleted = createAction(
@@ -33,15 +33,5 @@ export const setColorRequest = createAction(
 
 export const setColorCompleted = createAction(
     '[Color] Set Color Completed',
-    props<{ color: Color }>()
-);
-
-export const deleteColorRequest = createAction(
-    '[Color] Delete Color Request',
-    props<{ color: Color }>()
-);
-
-export const deleteColorCompleted = createAction(
-    '[Color] Delete Color Completed',
     props<{ color: Color }>()
 );

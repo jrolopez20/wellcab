@@ -61,7 +61,7 @@ export class VehicleFormComponent implements OnInit {
 
     ngOnInit() {
         this.initVehicleForm();
-        this.colorService.loadColors({sort: 'name', order: 'DESC', page: 1, filter: ''});
+        this.colorService.loadColors({sort: 'name', order: 'DESC', page: 1, limit: null, filter: ''});
         this.colors = this.colorService.getColorsList$();
     }
 
@@ -125,7 +125,13 @@ export class VehicleFormComponent implements OnInit {
 
     private getOwnerName = () => {
         const owner = this.vehicleForm.value.owner;
-        return owner ? owner.detail.name + ' ' + owner.detail.lastName : null;
+        let displayName = null;
+        if (owner.detail) {
+            displayName = owner.detail.name + ' ' + owner.detail.lastName;
+        } else if (owner) {
+            displayName = owner.username;
+        }
+        return displayName;
     };
 
 }

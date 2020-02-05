@@ -27,7 +27,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    displayedColumns: string[] = ['name', 'lastName', 'username', 'email', 'hasAccess', 'active'];
+    private initialPageSize = 25;
+    private displayedColumns: string[] = ['username', 'email', 'name', 'lastName', 'hasAccess', 'active'];
     private selection = new SelectionModel<User>(false, []);
 
     constructor(
@@ -72,10 +73,12 @@ export class UserListComponent implements OnInit, AfterViewInit {
     }
 
     loadUsers() {
+        this.selection.clear();
         this.userService.loadUsers({
             sort: this.sort.active,
             order: this.sort.direction,
             page: this.paginator.pageIndex,
+            limit: this.paginator.pageSize || this.initialPageSize,
             filter: this.filter
         });
     }

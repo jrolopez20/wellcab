@@ -2,10 +2,9 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
 import {merge, Observable} from 'rxjs';
 import {Company} from '@app/store/models/company.model';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {CompanyService} from '@app/store/features/company/company.service';
 import {Router} from '@angular/router';
-import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
 import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
@@ -25,8 +24,9 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
+    private initialPageSize = 25;
 
-    displayedColumns: string[] = ['name'];
+    displayedColumns: string[] = ['name', 'cif'];
 
     private selection = new SelectionModel<Company>(false, []);
 
@@ -46,21 +46,19 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
             this.displayedColumns.unshift('select');
         }
 
-        this.isLoading$ = this.companyService.getIsLoading$();
         this.companyList$ = this.companyService.getCompaniesList$();
         this.companiesTotal$ = this.companyService.getCompaniesTotal$();
+        this.isLoading$ = this.companyService.getIsLoading$();
         this.error$ = this.companyService.getError$();
 
         this.selection.changed.subscribe(value => {
             this.onRowSelected.emit(value.source.selected.shift());
         });
-
         this.loadCompanies();
     }
 
     search(filter: string) {
         this.filter = filter;
-        console.log(this.filter);
         this.loadCompanies();
     }
 
@@ -69,6 +67,7 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
             sort: this.sort.active,
             order: this.sort.direction,
             page: this.paginator.pageIndex,
+            limit: this.paginator.pageSize || this.initialPageSize,
             filter: this.filter
         });
     }
@@ -79,15 +78,6 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
 
         merge(this.sort.sortChange, this.paginator.page).subscribe(() => {
             this.loadCompanies();
-        });
-    }
-
-    deleteCompany(company: Company): void {
-        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.companyService.deleteCompany(company);
-            }
         });
     }
 

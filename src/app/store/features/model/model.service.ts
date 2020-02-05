@@ -16,13 +16,15 @@ export class ModelService {
 
     /**
      * Load models
+     * @param brandId
      * @param sort
      * @param order
      * @param page
+     * @param limit
      * @param filter
      */
-    public loadModels({sort, order, page, filter}) {
-        this.store.dispatch(ModelActions.loadModelsRequest({sort, order, page, filter}));
+    public loadModels({brandId, sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(ModelActions.loadModelsRequest({brandId, sort, order, page, limit, filter}));
     }
 
     public getModelsList$(): Observable<Model[]> {
@@ -41,27 +43,15 @@ export class ModelService {
         return this.store.select(ModelSelectors.getError);
     }
 
-    public addModel(model: Model) {
+    public addModel(brandId: number, model: Model) {
         this.store.dispatch(
-            ModelActions.addModelRequest({
-                model: {...model}
-            })
+            ModelActions.addModelRequest({brandId, model})
         );
     }
 
-    public setModel(model: Model) {
+    public setModel(brandId: number, model: Model) {
         this.store.dispatch(
-            ModelActions.setModelRequest({
-                model: {...model}
-            })
-        );
-    }
-
-    public deleteModel(model: Model) {
-        this.store.dispatch(
-            ModelActions.deleteModelRequest({
-                model: {...model}
-            })
+            ModelActions.setModelRequest({brandId, model})
         );
     }
 

@@ -13,7 +13,6 @@ export class AddLicenseComponent implements OnInit {
   }
 
   handleSubmit(license) {
-    console.log(license);
   }
 
 }

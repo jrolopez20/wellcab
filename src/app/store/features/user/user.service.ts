@@ -21,8 +21,8 @@ export class UserService {
      * @param page
      * @param filter
      */
-    public loadUsers({sort, order, page, filter}) {
-        this.store.dispatch(UserActions.loadUsersRequest({sort, order, page, filter}));
+    public loadUsers({sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(UserActions.loadUsersRequest({sort, order, page, limit, filter}));
     }
 
     public getUsersList$(): Observable<User[]> {

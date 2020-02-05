@@ -42,12 +42,17 @@
 
             <ng-container matColumnDef="brand">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Vehicle.Label.Brand' | translate}}</th>
-                <td mat-cell *matCellDef="let row">{{row.brand}}</td>
+                <td mat-cell *matCellDef="let row">{{row.brand.name}}</td>
             </ng-container>
 
             <ng-container matColumnDef="model">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Vehicle.Label.Model' | translate}}</th>
-                <td mat-cell *matCellDef="let row">{{row.model}}</td>
+                <td mat-cell *matCellDef="let row">{{row.model.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="ownerCompany">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Company.Label.Company' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{row.ownerCompany ? row.ownerCompany.name : ''}}</td>
             </ng-container>
 
             <ng-container matColumnDef="active">
@@ -89,7 +94,8 @@
 
         <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
 
-        <mat-paginator [length]="vehiclesTotal$ | async" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]">
+        <mat-paginator [length]="vehiclesTotal$ | async" [pageSize]="initialPageSize"
+                       [pageSizeOptions]="[10, 25, 50, 100]">
         </mat-paginator>
     </mat-card-content>
 </mat-card>

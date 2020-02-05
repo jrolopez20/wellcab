@@ -7,7 +7,15 @@ export const loginRequest = createAction(
 );
 
 export const loginCompleted = createAction(
-    '[Auth] Login Completed',
+    '[Auth] Login Completed'
+);
+
+export const getAuthenticatedUserRequest = createAction(
+    '[Auth] Get Authenticated User Request'
+);
+
+export const getAuthenticatedUserCompleted = createAction(
+    '[Auth] Get Authenticated User Completed',
     props<{ user: User }>()
 );
 
