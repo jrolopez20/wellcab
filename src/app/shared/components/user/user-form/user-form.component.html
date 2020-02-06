@@ -13,9 +13,15 @@
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <input matInput placeholder="{{'User.Label.Username' | translate}}" formControlName="username"
-                               maxlength="255"/>
+                               minlength="5" maxlength="255"/>
                         <mat-error *ngIf="handleError('username', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="handleError('username', 'minlength')">
+                            {{'Common.ValidationMessage.MinLength' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="handleError('username', 'maxlength')">
+                            {{'Common.ValidationMessage.MaxLength' | translate}}
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -54,7 +60,7 @@
                     </mat-form-field>
                 </div>
                 <div fxFlex.gt-xs="calc(25%-10px)" fxFlex="100" *ngIf="!hideRole">
-                    <mat-slide-toggle formControlName="hasAccess" style="margin-top: 15px;">
+                    <mat-slide-toggle formControlName="hasAccess" (change)="onHasAccessChange($event)" style="margin-top: 15px;">
                         Acceso
                     </mat-slide-toggle>
                 </div>
@@ -62,8 +68,8 @@
                     <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                         <mat-form-field>
                             <input matInput placeholder="{{'Common.Label.Password' | translate}}"
-                                   [type]="hidePassword ? 'password' : 'text'" formControlName="plainPassword">
-                            <mat-error *ngIf="handleError('plainPassword', 'required')">
+                                   [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+                            <mat-error *ngIf="handleError('password', 'required')">
                                 {{'Common.ValidationMessage.FieldRequired' | translate}}
                             </mat-error>
                             <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
@@ -74,14 +80,15 @@
                     </div>
                     <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                         <mat-form-field>
-                            <input matInput placeholder="{{'Profile.Label.RepeatPassword' | translate}}"
-                                   [type]="hideRepeatedPassword ? 'password' : 'text'" formControlName="repeatPassword">
+                            <input matInput placeholder="{{'Profile.Label.ConfirmPassword' | translate}}"
+                                   [type]="hideRepeatedPassword ? 'password' : 'text'"
+                                   formControlName="confirmPassword">
                             <button mat-icon-button matSuffix (click)="hideRepeatedPassword = !hideRepeatedPassword"
                                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeatedPassword">
                                 <mat-icon>{{hideRepeatedPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            <mat-error *ngIf="handleError('repeatPassword', 'required')">
-                                las contraseñas no coinciden
+                            <mat-error *ngIf="handleError('confirmPassword', 'mismatch')">
+                                {{'Profile.Label.PasswordMismatch' | translate}}
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -118,8 +125,12 @@
                     <div fxLayout="row wrap" fxLayoutGap.gt-xs="10px">
                         <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="{{'User.Label.DocumentType' | translate}}"
-                                       formControlName="documentType" maxlength="5"/>
+                                <mat-select placeholder="{{'User.Label.DocumentType' | translate}}"
+                                            formControlName="documentType">
+                                    <mat-option *ngFor="let item of documentTypes"
+                                                [value]="item.id">{{item.name| translate}}
+                                    </mat-option>
+                                </mat-select>
                                 <mat-error *ngIf="handleError('documentType', 'required')">
                                     {{'Common.ValidationMessage.FieldRequired' | translate}}
                                 </mat-error>

@@ -64,7 +64,6 @@ export class AuthEffects {
             ofType(AuthActions.getAuthenticatedUserRequest),
             // ofType(AuthActions.getAuthenticatedUserRequest),
             concatMap(() => {
-                console.log('request ');
                 return this.http.get<any>('user').pipe(
                     map(response => {
                         const user: User = response;

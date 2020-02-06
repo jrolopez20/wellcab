@@ -5,5 +5,5 @@ export interface CityCompany {
     company: Company;
     postalCode: string;
     address: string;
-    removedAt?: string;
+    unlinkedAt?: string;
 }

@@ -66,6 +66,26 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
         });
     }
 
+    private getOwnerName = (owner) => {
+
+        let displayName = null;
+        if (owner) {
+            // Check if owner is a user
+            if (owner.ownerType === 'user') {
+                if (owner.ownerUser.detail) {
+                    displayName = owner.ownerUser.detail.name + ' ' + owner.ownerUser.detail.lastName;
+                } else {
+                    displayName = owner.ownerUser.username;
+                }
+            } else {
+                // In other case the owner is a company
+                displayName = owner.ownerCompany.name;
+            }
+
+        }
+        return displayName;
+    };
+
     // TODO - Test it
     deleteVehicle(vehicle: Vehicle): void {
         const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);

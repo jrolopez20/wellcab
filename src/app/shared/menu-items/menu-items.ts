@@ -43,7 +43,7 @@ const MENU: { [key: string]: MenuCategory[] } = {
                 },
                 {
                     id: 'vehicles',
-                    name: 'Vehiculos',
+                    name: 'Vehículos',
                     summary: 'Gestión de vehículos.'
                 },
                 {

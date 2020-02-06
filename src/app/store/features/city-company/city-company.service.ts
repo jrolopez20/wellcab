@@ -48,7 +48,12 @@ export class CityCompanyService {
         this.store.dispatch(CityCompanyActions.saveCityCompanyRequest({cityId, cityCompany}));
     }
 
-    public deleteCityCompany(cityId: number, cityCompanyId: number) {
-        this.store.dispatch(CityCompanyActions.deleteCityCompanyRequest({cityId, cityCompanyId}));
+    /**
+     * Toggle link a company in a city
+     * @param cityId
+     * @param cityCompany
+     */
+    public toggleLinkCityCompany(cityId: number, cityCompany: CityCompany) {
+        this.store.dispatch(CityCompanyActions.toggleLinkCityCompanyRequest({cityId, cityCompany}));
     }
 }

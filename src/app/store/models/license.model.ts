@@ -3,6 +3,6 @@ export interface License {
     code: string;
     issuesAt: string;
     expirationAt: string;
-    removeAt?: string;
+    removedAt?: string;
     isOperative?: boolean;
 }

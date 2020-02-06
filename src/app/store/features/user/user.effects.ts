@@ -27,17 +27,15 @@ export class UserEffects {
         )
     );
 
-    public deleteUser$ = createEffect(() =>
+    public addUser$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(UserActions.deleteUserRequest),
+            ofType(UserActions.addUserRequest),
             concatMap(({user}) => {
-                return this.http.delete<any>(`users/${user.id}`).pipe(
+                return this.http.post<any>(`users`, user).pipe(
                     map(response =>
-                        UserActions.deleteUserCompleted({user})
+                        UserActions.addUserCompleted({user: {...response}})
                     ),
-                    catchError(error => {
-                        return of(UserActions.usersError({error}));
-                    })
+                    catchError(error => of(UserActions.usersError({error})))
                 );
             })
         )
@@ -47,13 +45,16 @@ export class UserEffects {
         this.actions$.pipe(
             ofType(UserActions.setUserRequest),
             concatMap(({user}) => {
-                return this.http.put<any>(`users/${user.id}`, {user}).pipe(
+                const userCopy = {
+                    roles: user.roles,
+                    hasAccess: user.hasAccess,
+                    detail: user.detail
+                };
+                return this.http.put<any>(`users/${user.id}`, userCopy).pipe(
                     map(response =>
-                        UserActions.setUserCompleted({user})
+                        UserActions.setUserCompleted({user: {...response}})
                     ),
-                    catchError(error => {
-                        return of(UserActions.usersError({error}));
-                    })
+                    catchError(error => of(UserActions.usersError({error})))
                 );
             })
         )

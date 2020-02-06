@@ -33,27 +33,26 @@ export class CityCompanyEffects {
             concatMap(({cityId, cityCompany}) => {
                 return this.http.put<any>(`cities/${cityId}/companies/${cityCompany.company.id}/detail`, {
                     postalCode: cityCompany.postalCode,
-                    address: cityCompany.address,
-                    removedAt: cityCompany.removedAt || null
+                    address: cityCompany.address
                 }).pipe(
                     map(response =>
-                        CityCompanyActions.saveCityCompanyCompleted({cityCompany: response})
+                        CityCompanyActions.saveCityCompanyCompleted({cityCompany: {...response}})
                     ),
-                    catchError(error =>
-                        of(CityCompanyActions.cityCompaniesError({error}))
-                    )
+                    catchError(error => of(CityCompanyActions.cityCompaniesError({error})))
                 );
             })
         )
     );
 
-    public deleteCityCompany$ = createEffect(() =>
+    public toggleLinkCityCompany$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(CityCompanyActions.deleteCityCompanyRequest),
-            concatMap(({cityId, cityCompanyId}) => {
-                return this.http.delete<any>(`cities/${cityId}/companies-detail/${cityCompanyId}`).pipe(
+            ofType(CityCompanyActions.toggleLinkCityCompanyRequest),
+            concatMap(({cityId, cityCompany}) => {
+                return this.http.patch<any>(`cities/${cityId}/companies-detail/${cityCompany.id}`, {
+                    status: cityCompany.unlinkedAt ? 'linked' : 'unlinked'
+                }).pipe(
                     map(response =>
-                        CityCompanyActions.deleteCityCompanyCompleted({cityCompany: response})
+                        CityCompanyActions.toggleLinkCityCompanyCompleted({cityCompany: response})
                     ),
                     catchError(error => {
                         return of(CityCompanyActions.cityCompaniesError({error}));

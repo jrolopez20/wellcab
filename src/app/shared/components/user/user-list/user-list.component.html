@@ -51,8 +51,8 @@
             <mat-slide-toggle
                     matTooltip="Conceder o Quitar acceso al sistema"
                     [checked]="!!row.hasAccess"
-                    [disabled]="row.removeAt ? 'disabled' : null"
-                    (change)="updateUser($event, row)"
+                    [disabled]="row.unregisteredAt || !row.detail ? 'disabled' : null"
+                    (change)="onAccessChange($event, row)"
             >
             </mat-slide-toggle>
         </td>

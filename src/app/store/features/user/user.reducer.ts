@@ -45,8 +45,6 @@ const userReducer = createReducer(
         (state, {user}) => {
             return {
                 ...state,
-                users: [...state.users, user],
-                total: state.total + 1,
                 loading: false,
                 error: null
             };
@@ -59,15 +57,15 @@ const userReducer = createReducer(
             };
         }),
     on(UserActions.setUserCompleted,
-        (state, {user}) => {
+        (state) => {
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === user.id) {
-                        u = {...user};
-                    }
-                    return u;
-                }),
+                // users: state.users.map(u => {
+                //     if (u.id === user.id) {
+                //         u = {...user};
+                //     }
+                //     return u;
+                // }),
                 loading: false,
                 error: null
             };

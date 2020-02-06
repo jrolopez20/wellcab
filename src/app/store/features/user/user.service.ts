@@ -42,31 +42,16 @@ export class UserService {
     }
 
     public getRolesAvailable(): Role[] {
-        const roles: Role[] = [Role.ADMIN, Role.MANAGER, Role.DRIVER, Role.SHAREDACCOUNT, Role.OWNER];
+        const roles: Role[] = [Role.ADMIN, Role.MANAGER, Role.DRIVER, Role.OWNER];
         return roles;
     }
 
     public addUser(user: User) {
-        this.store.dispatch(
-            UserActions.addUserRequest({
-                user: {...user}
-            })
-        );
+        this.store.dispatch(UserActions.addUserRequest({user}));
     }
 
     public setUser(user: User) {
-        this.store.dispatch(
-            UserActions.setUserRequest({
-                user: {...user}
-            })
-        );
+        this.store.dispatch(UserActions.setUserRequest({user}));
     }
 
-    public deleteUser(user: User) {
-        this.store.dispatch(
-            UserActions.deleteUserRequest({
-                user: {...user}
-            })
-        );
-    }
 }

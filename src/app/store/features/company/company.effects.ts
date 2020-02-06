@@ -15,7 +15,7 @@ export class CompanyEffects {
         this.actions$.pipe(
             ofType(CompanyActions.loadCompanies),
             concatMap(({sort, order, page, limit, filter}) => {
-                return this.http.get<any>(`compaines?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
+                return this.http.get<any>(`companies?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
                         CompanyActions.loadCompaniesSuccess({companies: response.data, total: response.pagination.total})
                     ),

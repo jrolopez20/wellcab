@@ -26,12 +26,12 @@ export const saveCityCompanyCompleted = createAction(
     props<{ cityCompany: CityCompany }>()
 );
 
-export const deleteCityCompanyRequest = createAction(
-    '[CityCompany] Delete City Company Request',
-    props<{ cityId: number, cityCompanyId: number}>()
+export const toggleLinkCityCompanyRequest = createAction(
+    '[CityCompany] Toggle Link City Company Request',
+    props<{ cityId: number, cityCompany: CityCompany}>()
 );
 
-export const deleteCityCompanyCompleted = createAction(
-    '[CityCompany] Delete City Company Completed',
+export const toggleLinkCityCompanyCompleted = createAction(
+    '[CityCompany] Toggle Link City Company Completed',
     props<{ cityCompany: CityCompany }>()
 );

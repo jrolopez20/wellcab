@@ -18,7 +18,7 @@ export const usersError = createAction(
 
 export const addUserRequest = createAction(
     '[User] Add User Request',
-    props<{ user?: User }>()
+    props<{ user: User }>()
 );
 
 export const addUserCompleted = createAction(
@@ -35,14 +35,3 @@ export const setUserCompleted = createAction(
     '[User] Set User Completed',
     props<{ user: User }>()
 );
-
-export const deleteUserRequest = createAction(
-    '[User] Delete User Request',
-    props<{ user: User }>()
-);
-
-export const deleteUserCompleted = createAction(
-    '[User] Delete User Completed',
-    props<{ user: User }>()
-);
-

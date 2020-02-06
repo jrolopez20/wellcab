@@ -2,9 +2,8 @@ export enum Lang { en = 'en', es = 'es'}
 
 export enum Role {
     ADMIN = 'ROLE_ADMIN',
-    DRIVER = 'ROLE_DRIVER',
-    SHAREDACCOUNT = 'ROLE_SHAREDACCOUNT',
     MANAGER = 'ROLE_MANAGER',
+    DRIVER = 'ROLE_DRIVER',
     OWNER = 'ROLE_OWNER'
 }
 
@@ -26,7 +25,7 @@ export interface User {
     username: string;
     roles: Role[];
     hasAccess: number;
-    removedAt?: any;
+    unregisteredAt?: any;
     detail?: UserDetail;
     lang?: Lang;
 }

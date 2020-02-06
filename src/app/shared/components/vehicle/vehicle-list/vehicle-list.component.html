@@ -51,8 +51,8 @@
             </ng-container>
 
             <ng-container matColumnDef="ownerCompany">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Company.Label.Company' | translate}}</th>
-                <td mat-cell *matCellDef="let row">{{row.ownerCompany ? row.ownerCompany.name : ''}}</td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Vehicle.Label.Owner' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{getOwnerName(row)}}</td>
             </ng-container>
 
             <ng-container matColumnDef="active">

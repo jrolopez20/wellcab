@@ -11,7 +11,7 @@ import {StoreModule} from '@ngrx/store';
 import * as ColorReducer from '@app/store/features/color/color.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {ColorEffects} from '@app/store/features/color/color.effects';
-import { ColorPickerModule } from 'ngx-color-picker';
+import {ColorPickerModule} from 'ngx-color-picker';
 import {UtilsModule} from '@app/shared/utils/utils.module';
 
 @NgModule({

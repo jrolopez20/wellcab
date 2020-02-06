@@ -32,10 +32,15 @@
                     <mat-form-field>
                         <input readonly matInput placeholder="{{'Vehicle.Label.Owner' | translate}}"
                                formControlName="owner" [value]="getOwnerName()"/>
+                        <button mat-stroked-button matSuffix style="top: -10px; margin-right: 5px;"
+                                (click)="showOwnerUserDialog()"
+                                matTooltip="Seleccionar un usuario propietario">
+                            <mat-icon>person</mat-icon>
+                        </button>
                         <button mat-stroked-button matSuffix style="top: -10px;"
-                                (click)="showOwnerDialog()"
-                                matTooltip="Seleccionar propietario">
-                            <mat-icon>person_add</mat-icon>
+                                (click)="showOwnerCompanyDialog()"
+                                matTooltip="Seleccionar una empresa como propietaria">
+                            <mat-icon>business</mat-icon>
                         </button>
                         <mat-error *ngIf="handleError('owner', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
@@ -45,9 +50,12 @@
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <mat-select placeholder="{{'Vehicle.Label.Brand' | translate}}" formControlName="brand">
-                            <mat-option *ngFor="let item of brands" [value]="item.id">
+                            <mat-progress-bar mode="indeterminate" *ngIf="isLoadingBrand$ | async"></mat-progress-bar>
+                            <mat-option *ngFor="let item of brands$ | async" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
+                            <mat-paginator [length]="brandsTotal$ |async">
+                            </mat-paginator>
                         </mat-select>
                         <mat-error *ngIf="handleError('brand', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
@@ -57,10 +65,11 @@
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <mat-select placeholder="{{'Vehicle.Label.Model' | translate}}" formControlName="model">
-                            <mat-option *ngFor="let item of models" [value]="item.id">
+                            <mat-option *ngFor="let item of models$ | async" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
                         </mat-select>
+                        <mat-spinner matSuffix class="spinner-sm" *ngIf="isLoadingModel$ | async"></mat-spinner>
                         <mat-error *ngIf="handleError('model', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
                         </mat-error>
@@ -81,9 +90,11 @@
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <mat-select placeholder="{{'Color.Label.Color' | translate}}" formControlName="color">
-                            <mat-option *ngFor="let item of colors | async" [value]="item.id">
+                            <mat-progress-bar mode="indeterminate" *ngIf="isLoadingColor$ | async"></mat-progress-bar>
+                            <mat-option *ngFor="let item of colors$ | async" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
+                            <mat-paginator [length]="colorsTotal$ |async"></mat-paginator>
                         </mat-select>
                         <mat-error *ngIf="handleError('color', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
@@ -161,7 +172,7 @@
             <button mat-button (click)="location.back()">
                 {{'Common.Button.Cancel' | translate }}
             </button>
-            <button [disabled]="loading" mat-flat-button color="primary" (click)="submit()">
+            <button [disabled]="isLoading$ | async" mat-flat-button color="primary" (click)="submit()">
                 {{'Common.Button.Save' | translate }}
             </button>
         </mat-card-actions>

@@ -78,7 +78,7 @@ export class CityCompanyFormComponent implements OnInit {
 
     showCompanyDialog() {
         const dialogRef = this.dialog.open(CompanyListDialogComponent, {
-            minWidth: '600px',
+            minWidth: '500px',
             data: {
                 title: 'Company.Label.Companies'
             }

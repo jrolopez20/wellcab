@@ -52,7 +52,7 @@ const cityCompanyReducer = createReducer(
             };
         }
     ),
-    on(CityCompanyActions.deleteCityCompanyRequest,
+    on(CityCompanyActions.toggleLinkCityCompanyRequest,
         (state) => {
             return {
                 ...state,
@@ -60,7 +60,7 @@ const cityCompanyReducer = createReducer(
             };
         }
     ),
-    on(CityCompanyActions.deleteCityCompanyCompleted,
+    on(CityCompanyActions.toggleLinkCityCompanyCompleted,
         (state, {cityCompany}) => {
             return {
                 ...state,

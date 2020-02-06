@@ -14,7 +14,8 @@
       "ChangeYourPersonalInfo": "Modifique su información personal",
       "LogoutConfirm": "¿Está seguro que desea cerrar la sesión?",
       "OldPassword": "Contraseña antigua",
-      "RepeatPassword": "Repita la contraseña"
+      "ConfirmPassword": "Confirme la contraseña",
+      "PasswordMismatch": "Las contraseñas no coinciden"
     }
   },
   "Common": {
@@ -74,8 +75,8 @@
   },
   "Company": {
     "Label": {
-      "Attached": "Vinculado",
-      "Unattached": "No vinculado",
+      "Linked": "Vinculado",
+      "Unlinked": "No vinculado",
       "Companies": "Empresas",
       "Company": "Empresa",
       "Cif": "CIF",
@@ -156,9 +157,8 @@
   },
   "Role": {
     "ROLE_ADMIN": "Administrador",
-    "ROLE_DRIVER": "Conductor",
-    "ROLE_SHAREDACCOUNT": "Cuenta Partícipe",
     "ROLE_MANAGER": "Gestor",
+    "ROLE_DRIVER": "Conductor",
     "ROLE_OWNER": "Propietario"
   }
 }

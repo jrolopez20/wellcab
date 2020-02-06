@@ -11,6 +11,7 @@ import {AppMaterialModule} from '@app/app-material.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {RouterModule} from '@angular/router';
         ReactiveFormsModule,
         FormsModule,
         RouterModule,
+        NgxMatSelectSearchModule,
         StoreModule.forFeature(
             VehicleReducer.featureKey,
             VehicleReducer.reducer

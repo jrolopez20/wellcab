@@ -28,7 +28,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     private initialPageSize = 25;
-    private displayedColumns: string[] = ['username', 'email', 'name', 'lastName', 'hasAccess', 'active'];
+    private displayedColumns: string[] = ['username', 'email', 'name', 'lastName', 'active'];
     private selection = new SelectionModel<User>(false, []);
 
     constructor(
@@ -41,6 +41,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         if (this.editable) {
+            this.displayedColumns.push('hasAccess');
             this.displayedColumns.push('action');
         }
         if (this.selectable) {
@@ -83,23 +84,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
         });
     }
 
-    updateUser($event, user: User) {
-        const copy = {...user, hasAccess: $event.checked};
+    onAccessChange(slider, user: User) {
+        const copy = {...user, hasAccess: slider.checked};
         this.userService.setUser(copy);
     }
-
-    // TODO - Test it
-    deleteUser(user: User): void {
-        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                // this.userService.deleteUser(user).subscribe((response) => {
-                //     console.log(response);
-                // }, error1 => {
-                //     console.log(error1);
-                // });
-            }
-        });
-    }
-
 }

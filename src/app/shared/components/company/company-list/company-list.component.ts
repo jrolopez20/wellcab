@@ -63,6 +63,7 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
     }
 
     loadCompanies() {
+        this.selection.clear();
         this.companyService.loadCompanies({
             sort: this.sort.active,
             order: this.sort.direction,

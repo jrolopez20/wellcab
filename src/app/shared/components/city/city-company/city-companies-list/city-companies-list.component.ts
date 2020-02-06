@@ -26,7 +26,7 @@ export class CityCompaniesListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
     @ViewChild(MatSort, {static: true}) sort: MatSort;
-    displayedColumns: string[] = ['company', 'postalCode', 'address', 'active', 'action'];
+    displayedColumns: string[] = ['company', 'postalCode', 'address', 'linked', 'action'];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -87,23 +87,18 @@ export class CityCompaniesListComponent implements OnInit, AfterViewInit {
         });
     }
 
-    unAttachCityCompany(cityCompany: CityCompany): void {
-        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+    toggleLinkCityCompany(cityCompany: CityCompany): void {
+        this.cityCompanyService.toggleLinkCityCompany(this.city.id, cityCompany);
+
+        /*const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
             data: {
                 message: 'Common.Confirm.ShureToUnAttach'
             }
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.cityCompanyService.deleteCityCompany(this.city.id, cityCompany.id);
+                this.cityCompanyService.toggleLinkCityCompany(this.city.id, cityCompany);
             }
-        });
-    }
-
-    attachCityCompany(cityCompany: CityCompany): void {
-        this.cityCompanyService.saveCityCompany(this.city.id, {
-            ...cityCompany,
-            removedAt: null
-        });
+        });*/
     }
 }
