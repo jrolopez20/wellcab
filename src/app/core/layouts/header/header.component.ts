@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {Lang, User} from '../../../store/models/user.model';
 import {AuthService} from '@app/store/features/auth/auth.service';
@@ -10,6 +10,7 @@ import {AuthService} from '@app/store/features/auth/auth.service';
 })
 export class AppHeaderComponent implements OnInit {
     @Input() user: User;
+    @Output() onChangePassword = new EventEmitter();
 
     constructor(
         public dialog: MatDialog,
@@ -28,6 +29,10 @@ export class AppHeaderComponent implements OnInit {
     onLangPicked(language: Lang) {
         const user = {...this.user, lang: language};
         this.authService.updateProfile(user);
+    }
+
+    changePassword() {
+        this.onChangePassword.emit();
     }
 }
 

@@ -65,7 +65,6 @@ export class CompanyFormComponent implements OnInit {
         if (this.companyForm.valid) {
             if (this.company) {
                 this.companyService.setCompany(this.company.id, this.companyForm.getRawValue());
-
             } else {
                 this.companyService.addCompany(this.companyForm.getRawValue());
             }

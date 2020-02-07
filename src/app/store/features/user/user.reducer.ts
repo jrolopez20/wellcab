@@ -12,8 +12,7 @@ const userReducer = createReducer(
                 ...state,
                 loading: true
             };
-        }
-    ),
+        }),
     on(UserActions.loadUsersCompleted,
         (state, {users, total}) => {
             return {
@@ -23,8 +22,7 @@ const userReducer = createReducer(
                 loading: false,
                 error: null
             };
-        }
-    ),
+        }),
     on(UserActions.usersError,
         (state, {error}) => {
             return {
@@ -32,8 +30,7 @@ const userReducer = createReducer(
                 error: error,
                 loading: false
             };
-        }
-    ),
+        }),
     on(UserActions.addUserRequest,
         (state) => {
             return {
@@ -57,20 +54,76 @@ const userReducer = createReducer(
             };
         }),
     on(UserActions.setUserCompleted,
+        (state, {user}) => {
+            return {
+                ...state,
+                users: updateUsers(state.users, user),
+                loading: false,
+                error: null
+            };
+        }),
+    on(UserActions.toggleAccessRequest,
         (state) => {
             return {
                 ...state,
-                // users: state.users.map(u => {
-                //     if (u.id === user.id) {
-                //         u = {...user};
-                //     }
-                //     return u;
-                // }),
+                loading: true
+            };
+        }),
+    on(UserActions.toggleAccessCompleted,
+        (state, {user}) => {
+            return {
+                ...state,
+                users: updateUsers(state.users, user),
+                loading: false,
+                error: null
+            };
+        }),
+    on(UserActions.toggleUnregisterRequest,
+        (state) => {
+            return {
+                ...state,
+                loading: true
+            };
+        }),
+    on(UserActions.toggleUnregisterCompleted,
+        (state, {user}) => {
+            return {
+                ...state,
+                users: updateUsers(state.users, user),
+                loading: false,
+                error: null
+            };
+        }),
+    on(UserActions.changePasswordRequest,
+        (state) => {
+            return {
+                ...state,
+                loading: true
+            };
+        }),
+    on(UserActions.changePasswordCompleted,
+        (state) => {
+            return {
+                ...state,
                 loading: false,
                 error: null
             };
         })
 );
+
+/**
+ * Update the user list
+ * @param users
+ * @param user
+ */
+const updateUsers = (users, user) => {
+    return [...users].map(item => {
+        if (item.id === user.id) {
+            return {...user};
+        }
+        return item;
+    });
+};
 
 export function reducer(state: UserState | undefined, action: Action) {
     return userReducer(state, action);

@@ -54,4 +54,21 @@ export class UserService {
         this.store.dispatch(UserActions.setUserRequest({user}));
     }
 
+    public toggleAccess(user: User) {
+        this.store.dispatch(UserActions.toggleAccessRequest({user}));
+    }
+
+    public toggleUnregister(user: User) {
+        this.store.dispatch(UserActions.toggleUnregisterRequest({user}));
+    }
+
+    /**
+     * Change authenticated user password
+     * @param oldPassword
+     * @param newPassword
+     */
+    public changePassword(oldPassword: string, newPassword: string) {
+        this.store.dispatch(UserActions.changePasswordRequest({oldPassword, newPassword}));
+    }
+
 }

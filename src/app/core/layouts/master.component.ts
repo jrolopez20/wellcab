@@ -11,6 +11,8 @@ import {AuthService} from '@app/store/features/auth/auth.service';
 import {Observable} from 'rxjs';
 import {User} from '@app/store/models/user.model';
 import {first} from 'rxjs/operators';
+import {MatDialog} from '@angular/material';
+import {ChangePasswordDialogComponent} from '@app/shared/components/user/change-password-dialog/change-password-dialog.component';
 
 /** @title Responsive sidenav */
 @Component({
@@ -29,7 +31,8 @@ export class MasterComponent implements OnDestroy, OnInit {
         media: MediaMatcher,
         private pageTitleService: PageTitleService,
         public menuItems: MenuItems,
-        public authService: AuthService
+        public authService: AuthService,
+        public dialog: MatDialog
     ) {
         this.mobileQuery = media.matchMedia('(min-width: 768px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -50,5 +53,14 @@ export class MasterComponent implements OnDestroy, OnInit {
     ngOnInit() {
         this.pageTitleService.title = 'Dashboard';
         this.user$ = this.authService.getAuthenticatedUser$();
+    }
+
+    openChangePasswordDialog() {
+        const dialogRef = this.dialog.open(ChangePasswordDialogComponent, {
+            minWidth: '320px'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('completed');
+        });
     }
 }

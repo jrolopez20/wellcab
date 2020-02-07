@@ -101,7 +101,7 @@ export class UserFormComponent implements OnInit, AfterViewInit {
             hasAccess: [true],
             detail: this.detailFormGroup,
         }, {
-            // Check whether our password and confirm password match
+            // Check if password and confirm password match
             validator: CredentialValidators.passwordMatchValidator
         });
 

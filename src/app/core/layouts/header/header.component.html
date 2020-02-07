@@ -11,10 +11,10 @@
         <mat-icon>account_box</mat-icon>
         {{'Profile.Label.Profile' | translate }}
     </a>
-<!--    <a mat-menu-item routerLink="/entrypoint">-->
-<!--        <mat-icon>location_city</mat-icon>-->
-<!--        {{'EntryPoint.Label.ChangeEntryPoint' | translate }}-->
-<!--    </a>-->
+    <button mat-menu-item (click)="changePassword()">
+        <mat-icon>security</mat-icon>
+        {{'Profile.Label.ChangePassword' | translate }}
+    </button>
     <button mat-menu-item (click)="handleLogout()">
         <mat-icon>exit_to_app</mat-icon>
         {{'Auth.Label.Logout' | translate }}

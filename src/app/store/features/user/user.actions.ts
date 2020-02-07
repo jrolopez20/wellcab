@@ -35,3 +35,32 @@ export const setUserCompleted = createAction(
     '[User] Set User Completed',
     props<{ user: User }>()
 );
+
+export const toggleAccessRequest = createAction(
+    '[User] Toggle Access Request',
+    props<{ user: User }>()
+);
+
+export const toggleAccessCompleted = createAction(
+    '[User] Toggle Access Completed',
+    props<{ user: User }>()
+);
+
+export const toggleUnregisterRequest = createAction(
+    '[User] Toggle Unregister Request',
+    props<{ user: User }>()
+);
+
+export const toggleUnregisterCompleted = createAction(
+    '[User] Toggle Unregister Completed',
+    props<{ user: User }>()
+);
+
+export const changePasswordRequest = createAction(
+    '[User] Change Password Request',
+    props<{ oldPassword: string, newPassword: string }>()
+);
+
+export const changePasswordCompleted = createAction(
+    '[User] Change Password Completed'
+);

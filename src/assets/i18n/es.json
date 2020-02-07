@@ -12,8 +12,10 @@
     "Label": {
       "Profile": "Perfil",
       "ChangeYourPersonalInfo": "Modifique su información personal",
+      "ChangePassword": "Cambiar contraseña",
       "LogoutConfirm": "¿Está seguro que desea cerrar la sesión?",
       "OldPassword": "Contraseña antigua",
+      "NewPassword": "Nueva contraseña",
       "ConfirmPassword": "Confirme la contraseña",
       "PasswordMismatch": "Las contraseñas no coinciden"
     }
@@ -26,6 +28,7 @@
       "MaxLength": "Ha excedido la cantidad de caracteres"
     },
     "Label": {
+      "Status": "Estado",
       "Action": "Acción",
       "Active": "Activo",
       "Inactive": "Inactivo",
@@ -51,7 +54,8 @@
       "Add": "Adicionar",
       "Edit": "Editar",
       "Delete": "Eliminar",
-      "Unattach": "Desvincular"
+      "Unattach": "Desvincular",
+      "Activate": "Activar"
     },
     "Confirm": {
       "ShureToDelete": "¿Está seguro que desea eliminar este elemento?",
@@ -120,7 +124,6 @@
       "Name": "Nombre",
       "Brand": "Marca",
       "Model": "Modelo",
-      "Status": "Estado",
       "Color": "Color",
       "Owner": "Propietario",
       "Odometer": "Odómetro",

@@ -13,10 +13,11 @@ import {EffectsModule} from '@ngrx/effects';
 import {UserEffects} from '@app/store/features/user/user.effects';
 import {UtilsModule} from '@app/shared/utils/utils.module';
 import {UserListDialogComponent} from './user-list-dialog/user-list-dialog.component';
+import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 
 @NgModule({
-    declarations: [UserFormComponent, UserListComponent, UserListDialogComponent],
+    declarations: [UserFormComponent, UserListComponent, UserListDialogComponent, ChangePasswordDialogComponent],
     imports: [
         CommonModule,
         AppMaterialModule,
@@ -32,7 +33,7 @@ import {UserListDialogComponent} from './user-list-dialog/user-list-dialog.compo
         UtilsModule
     ],
     exports: [UserFormComponent, UserListComponent],
-    entryComponents: [UserListDialogComponent]
+    entryComponents: [UserListDialogComponent, ChangePasswordDialogComponent]
 })
 export class UserModule {
 }

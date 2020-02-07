@@ -60,7 +60,7 @@
         <!-- ============================================================== -->
         <!-- app header component - style you can find in header.scss / header.component.ts-->
         <!-- ============================================================== -->
-        <app-header [user]="user$ | async" ></app-header>
+        <app-header [user]="user$ | async" (onChangePassword)="openChangePasswordDialog()"></app-header>
     </mat-toolbar>
 
     <!-- ============================================================== -->

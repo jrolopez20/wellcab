@@ -85,7 +85,11 @@ export class UserListComponent implements OnInit, AfterViewInit {
     }
 
     onAccessChange(slider, user: User) {
-        const copy = {...user, hasAccess: slider.checked};
-        this.userService.setUser(copy);
+        const userCopy = {...user, hasAccess: slider.checked};
+        this.userService.toggleAccess(userCopy);
+    }
+
+    toggleUnregister(user: User) {
+        this.userService.toggleUnregister(user);
     }
 }

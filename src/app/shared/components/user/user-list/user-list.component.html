@@ -51,7 +51,7 @@
             <mat-slide-toggle
                     matTooltip="Conceder o Quitar acceso al sistema"
                     [checked]="!!row.hasAccess"
-                    [disabled]="row.unregisteredAt || !row.detail ? 'disabled' : null"
+                    [disabled]="row.unregisteredAt ? 'disabled' : null"
                     (change)="onAccessChange($event, row)"
             >
             </mat-slide-toggle>
@@ -59,9 +59,9 @@
     </ng-container>
 
     <ng-container matColumnDef="active">
-        <th mat-header-cell *matHeaderCellDef class="text-center">{{'Common.Label.Active' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef class="text-center">{{'Common.Label.Status' | translate}}</th>
         <td mat-cell *matCellDef="let row" class="text-center">
-            <mat-icon *ngIf="row.removeAt; else activeIcon" matTooltip="{{'Common.Label.Inactive' | translate}}"
+            <mat-icon *ngIf="row.unregisteredAt; else activeIcon" matTooltip="{{'Common.Label.Inactive' | translate}}"
                       color="warn">
                 remove_circle_outline
             </mat-icon>
@@ -80,11 +80,11 @@
             <mat-menu #menu="matMenu">
                 <a mat-menu-item color="primary" [routerLink]="[row.id]">
                     <mat-icon>edit</mat-icon>
-                    <span> {{'Common.Button.Edit' | translate}}</span>
+                    {{'Common.Button.Edit' | translate}}
                 </a>
-                <button mat-menu-item (click)="deleteUser(row.id)">
-                    <mat-icon>delete</mat-icon>
-                    <span> {{'Common.Button.Delete' | translate}}</span>
+                <button mat-menu-item (click)="toggleUnregister(row)">
+                    <mat-icon>{{ row.unregisteredAt ? 'check_circle' : 'delete'}}</mat-icon>
+                    {{ (row.unregisteredAt ? 'Common.Button.Activate' : 'Common.Button.Delete') | translate}}
                 </button>
             </mat-menu>
         </td>
