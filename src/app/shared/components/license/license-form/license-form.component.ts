@@ -4,8 +4,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {LicenseService} from '@app/store/features/license/license.service';
-import {Location} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import {Observable} from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-license-form',
@@ -67,6 +68,9 @@ export class LicenseFormComponent implements OnInit {
         // Stop here if form is invalid
         if (this.licenseForm.valid) {
             const license = this.licenseForm.getRawValue();
+            license.issuesAt = moment(license.issuesAt).format('YYYY-MM-DD');
+            license.expirationAt = moment(license.expirationAt).format('YYYY-MM-DD');
+            console.log(moment(license.issuesAt).date())
             if (this.license) {
                 license.id = this.license.id;
                 this.licenseService.setLicense(license);

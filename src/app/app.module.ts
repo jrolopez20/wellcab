@@ -1,8 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {DatePipe, LocationStrategy, PathLocationStrategy, registerLocaleData} from '@angular/common';
 import {AppComponent} from './app.component';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -19,6 +19,10 @@ import {EffectsModule} from '@ngrx/effects';
 import {I18nModule} from './i18n.module';
 import {CoreModule} from './core/core.module';
 import {AuthService} from '@app/store/features/auth/auth.service';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs);
 
 @NgModule({
     declarations: [
@@ -47,8 +51,9 @@ import {AuthService} from '@app/store/features/auth/auth.service';
     ],
     providers: [
         AuthService,
+        {provide: LOCALE_ID, useValue: 'es'},
         {provide: LocationStrategy, useClass: PathLocationStrategy},
-
+        {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
     ],
     bootstrap: [AppComponent]
 })
