@@ -2,8 +2,7 @@ import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core'
 import {merge, Observable} from 'rxjs';
 import {CityCompany} from '@app/store/models/city-company.model';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
+import {FormBuilder} from '@angular/forms';
 import {City} from '@app/store/models/city.model';
 import {CityCompanyService} from '@app/store/features/city-company/city-company.service';
 import {CityCompanyFormComponent} from '@app/shared/components/city/city-company/city-company-form/city-company-form.component';

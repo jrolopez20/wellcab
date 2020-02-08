@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatDialog, MatPaginator, MatSnackBar} from '@angular/material';
 import {Vehicle} from '@app/store/models/vehicle.model';
@@ -14,9 +14,10 @@ import {BrandService} from '@app/store/features/brand/brand.service';
 import {Brand} from '@app/store/models/brand.model';
 import {ModelService} from '@app/store/features/model/model.service';
 import {Model} from '@app/store/models/model.model';
-import {type} from 'os';
 import {CompanyListDialogComponent} from '@app/shared/components/company/company-list-dialog/company-list-dialog.component';
 import {Company} from '@app/store/models/company.model';
+import * as moment from 'moment';
+import CustomValidators from '@app/shared/validators/custom-validators';
 
 @Component({
     selector: 'app-vehicle-form',
@@ -38,8 +39,8 @@ export class VehicleFormComponent implements OnInit {
     private isLoading$: Observable<boolean>;
 
     private statuses = [
-        {id: 1, name: 'Activo'},
-        {id: 2, name: 'Reparación'}
+        {id: 1, name: 'Operativo'},
+        {id: 2, name: 'Mantenimiento'}
     ];
 
     public brands$: Observable<Brand[]>;
@@ -116,10 +117,19 @@ export class VehicleFormComponent implements OnInit {
             color: ['', Validators.required],
             matriculationAt: ['', Validators.required],
             itvExpirationAt: [''],
-            currentOdometer: ['', Validators.required],
-            odometerNextRevision: ['', Validators.required],
+            currentOdometer: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.min(1),
+                Validators.max(499999)
+            ])),
+            odometerNextRevision: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.max(500000)
+            ])),
             insuranceExpirationAt: ['', Validators.required],
             rentExpirationAt: [''],
+        }, {
+            validator: CustomValidators.nextOdometerGreatherThanValidator
         });
 
         this.vehicleForm.controls['brand'].valueChanges.subscribe((brandId) => {
@@ -181,19 +191,25 @@ export class VehicleFormComponent implements OnInit {
 
     submit(): void {
         // Stop here if form is invalid
-        if (this.vehicleForm.valid) {
-            const {owner, ...vehicle} = this.vehicleForm.getRawValue();
-            vehicle.ownerUser = owner.username ? owner : null;
-            vehicle.ownerCompany = owner.cif ? owner : null;
-
-            if (this.vehicle) {
-                vehicle.id = this.vehicle.id;
-                // this.vehicleService.setVehicle(vehicle);
-            } else {
-                // this.vehicleService.addVehicle(vehicle);
-            }
-            this.onSubmit.emit(vehicle);
+        // if (this.vehicleForm.valid) {
+        const {owner, ...vehicle} = this.vehicleForm.getRawValue();
+        vehicle.ownerUser = owner.username ? owner.id : null;
+        vehicle.ownerCompany = owner.cif ? owner.id : null;
+        vehicle.matriculationAt = moment(vehicle.matriculationAt).format('YYYY-MM-DD');
+        vehicle.itvExpirationAt = moment(vehicle.itvExpirationAt).format('YYYY-MM-DD');
+        vehicle.insuranceExpirationAt = moment(vehicle.insuranceExpirationAt).format('YYYY-MM-DD');
+        vehicle.rentExpirationAt = vehicle.rentExpirationAt ? moment(vehicle.rentExpirationAt).format('YYYY-MM-DD') : null;
+        if (this.vehicle) {
+            vehicle.id = this.vehicle.id;
+            this.vehicleService.setVehicle(vehicle);
+        } else {
+            this.vehicleService.addVehicle(vehicle);
         }
+        this.isLoading$.subscribe(loading => {
+            if (!loading) {
+                this.onSubmit.emit(vehicle);
+            }
+        });
     }
 
     private getOwnerName = () => {

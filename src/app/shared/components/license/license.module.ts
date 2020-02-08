@@ -12,10 +12,6 @@ import {EffectsModule} from '@ngrx/effects';
 import * as LicenseReducer from '@app/store/features/license/license.reducer';
 import {LicenseEffects} from '@app/store/features/license/license.effects';
 import {UtilsModule} from '@app/shared/utils/utils.module';
-import {MatMomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
-import {APP_DATE_FORMATS} from '@app/shared/adapters';
-
 
 @NgModule({
     declarations: [
@@ -34,16 +30,11 @@ import {APP_DATE_FORMATS} from '@app/shared/adapters';
             LicenseReducer.reducer
         ),
         EffectsModule.forFeature([LicenseEffects]),
-        UtilsModule,
-        MatMomentDateModule
+        UtilsModule
     ],
     exports: [
         LicenseListComponent,
         LicenseFormComponent
-    ],
-    providers: [
-        {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
-        {provide: DateAdapter, useClass: MomentDateAdapter}
     ]
 })
 export class LicenseModule {

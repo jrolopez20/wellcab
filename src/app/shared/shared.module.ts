@@ -16,6 +16,9 @@ import {ColorModule} from '@app/shared/components/color/color.module';
 import {UtilsModule} from '@app/shared/utils/utils.module';
 import {BrandModule} from '@app/shared/components/brand/brand.module';
 import {ModelModule} from '@app/shared/components/model/model.module';
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material';
+import {APP_DATE_FORMATS} from '@app/shared/adapters';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
 @NgModule({
     declarations: [],
@@ -42,7 +45,9 @@ import {ModelModule} from '@app/shared/components/model/model.module';
         ModelModule
     ],
     providers: [
-        MenuItems
+        MenuItems,
+        {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+        {provide: DateAdapter, useClass: MomentDateAdapter}
     ]
 })
 export class SharedModule {

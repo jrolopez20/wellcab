@@ -12,8 +12,7 @@ const vehicleReducer = createReducer(
                 ...state,
                 loading: true
             };
-        }
-    ),
+        }),
     on(VehicleActions.loadVehiclesCompleted,
         (state, {vehicles, total}) => {
             return {
@@ -23,8 +22,7 @@ const vehicleReducer = createReducer(
                 loading: false,
                 error: null
             };
-        }
-    ),
+        }),
     on(VehicleActions.vehiclesError,
         (state, {error}) => {
             return {
@@ -32,8 +30,7 @@ const vehicleReducer = createReducer(
                 error: error,
                 loading: false
             };
-        }
-    ),
+        }),
     on(VehicleActions.addVehicleRequest,
         (state) => {
             return {
@@ -42,11 +39,9 @@ const vehicleReducer = createReducer(
             };
         }),
     on(VehicleActions.addVehicleCompleted,
-        (state, {vehicle}) => {
+        (state) => {
             return {
                 ...state,
-                vehicles: [...state.vehicles, vehicle],
-                total: state.total + 1,
                 loading: false,
                 error: null
             };

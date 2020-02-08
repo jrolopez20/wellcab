@@ -43,26 +43,14 @@ export class VehicleService {
     }
 
     public addVehicle(vehicle: Vehicle) {
-        this.store.dispatch(
-            VehicleActions.addVehicleRequest({
-                vehicle: {...vehicle}
-            })
-        );
+        this.store.dispatch(VehicleActions.addVehicleRequest({vehicle}));
     }
 
     public setVehicle(vehicle: Vehicle) {
-        this.store.dispatch(
-            VehicleActions.setVehicleRequest({
-                vehicle: {...vehicle}
-            })
-        );
+        this.store.dispatch(VehicleActions.setVehicleRequest({vehicle}));
     }
 
     public deleteVehicle(vehicle: Vehicle) {
-        this.store.dispatch(
-            VehicleActions.deleteVehicleRequest({
-                vehicle: {...vehicle}
-            })
-        );
+        this.store.dispatch(VehicleActions.deleteVehicleRequest({vehicle}));
     }
 }

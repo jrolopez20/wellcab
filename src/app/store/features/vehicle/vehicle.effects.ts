@@ -19,9 +19,21 @@ export class VehicleEffects {
                     map(response =>
                         VehicleActions.loadVehiclesCompleted({vehicles: response.data, total: response.pagination.total})
                     ),
-                    catchError(error =>
-                        of(VehicleActions.vehiclesError({error}))
-                    )
+                    catchError(error => of(VehicleActions.vehiclesError({error})))
+                );
+            })
+        )
+    );
+
+    public addVehicle$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(VehicleActions.addVehicleRequest),
+            concatMap(({vehicle}) => {
+                return this.http.post<any>(`vehicles`, vehicle).pipe(
+                    map(response =>
+                        VehicleActions.addVehicleCompleted({vehicle: {...response}})
+                    ),
+                    catchError(error => of(VehicleActions.vehiclesError({error})))
                 );
             })
         )
@@ -31,13 +43,12 @@ export class VehicleEffects {
         this.actions$.pipe(
             ofType(VehicleActions.setVehicleRequest),
             concatMap(({vehicle}) => {
-                return this.http.put<any>(`users/${vehicle.id}`, {vehicle}).pipe(
+                const {id, ...vehicleCopy} = vehicle;
+                return this.http.put<any>(`vehicles/${id}`, vehicleCopy).pipe(
                     map(response =>
-                        VehicleActions.setVehicleCompleted({vehicle})
+                        VehicleActions.setVehicleCompleted({vehicle: {...response}})
                     ),
-                    catchError(error => {
-                        return of(VehicleActions.vehiclesError({error}));
-                    })
+                    catchError(error => of(VehicleActions.vehiclesError({error})))
                 );
             })
         )

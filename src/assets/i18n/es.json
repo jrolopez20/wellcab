@@ -24,6 +24,8 @@
     "ValidationMessage": {
       "FieldRequired": "Este campo es obligatorio",
       "InvalidEmail": "Formato de email incorrecto",
+      "Min": "No cumple con la cantidad mínima",
+      "Max": "Ha excedido la cantidad máxima",
       "MinLength": "No cumple con la cantidad mínima de caracteres",
       "MaxLength": "Ha excedido la cantidad de caracteres"
     },

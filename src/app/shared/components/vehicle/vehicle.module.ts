@@ -13,7 +13,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
-
 @NgModule({
     declarations: [VehicleListComponent, VehicleFormComponent],
     imports: [

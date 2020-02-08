@@ -39,8 +39,8 @@ export class EditVehicleComponent implements OnInit {
         });
     }
 
-    handleSubmit(vehicle: Vehicle) {
-        console.log(vehicle);
+    handleSubmit() {
+        this.location.back();
     }
 
 }

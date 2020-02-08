@@ -70,7 +70,6 @@ export class LicenseFormComponent implements OnInit {
             const license = this.licenseForm.getRawValue();
             license.issuesAt = moment(license.issuesAt).format('YYYY-MM-DD');
             license.expirationAt = moment(license.expirationAt).format('YYYY-MM-DD');
-            console.log(moment(license.issuesAt).date())
             if (this.license) {
                 license.id = this.license.id;
                 this.licenseService.setLicense(license);

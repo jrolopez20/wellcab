@@ -77,7 +77,7 @@
                 </div>
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
-                        <mat-select placeholder="{{'Vehicle.Label.Status' | translate}}" formControlName="status">
+                        <mat-select placeholder="{{'Common.Label.Status' | translate}}" formControlName="status">
                             <mat-option *ngFor="let item of statuses" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
@@ -126,10 +126,16 @@
                 </div>
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
-                        <input matInput type="number" placeholder="{{'Vehicle.Label.Odometer' | translate}}"
+                        <input type="number" matInput placeholder="{{'Vehicle.Label.Odometer' | translate}}"
                                formControlName="currentOdometer"/>
                         <mat-error *ngIf="handleError('currentOdometer', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="handleError('currentOdometer', 'min')">
+                            {{'Common.ValidationMessage.Min' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="handleError('currentOdometer', 'max')">
+                            {{'Common.ValidationMessage.Max' | translate}}
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -139,6 +145,12 @@
                                formControlName="odometerNextRevision"/>
                         <mat-error *ngIf="handleError('odometerNextRevision', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="handleError('odometerNextRevision', 'greatherThan')">
+                            Este valor tiene que ser mayor al odómetro actual
+                        </mat-error>
+                        <mat-error *ngIf="handleError('odometerNextRevision', 'max')">
+                            {{'Common.ValidationMessage.Max' | translate}}
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -172,7 +184,9 @@
             <button mat-button (click)="location.back()">
                 {{'Common.Button.Cancel' | translate }}
             </button>
-            <button [disabled]="isLoading$ | async" mat-flat-button color="primary" (click)="submit()">
+            <button mat-flat-button color="primary"
+                    [disabled]="(isLoading$ | async) || vehicleForm.invalid"
+                    (click)="submit()">
                 {{'Common.Button.Save' | translate }}
             </button>
         </mat-card-actions>
