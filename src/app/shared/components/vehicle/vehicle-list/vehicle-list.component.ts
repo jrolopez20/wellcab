@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {merge, Observable} from 'rxjs';
 import {Vehicle} from '@app/store/models/vehicle.model';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
@@ -14,17 +14,18 @@ import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dia
     styleUrls: ['./vehicle-list.component.css']
 })
 export class VehicleListComponent implements OnInit, AfterViewInit {
+    @Input() editable = true;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
+
     public vehicleList$: Observable<Vehicle[]>;
     public vehiclesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
 
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
-
     private initialPageSize = 25;
     displayedColumns: string[] = ['plateNumber', 'name', 'brand', 'model', 'ownerCompany', 'active', 'action'];
-    searchForm: FormGroup;
+    private filter: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -35,9 +36,6 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.searchForm = this.formBuilder.group({
-            filter: ['', Validators.maxLength(20)]
-        });
 
         this.isLoading$ = this.vehicleService.getIsLoading$();
         this.vehicleList$ = this.vehicleService.getVehiclesList$();
@@ -56,13 +54,18 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
         });
     }
 
+    search(filter: string) {
+        this.filter = filter;
+        this.loadVehicles();
+    }
+
     loadVehicles() {
         this.vehicleService.loadVehicles({
             sort: this.sort.active,
             order: this.sort.direction,
             page: this.paginator.pageIndex,
             limit: this.paginator.pageSize || this.initialPageSize,
-            filter: this.searchForm.value.filter
+            filter: this.filter
         });
     }
 

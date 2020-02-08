@@ -7,24 +7,18 @@
                 </mat-card-title>
                 <mat-card-subtitle>Gestionar datos de los vehículos</mat-card-subtitle>
             </div>
-            <div class="ml-auto" fxLayout="row">
-                <form [formGroup]="searchForm" (ngSubmit)="loadVehicles()">
-                    <mat-form-field>
-                        <input matInput placeholder="{{'Common.Label.Search' | translate }}"
-                               formControlName="filter" maxlength="20"/>
-                        <button mat-icon-button matSuffix matTooltip="Buscar">
-                            <mat-icon>search</mat-icon>
-                        </button>
-                    </mat-form-field>
-                </form>
-            </div>
         </div>
 
-        <div>
-            <a mat-flat-button color="accent" routerLink="add">
-                <mat-icon>add</mat-icon>
-                {{'Common.Button.Add' | translate}}
-            </a>
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                <app-search-box (onSubmit)="search($event)"></app-search-box>
+            </div>
+            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100" *ngIf="editable" style="padding-top: 3px;">
+                <a mat-flat-button color="accent" routerLink="add" *ngIf="editable">
+                    <mat-icon>add</mat-icon>
+                    {{'Common.Button.Add' | translate}}
+                </a>
+            </div>
         </div>
 
         <table mat-table [dataSource]="vehicleList$ | async" class="table table-rasponsive" matSort matSortActive="name"

@@ -12,6 +12,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import {UtilsModule} from '@app/shared/utils/utils.module';
 
 @NgModule({
     declarations: [VehicleListComponent, VehicleFormComponent],
@@ -28,7 +29,8 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
             VehicleReducer.featureKey,
             VehicleReducer.reducer
         ),
-        EffectsModule.forFeature([VehicleEffects])
+        EffectsModule.forFeature([VehicleEffects]),
+        UtilsModule
     ],
     exports: [VehicleListComponent, VehicleFormComponent]
 })

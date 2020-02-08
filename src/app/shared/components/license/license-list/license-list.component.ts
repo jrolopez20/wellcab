@@ -14,13 +14,13 @@ import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dia
 })
 export class LicenseListComponent implements OnInit, AfterViewInit {
     @Input() editable = true;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
+
     public licenseList$: Observable<License[]>;
     public licensesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
-
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     private initialPageSize = 25;
     private displayedColumns: string[] = ['code', 'issuesAt', 'expirationAt', 'isOperative', 'active', 'action'];
