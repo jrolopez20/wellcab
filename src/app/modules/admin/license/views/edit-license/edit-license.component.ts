@@ -39,8 +39,8 @@ export class EditLicenseComponent implements OnInit {
         });
     }
 
-    handleSubmit(license) {
-        console.log(license);
+    handleSubmit() {
+        this.location.back();
     }
 
 }

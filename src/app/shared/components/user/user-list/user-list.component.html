@@ -83,8 +83,8 @@
                     {{'Common.Button.Edit' | translate}}
                 </a>
                 <button mat-menu-item (click)="toggleUnregister(row)">
-                    <mat-icon>{{ row.unregisteredAt ? 'check_circle' : 'delete'}}</mat-icon>
-                    {{ (row.unregisteredAt ? 'Common.Button.Activate' : 'Common.Button.Delete') | translate}}
+                    <mat-icon>{{ row.unregisteredAt ? 'check_circle' : 'remove_circle'}}</mat-icon>
+                    {{ (row.unregisteredAt ? 'Common.Button.Activate' : 'Common.Button.Deactivate') | translate}}
                 </button>
             </mat-menu>
         </td>

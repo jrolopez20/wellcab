@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {Router} from '@angular/router';
 import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {merge, Observable} from 'rxjs';
 import {UserService} from '@app/store/features/user/user.service';
 import {User} from '@app/store/models/user.model';
@@ -85,11 +85,39 @@ export class UserListComponent implements OnInit, AfterViewInit {
     }
 
     onAccessChange(slider, user: User) {
-        const userCopy = {...user, hasAccess: slider.checked};
-        this.userService.toggleAccess(userCopy);
+        if (slider.checked) {
+            const userCopy = {...user, hasAccess: slider.checked};
+            this.userService.toggleAccess(userCopy);
+        } else {
+            const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+                data: {
+                    message: 'Common.Confirm.ShureToRemoveAccess'
+                }
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.userService.toggleUnregister(user);
+                } else {
+                    slider.source.checked = true;
+                }
+            });
+        }
     }
 
     toggleUnregister(user: User) {
-        this.userService.toggleUnregister(user);
+        if (user.unregisteredAt) {
+            this.userService.toggleUnregister(user);
+        } else {
+            const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+                data: {
+                    message: 'Common.Confirm.ShureToDeactivate'
+                }
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.userService.toggleUnregister(user);
+                }
+            });
+        }
     }
 }

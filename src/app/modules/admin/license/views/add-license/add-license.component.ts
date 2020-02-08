@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
 
 @Component({
-  selector: 'app-add-license',
-  templateUrl: './add-license.component.html',
-  styleUrls: ['./add-license.component.css']
+    selector: 'app-add-license',
+    templateUrl: './add-license.component.html',
+    styleUrls: ['./add-license.component.css']
 })
 export class AddLicenseComponent implements OnInit {
 
-  constructor() { }
+    constructor(private location: Location) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  handleSubmit(license) {
-  }
+    handleSubmit() {
+        this.location.back();
+    }
 
 }

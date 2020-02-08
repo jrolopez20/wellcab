@@ -55,10 +55,13 @@
       "Edit": "Editar",
       "Delete": "Eliminar",
       "Unattach": "Desvincular",
-      "Activate": "Activar"
+      "Activate": "Activar",
+      "Deactivate": "Desactivar"
     },
     "Confirm": {
       "ShureToDelete": "¿Está seguro que desea eliminar este elemento?",
+      "ShureToDeactivate": "¿Está seguro que desea desactivar este elemento?",
+      "ShureToRemoveAccess": "¿Está seguro que desea eliminar el acceso?",
       "ShureToUnAttach": "¿Está seguro que desea desvincular este elemento?"
     }
   },
