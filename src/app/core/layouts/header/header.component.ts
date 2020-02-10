@@ -13,22 +13,15 @@ export class AppHeaderComponent implements OnInit {
     @Output() onChangePassword = new EventEmitter();
 
     constructor(
-        public dialog: MatDialog,
-        private authService: AuthService
+        public dialog: MatDialog
     ) {
     }
 
     ngOnInit() {
-        // this.user = this.authenticationService.currentUserValue;
     }
 
     handleLogout(): void {
         const dialogRef = this.dialog.open(AppLogoutDialogComponent);
-    }
-
-    onLangPicked(language: Lang) {
-        const user = {...this.user, lang: language};
-        this.authService.updateProfile(user);
     }
 
     changePassword() {
