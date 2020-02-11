@@ -24,8 +24,7 @@ export class CityCompanyFormComponent implements OnInit {
         private formBuilder: FormBuilder,
         public router: Router,
         private cityCompanyService: CityCompanyService,
-        public dialog: MatDialog,
-        private snackBar: MatSnackBar
+        public dialog: MatDialog
     ) {
     }
 

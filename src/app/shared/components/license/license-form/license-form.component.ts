@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {LicenseService} from '@app/store/features/license/license.service';
-import {DatePipe, Location} from '@angular/common';
+import {Location} from '@angular/common';
 import {Observable} from 'rxjs';
 import * as moment from 'moment';
 

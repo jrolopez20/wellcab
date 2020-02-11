@@ -871,6 +871,12 @@ tr.custom-row-selected {
   background: #fafaff;
 }
 
+tr.header-row-loading, th.header-row-loading {
+  height: auto !important;
+  padding: 0px !important;
+}
+
+
 .search-input {
   border: 1px solid lightgrey !important;
   border-radius: 4px ;

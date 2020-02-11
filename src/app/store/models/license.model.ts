@@ -1,3 +1,5 @@
+import {Contract} from '@app/store/models/contract.model';
+
 export interface License {
     id: number;
     code: string;
@@ -5,4 +7,5 @@ export interface License {
     expirationAt: string;
     removedAt?: string;
     isOperative?: boolean;
+    contract?: Contract;
 }

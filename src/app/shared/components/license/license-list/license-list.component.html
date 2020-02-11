@@ -1,93 +1,95 @@
-<mat-card>
-    <mat-card-content>
-        <div class="d-flex flex-wrap">
-            <div>
-                <mat-card-title>
-                    {{'License.Label.Licenses' | translate}}
-                </mat-card-title>
-                <mat-card-subtitle>Gestionar datos de las licencias</mat-card-subtitle>
-            </div>
-        </div>
+<div fxLayout="row wrap" fxLayoutGap="10px">
+    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+        <app-search-box (onSubmit)="search($event)"></app-search-box>
+    </div>
+    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100" *ngIf="editable" style="padding-top: 3px;">
+        <a mat-flat-button color="accent" routerLink="add" *ngIf="editable">
+            <mat-icon>add</mat-icon>
+            {{'Common.Button.Add' | translate}}
+        </a>
+    </div>
+</div>
 
-        <div fxLayout="row wrap" fxLayoutGap="10px">
-            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
-                <app-search-box (onSubmit)="search($event)"></app-search-box>
-            </div>
-            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100" *ngIf="editable" style="padding-top: 3px;">
-                <a mat-flat-button color="accent" routerLink="add" *ngIf="editable">
-                    <mat-icon>add</mat-icon>
-                    {{'Common.Button.Add' | translate}}
+<table mat-table [dataSource]="licenseList$ | async" class="table table-rasponsive" matSort matSortActive="code"
+       matSortDirection="desc">
+
+    <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'License.Label.Code' | translate}}</th>
+        <td mat-cell *matCellDef="let row">{{row.code}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="issuesAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'License.Label.IssuesAt' | translate}}</th>
+        <td mat-cell *matCellDef="let row">{{row.issuesAt | date:'dd-MM-yyyy'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="expirationAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'License.Label.ExpirationAt' | translate}}</th>
+        <td mat-cell *matCellDef="let row">{{row.expirationAt | date:'dd-MM-yyyy'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="isOperative">
+        <th mat-header-cell *matHeaderCellDef class="text-center">
+            {{'License.Label.IsOperative' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let row" class="text-center">
+            <span *ngIf="row.isOperative; else noOperativa">Operativa</span>
+            <ng-template #noOperativa>
+                <span style="color: red;">No operativa</span>
+            </ng-template>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef class="text-center">{{'Common.Label.Active' | translate}}</th>
+        <td mat-cell *matCellDef="let row" class="text-center">
+            <mat-icon *ngIf="row.removeAt; else activeIcon" matTooltip="{{'Common.Label.Inactive' | translate}}"
+                      color="warn">
+                remove_circle_outline
+            </mat-icon>
+            <ng-template #activeIcon>
+                <mat-icon matTooltip="{{'Common.Label.Active' | translate}}">check</mat-icon>
+            </ng-template>
+        </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="col-action">{{'Common.Label.Action' | translate}}</th>
+        <td mat-cell *matCellDef="let row" class="col-action">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <a mat-menu-item color="primary" [routerLink]="[row.id]">
+                    <mat-icon>edit</mat-icon>
+                    <span> {{'Common.Button.Edit' | translate}}</span>
                 </a>
-            </div>
-        </div>
+                <button mat-menu-item (click)="showContractDialog(row)">
+                    <mat-icon>{{ row.contract ? 'remove_red_eye' : 'add'}}</mat-icon>
+                    {{(row.contract ? 'Contract.Button.ShowContract' : 'Contract.Label.AddContract') | translate}}
+                </button>
+                <button mat-menu-item (click)="closeContract(row)" *ngIf="row.contract">
+                    <mat-icon>work_off</mat-icon>
+                    {{ 'Contract.Button.CloseContract' | translate}}
+                </button>
+            </mat-menu>
+        </td>
+    </ng-container>
 
-        <table mat-table [dataSource]="licenseList$ | async" class="table table-rasponsive" matSort matSortActive="code"
-               matSortDirection="desc">
+    <!-- Loading status row -->
+    <ng-container matColumnDef="loading-status">
+        <th mat-header-cell *matHeaderCellDef [colSpan]="displayedColumns.length"  class="header-row-loading"
+            [ngStyle]="{'display': (isLoading$ | async) ? 'table-cell' : 'none'}">
+            <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+        </th>
+    </ng-container>
 
-            <ng-container matColumnDef="code">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'License.Label.Code' | translate}}</th>
-                <td mat-cell *matCellDef="let row">{{row.code}}</td>
-            </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="['loading-status']" class="header-row-loading"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
 
-            <ng-container matColumnDef="issuesAt">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'License.Label.IssuesAt' | translate}}</th>
-                <td mat-cell *matCellDef="let row">{{row.issuesAt | date:'dd-MM-yyyy'}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="expirationAt">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'License.Label.ExpirationAt' | translate}}</th>
-                <td mat-cell *matCellDef="let row">{{row.expirationAt | date:'dd-MM-yyyy'}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="isOperative">
-                <th mat-header-cell *matHeaderCellDef class="text-center">
-                    {{'License.Label.IsOperative' | translate}}
-                </th>
-                <td mat-cell *matCellDef="let row" class="text-center">
-                    <span *ngIf="row.isOperative; else noOperativa">Operativa</span>
-                    <ng-template #noOperativa>
-                        <span style="color: red;">No operativa</span>
-                    </ng-template>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="active">
-                <th mat-header-cell *matHeaderCellDef class="text-center">{{'Common.Label.Active' | translate}}</th>
-                <td mat-cell *matCellDef="let row" class="text-center">
-                    <mat-icon *ngIf="row.removeAt; else activeIcon" matTooltip="{{'Common.Label.Inactive' | translate}}"
-                              color="warn">
-                        remove_circle_outline
-                    </mat-icon>
-                    <ng-template #activeIcon>
-                        <mat-icon matTooltip="{{'Common.Label.Active' | translate}}">check</mat-icon>
-                    </ng-template>
-                </td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef class="col-action">{{'Common.Label.Action' | translate}}</th>
-                <td mat-cell *matCellDef="let row" class="col-action">
-                    <button mat-icon-button [matMenuTriggerFor]="menu">
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <a mat-menu-item color="primary" [routerLink]="[row.id]">
-                            <mat-icon>edit</mat-icon>
-                            <span> {{'Common.Button.Edit' | translate}}</span>
-                        </a>
-                    </mat-menu>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-        <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
-
-        <mat-paginator [length]="licensesTotal$ | async" [pageSize]="initialPageSize"
-                       [pageSizeOptions]="[10, 25, 50, 100]">
-        </mat-paginator>
-    </mat-card-content>
-</mat-card>
+<mat-paginator [length]="licensesTotal$ | async" [pageSize]="initialPageSize"
+               [pageSizeOptions]="[10, 25, 50, 100]">
+</mat-paginator>

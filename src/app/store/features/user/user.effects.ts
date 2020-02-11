@@ -15,15 +15,17 @@ export class UserEffects {
     public loadUsers$ = createEffect(() =>
         this.actions$.pipe(
             ofType(UserActions.loadUsersRequest),
-            concatMap(({sort, order, page, limit, filter}) => {
-                return this.http.get<any>(`users?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
-                    map(response =>
-                        UserActions.loadUsersCompleted({users: response.data, total: response.pagination.total})
-                    ),
-                    catchError(error =>
-                        of(UserActions.usersError({error}))
-                    )
-                );
+            concatMap(({sort, order, page, limit, filter, active, roles}) => {
+                return this.http.get<any>
+                (`users?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}&active=${active}&roles=${roles.join()}`)
+                    .pipe(
+                        map(response =>
+                            UserActions.loadUsersCompleted({users: response.data, total: response.pagination.total})
+                        ),
+                        catchError(error =>
+                            of(UserActions.usersError({error}))
+                        )
+                    );
             })
         )
     );

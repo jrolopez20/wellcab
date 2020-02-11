@@ -19,10 +19,13 @@ export class UserService {
      * @param sort
      * @param order
      * @param page
+     * @param limit
      * @param filter
+     * @param active
+     * @param roles
      */
-    public loadUsers({sort = '', order, page, limit, filter = ''}) {
-        this.store.dispatch(UserActions.loadUsersRequest({sort, order, page, limit, filter}));
+    public loadUsers({sort = '', order, page, limit, filter = '', active = null, roles = []}) {
+        this.store.dispatch(UserActions.loadUsersRequest({sort, order, page, limit, filter, active, roles}));
     }
 
     public getUsersList$(): Observable<User[]> {
@@ -69,6 +72,10 @@ export class UserService {
      */
     public changePassword(oldPassword: string, newPassword: string) {
         this.store.dispatch(UserActions.changePasswordRequest({oldPassword, newPassword}));
+    }
+
+    public resetStorage() {
+        this.store.dispatch(UserActions.resetStorage());
     }
 
 }

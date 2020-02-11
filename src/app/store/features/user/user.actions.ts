@@ -1,9 +1,9 @@
 import {createAction, props} from '@ngrx/store';
-import {User} from '@app/store/models/user.model';
+import {Role, User} from '@app/store/models/user.model';
 
 export const loadUsersRequest = createAction(
     '[User] Load Users',
-    props<{ sort: string, order: string, page: number, limit: number, filter?: string }>()
+    props<{ sort: string, order: string, page: number, limit: number, filter?: string, active?: boolean, roles?: Role[] }>()
 );
 
 export const loadUsersCompleted = createAction(
@@ -63,4 +63,7 @@ export const changePasswordRequest = createAction(
 
 export const changePasswordCompleted = createAction(
     '[User] Change Password Completed'
+);
+export const resetStorage = createAction(
+    '[User] Reset Storage'
 );

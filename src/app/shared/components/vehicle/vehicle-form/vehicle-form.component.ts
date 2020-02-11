@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
 import {Color} from '@app/store/models/color.model';
 import {ColorService} from '@app/store/features/color/color.service';
 import {UserListDialogComponent} from '@app/shared/components/user/user-list-dialog/user-list-dialog.component';
-import {User} from '@app/store/models/user.model';
+import {Role, User} from '@app/store/models/user.model';
 import {BrandService} from '@app/store/features/brand/brand.service';
 import {Brand} from '@app/store/models/brand.model';
 import {ModelService} from '@app/store/features/model/model.service';
@@ -35,7 +35,6 @@ export class VehicleFormComponent implements OnInit {
     @ViewChild(MatPaginator, {static: true}) colorPaginator: MatPaginator;
 
     vehicleForm: FormGroup;
-    ownerForm: FormGroup;
     private isLoading$: Observable<boolean>;
 
     private statuses = [
@@ -103,10 +102,6 @@ export class VehicleFormComponent implements OnInit {
     }
 
     initVehicleForm() {
-        this.ownerForm = this.formBuilder.group({
-            'username': ['', Validators.required],
-        });
-
         this.vehicleForm = this.formBuilder.group({
             name: ['', Validators.required],
             plateNumber: ['', Validators.required],
@@ -150,7 +145,12 @@ export class VehicleFormComponent implements OnInit {
 
     showOwnerUserDialog() {
         const dialogRef = this.dialog.open(UserListDialogComponent, {
-            minWidth: '800px'
+            minWidth: '800px',
+            data: {
+                // TODO, esperar a que Uriser permita en el endpoint la forma ROLE_ADMIN
+                // para poder usar en enum de Role
+                roles: ['OWNER'] // Role.Owner
+            }
         });
         dialogRef.afterClosed().subscribe((result: User) => {
             if (result) {
@@ -181,12 +181,6 @@ export class VehicleFormComponent implements OnInit {
     /* Get errors */
     public handleError = (controlName: string, errorName: string) => {
         return this.f[controlName].hasError(errorName);
-        if (this.vehicleForm.contains(controlName)) {
-            return this.vehicleForm.controls[controlName].hasError(errorName);
-        } else if (this.ownerForm.contains(controlName)) {
-            return this.ownerForm.controls[controlName].hasError(errorName);
-        }
-        return true;
     };
 
     submit(): void {

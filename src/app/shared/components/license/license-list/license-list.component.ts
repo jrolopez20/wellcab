@@ -5,7 +5,12 @@ import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LicenseService} from '@app/store/features/license/license.service';
 import {Router} from '@angular/router';
-import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
+import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/confirm-dialog.component';
+import {Contract} from '@app/store/models/contract.model';
+import {CompanyListDialogComponent} from '@app/shared/components/company/company-list-dialog/company-list-dialog.component';
+import {Company} from '@app/store/models/company.model';
+import {ContractFormComponent} from '@app/shared/components/contract/contract-form/contract-form.component';
+import {ContractService} from '@app/store/features/contract/contract.service';
 
 @Component({
     selector: 'app-license-list',
@@ -21,6 +26,7 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
     public licensesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    public isLoadingContract$: Observable<boolean>;
 
     private initialPageSize = 25;
     private displayedColumns: string[] = ['code', 'issuesAt', 'expirationAt', 'isOperative', 'active', 'action'];
@@ -29,6 +35,7 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
     constructor(
         private formBuilder: FormBuilder,
         private licenseService: LicenseService,
+        private contractService: ContractService,
         private router: Router,
         public dialog: MatDialog
     ) {
@@ -39,7 +46,7 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
         this.licenseList$ = this.licenseService.getLicensesList$();
         this.licensesTotal$ = this.licenseService.getLicensesTotal$();
         this.error$ = this.licenseService.getError$();
-
+        this.isLoadingContract$ = this.contractService.getIsLoading$();
         this.loadLicenses();
     }
 
@@ -65,6 +72,42 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
             limit: this.paginator.pageSize || this.initialPageSize,
             filter: this.filter
         });
+    }
+
+    showContractDialog(license: License) {
+        const dialogRef = this.dialog.open(ContractFormComponent, {
+            minWidth: '400px',
+            data: {
+                title: license.contract ? 'Contract.Label.ContractDetail' : 'Contract.Label.AddContract',
+                licenseId: license.id,
+                contract: license.contract
+            }
+        });
+        dialogRef.afterClosed().subscribe((result: Contract) => {
+            if (result) {
+                this.loadLicenses();
+            }
+        });
+    }
+
+    closeContract(license: License) {
+        if (license.contract) {
+            const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+                data: {
+                    message: 'Contract.Label.ShureToCloseContract'
+                }
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.contractService.closeContract(license.id);
+                    this.isLoadingContract$.subscribe(loading => {
+                        if (!loading) {
+                            this.loadLicenses();
+                        }
+                    });
+                }
+            });
+        }
     }
 
 }

@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {Router} from '@angular/router';
-import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
+import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/confirm-dialog.component';
 import {FormBuilder} from '@angular/forms';
 import {merge, Observable} from 'rxjs';
 import {UserService} from '@app/store/features/user/user.service';
-import {User} from '@app/store/models/user.model';
+import {Role, User} from '@app/store/models/user.model';
 import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
@@ -16,6 +16,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 export class UserListComponent implements OnInit, AfterViewInit {
     @Input() editable = true;
     @Input() selectable = false;
+    @Input() roles: Role[];
+    @Input() showActiveUsers: boolean;
     @Output() onRowSelected = new EventEmitter<User>();
 
     public userList$: Observable<User[]>;
@@ -28,7 +30,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     private initialPageSize = 25;
-    private displayedColumns: string[] = ['username', 'email', 'name', 'lastName', 'active'];
+    private displayedColumns: string[] = ['username', 'email', 'name', 'lastName'];
     private selection = new SelectionModel<User>(false, []);
 
     constructor(
@@ -42,6 +44,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         if (this.editable) {
             this.displayedColumns.push('hasAccess');
+            this.displayedColumns.push('active');
             this.displayedColumns.push('action');
         }
         if (this.selectable) {
@@ -80,7 +83,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
             order: this.sort.direction,
             page: this.paginator.pageIndex,
             limit: this.paginator.pageSize || this.initialPageSize,
-            filter: this.filter
+            filter: this.filter,
+            roles: this.roles,
+            active: this.showActiveUsers
         });
     }
 
@@ -89,7 +94,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
             const userCopy = {...user, hasAccess: slider.checked};
             this.userService.toggleAccess(userCopy);
         } else {
-            const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+            const dialogRef = this.dialog.open(ConfirmDialogComponent, {
                 data: {
                     message: 'Common.Confirm.ShureToRemoveAccess'
                 }
@@ -108,7 +113,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
         if (user.unregisteredAt) {
             this.userService.toggleUnregister(user);
         } else {
-            const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+            const dialogRef = this.dialog.open(ConfirmDialogComponent, {
                 data: {
                     message: 'Common.Confirm.ShureToDeactivate'
                 }

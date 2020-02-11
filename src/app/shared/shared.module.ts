@@ -19,6 +19,7 @@ import {ModelModule} from '@app/shared/components/model/model.module';
 import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material';
 import {APP_DATE_FORMATS} from '@app/shared/adapters';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ContractModule} from '@app/shared/components/contract/contract.module';
 
 @NgModule({
     declarations: [],
@@ -42,7 +43,8 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
         VehicleModule,
         ColorModule,
         BrandModule,
-        ModelModule
+        ModelModule,
+        ContractModule
     ],
     providers: [
         MenuItems,

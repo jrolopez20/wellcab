@@ -4,7 +4,7 @@ import {Color} from '@app/store/models/color.model';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ColorService} from '@app/store/features/color/color.service';
-import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
+import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/confirm-dialog.component';
 import {Company} from '@app/store/models/company.model';
 
 @Component({
@@ -16,7 +16,7 @@ export class ColorListComponent implements OnInit, AfterViewInit {
     @Input() editable = true;
     @Input() selectable = false;
     @Output() onRowSelected = new EventEmitter<Company>();
-    
+
     public colorList$: Observable<Color[]>;
     public colorsTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;

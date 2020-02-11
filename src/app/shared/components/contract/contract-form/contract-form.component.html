@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{data.title | translate}}</h2>
+<form [formGroup]="contractForm">
+    <mat-dialog-content>
+        <div fxLayout="column wrap" fxLayoutGap.gt-xs="10px">
+            <div fxFlex="100">
+                <mat-form-field>
+                    <mat-select placeholder="{{'City.Label.Cities' | translate}}" formControlName="city">
+                        <mat-progress-bar mode="indeterminate" *ngIf="isLoadingCity$ | async"></mat-progress-bar>
+                        <mat-option *ngFor="let item of cities$ | async" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="handleError('city', 'required')">
+                        {{'Common.ValidationMessage.FieldRequired' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100">
+                <mat-form-field>
+                    <input readonly matInput placeholder="{{'Company.Label.Company' | translate}}"
+                           formControlName="company" [value]="getCompanyName()"/>
+                    <button mat-stroked-button matSuffix style="top: -10px;"
+                            (click)="showCompanyDialog()"
+                            matTooltip="Seleccionar empresa">
+                        <mat-icon>business</mat-icon>
+                    </button>
+                    <mat-error *ngIf="handleError('company', 'required')">
+                        {{'Common.ValidationMessage.FieldRequired' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>
+            {{'Common.Button.Cancel' | translate }}
+        </button>
+        <button mat-flat-button [disabled]="(isLoading$ | async) || contractForm.invalid" color="primary"
+                (click)="submit()">
+            {{'Common.Button.Save' | translate}}
+        </button>
+    </mat-dialog-actions>
+</form>

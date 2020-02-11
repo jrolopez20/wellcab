@@ -3,6 +3,8 @@
     <app-user-list
             [editable]="false"
             [selectable]="true"
+            [roles]="this.data.roles"
+            [showActiveUsers]="true"
             (onRowSelected)="handleSelection($event)">
     </app-user-list>
 </mat-dialog-content>

@@ -1,7 +1,8 @@
 <app-user-form
         [title]="'Profile.Label.Profile'"
-        [subtitle]="'Profile.Label.ChangeYourPersonalInfo'"
+        [subtitle]="'Profile.Label.PersonalInfo'"
         [user]="user"
         [hideRole]="true"
+        [readOnly]="true"
         (onSubmit)="handleSubmit($event)">
 </app-user-form>

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SpinnerComponent} from '@app/shared/utils/spinner/spinner.component';
-import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
+import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/confirm-dialog.component';
 import {AppMaterialModule} from '@app/app-material.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -14,7 +14,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 @NgModule({
     declarations: [
         SpinnerComponent,
-        DeleteConfirmDialogComponent,
+        ConfirmDialogComponent,
         SnackBarComponent,
         SearchBoxComponent
     ],
@@ -28,14 +28,14 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     ],
     exports: [
         SpinnerComponent,
-        DeleteConfirmDialogComponent,
+        ConfirmDialogComponent,
         SnackBarComponent,
         SearchBoxComponent
     ],
     providers: [
         {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 8000, horizontalPosition: 'end'}}
     ],
-    entryComponents: [DeleteConfirmDialogComponent, SnackBarComponent]
+    entryComponents: [ConfirmDialogComponent, SnackBarComponent]
 })
 export class UtilsModule {
 }

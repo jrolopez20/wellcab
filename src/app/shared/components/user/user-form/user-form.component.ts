@@ -6,6 +6,7 @@ import {Role, User} from '@app/store/models/user.model';
 import {UserService} from '@app/store/features/user/user.service';
 import {Location} from '@angular/common';
 import CredentialValidators from '@app/shared/validators/credential-validators';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-user-form',
@@ -17,11 +18,12 @@ export class UserFormComponent implements OnInit, AfterViewInit {
     @Input() subtitle: string;
     @Input() user: User;
     @Input() hideRole: boolean;
+    @Input() readOnly: boolean;
     @Output() onSubmit = new EventEmitter<User>();
 
     userForm: FormGroup;
     detailFormGroup: FormGroup;
-    loading = false;
+    public isLoading$: Observable<boolean>;
     error: '';
     private roles: Role[];
     private removable = true;
@@ -43,6 +45,7 @@ export class UserFormComponent implements OnInit, AfterViewInit {
         private location: Location
     ) {
         this.roles = this.userService.getRolesAvailable();
+        this.isLoading$ = userService.getIsLoading$();
     }
 
     ngOnInit() {
@@ -54,47 +57,47 @@ export class UserFormComponent implements OnInit, AfterViewInit {
 
     initUserForm() {
         this.detailFormGroup = this.formBuilder.group({
-            name: new FormControl('', Validators.compose([
+            name: new FormControl({value: '', disabled: this.readOnly}, Validators.compose([
                 Validators.required,
                 Validators.maxLength(45)
             ])),
-            lastName: new FormControl('', Validators.compose([
+            lastName: new FormControl({value: '', disabled: this.readOnly}, Validators.compose([
                 Validators.required,
                 Validators.maxLength(45)
             ])),
-            documentType: [1, Validators.required],
-            identificationDocument: new FormControl('', Validators.compose([
+            documentType: [{value: 1, disabled: this.readOnly}, Validators.required],
+            identificationDocument: new FormControl({value: '', disabled: this.readOnly}, Validators.compose([
                 Validators.required,
                 Validators.minLength(9),
                 Validators.maxLength(9)
             ])),
-            address: [''],
-            mainContactPhone: new FormControl('', Validators.compose([
+            address: [{value: '', disabled: this.readOnly}],
+            mainContactPhone: new FormControl({value: '', disabled: this.readOnly}, Validators.compose([
                 Validators.required,
                 Validators.minLength(9),
                 Validators.maxLength(20)
             ])),
-            secondaryContactPhone: new FormControl('', Validators.compose([
+            secondaryContactPhone: new FormControl({value: '', disabled: this.readOnly}, Validators.compose([
                 Validators.minLength(9),
                 Validators.maxLength(45)
             ])),
-            bankAccountNumber: new FormControl('', Validators.compose([
+            bankAccountNumber: new FormControl({value: '', disabled: this.readOnly}, Validators.compose([
                 Validators.minLength(24),
                 Validators.maxLength(24)
             ])),
-            socialSecurityNumber: new FormControl('', Validators.compose([
+            socialSecurityNumber: new FormControl({value: '', disabled: this.readOnly}, Validators.compose([
                 Validators.minLength(12),
                 Validators.maxLength(12)
             ])),
         });
 
         this.userForm = this.formBuilder.group({
-            username: new FormControl('', Validators.compose([
+            username: new FormControl({value: '', disabled: this.readOnly}, Validators.compose([
                 Validators.required,
                 Validators.minLength(5),
                 Validators.maxLength(255)
             ])),
-            email: new FormControl('', Validators.compose([
+            email: new FormControl({value: '', disabled: this.readOnly}, Validators.compose([
                 Validators.required, Validators.email
             ])),
             roles: ['', Validators.required],
@@ -133,6 +136,20 @@ export class UserFormComponent implements OnInit, AfterViewInit {
                     address: '',
                     socialSecurityNumber: null
                 };
+            } else {
+                if (this.readOnly) {
+                    const mask = () => {
+                        const numbers = user.detail.bankAccountNumber.slice(-3);
+                        const hidenNumbers = user.detail.bankAccountNumber.slice(0, -3);
+                        let hidden = '';
+                        for (let i = 0; i < hidenNumbers.length; i++) {
+                            hidden += '*';
+                        }
+                        return hidden + numbers;
+                    };
+
+                    user.detail = {...user.detail, bankAccountNumber: mask()};
+                }
             }
             this.userForm.patchValue(user);
         }

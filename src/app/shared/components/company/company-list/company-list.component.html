@@ -50,14 +50,21 @@
         </td>
     </ng-container>
 
+    <!-- Loading status row -->
+    <ng-container matColumnDef="loading-status">
+        <th mat-header-cell *matHeaderCellDef [colSpan]="displayedColumns.length"  class="header-row-loading"
+            [ngStyle]="{'display': (isLoading$ | async) ? 'table-cell' : 'none'}">
+            <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+        </th>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="['loading-status']" class="header-row-loading"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"
         class="custom-row"
         [ngClass]="selection.isSelected(row) ? 'custom-row-selected' : ''">
     </tr>
 </table>
-
-<mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
 
 <mat-paginator [length]="companiesTotal$ | async" [pageSize]="initialPageSize" [pageSizeOptions]="[10, 25, 50, 100]">
 </mat-paginator>

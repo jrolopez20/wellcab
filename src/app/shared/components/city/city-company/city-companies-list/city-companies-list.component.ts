@@ -79,7 +79,7 @@ export class CityCompaniesListComponent implements OnInit, AfterViewInit {
             }
         });
         dialogRef.afterClosed().subscribe(result => {
-            if (!cityCompany) {
+            if (result && !cityCompany) {
                 // Load all city companies only if a new cityCompany is added
                 this.loadCityCompanies();
             }

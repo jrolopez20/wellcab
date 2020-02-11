@@ -11,7 +11,7 @@
   "Profile": {
     "Label": {
       "Profile": "Perfil",
-      "ChangeYourPersonalInfo": "Modifique su información personal",
+      "PersonalInfo": "Información personal",
       "ChangePassword": "Cambiar contraseña",
       "LogoutConfirm": "¿Está seguro que desea cerrar la sesión?",
       "OldPassword": "Contraseña antigua",
@@ -38,7 +38,7 @@
       "Name": "Nombre",
       "Value": "Valor",
       "Address": "Dirección",
-      "ConfirmDelete": "Confirme por favor",
+      "PleaseConfirm": "Confirme por favor",
       "FirstName": "Nombre",
       "LastName": "Apellidos",
       "Password": "Contraseña",
@@ -168,5 +168,17 @@
     "ROLE_MANAGER": "Gestor",
     "ROLE_DRIVER": "Conductor",
     "ROLE_OWNER": "Propietario"
+  },
+  "Contract": {
+    "Label": {
+      "Contract": "Contrato",
+      "ContractDetail": "Detalles del contrato",
+      "AddContract": "Adicionar contrato",
+      "ShureToCloseContract": "¿Está seguro que desea finalizar el contrato?"
+    },
+    "Button": {
+      "ShowContract": "Ver contrato",
+      "CloseContract": "Finalizar contrato"
+    }
   }
 }

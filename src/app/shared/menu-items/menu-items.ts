@@ -17,7 +17,7 @@ export interface MenuCategory {
 const MENU: { [key: string]: MenuCategory[] } = {
     [Role.ADMIN]: [
         {
-            id: 'admin',
+            id: 'managment',
             name: 'Administrar',
             summary: 'Módulo de administración.',
             items: [

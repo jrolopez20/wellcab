@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Company} from '@app/store/models/company.model';
+import {Role} from '@app/store/models/user.model';
 
 @Component({
     selector: 'app-company-list-dialog',

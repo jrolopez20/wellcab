@@ -30,7 +30,7 @@ export const routes: Routes = [
                 loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
             },
             {
-                path: 'admin',
+                path: 'managment',
                 loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
             }
         ]

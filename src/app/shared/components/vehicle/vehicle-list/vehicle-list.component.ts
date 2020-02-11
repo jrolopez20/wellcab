@@ -5,7 +5,7 @@ import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VehicleService} from '@app/store/features/vehicle/vehicle.service';
 import {Router} from '@angular/router';
-import {DeleteConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/delete-confirm-dialog.component';
+import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -91,7 +91,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
 
     // TODO - Test it
     deleteVehicle(vehicle: Vehicle): void {
-        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent);
+        const dialogRef = this.dialog.open(ConfirmDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 // this.vehicleService.deleteVehicle(vehicle).subscribe((response) => {
