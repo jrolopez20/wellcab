@@ -1,1 +1,31 @@
-<p>Dashboard page, waiting for content...</p>
+<!--<div *ngFor="let category of menu">
+    <div class="docs-component-category-list-summary">{{category.summary}}</div>
+    <div fxLayout.xs="column" fxLayout.gt-xs="row wrap" fxLayoutGap="15px" class="docs-component-category-list">
+        <div *ngFor="let item of category.items" fxFlex="100" fxFlex.gt-xs="calc(50%-15px)" fxFlex.gt-sm="calc(33%-15px)" >
+            <a [routerLink]="'/' + category.id + '/' + item.id"  class="docs-component-category-list-item">
+                <mat-card style="margin-bottom: 15px !important;" class="docs-component-category-list-card">
+                    <mat-card-title>{{item.name}}</mat-card-title>
+                    <mat-card-content class="docs-component-category-list-card-summary">
+                        {{item.summary}}
+                    </mat-card-content>
+                </mat-card>
+            </a>
+        </div>
+    </div>
+</div>-->
+
+<div *ngFor="let category of menu">
+    <div class="overview-menu-category-list-summary">{{category.summary}}</div>
+    <div class="overview-menu-category-list">
+        <a *ngFor="let item of category.items"
+           class="overview-menu-category-list-item"
+           [routerLink]="'/' + category.id + '/' + item.id">
+            <mat-card class="docs-component-category-list-card">
+                <mat-card-title>{{item.name}}</mat-card-title>
+                <mat-card-content class="overview-menu-category-list-card-summary">
+                    {{item.summary}}
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </div>
+</div>

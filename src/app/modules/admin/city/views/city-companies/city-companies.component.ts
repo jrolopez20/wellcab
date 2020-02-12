@@ -3,6 +3,7 @@ import {User} from '@app/store/models/user.model';
 import {City} from '@app/store/models/city.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CityService} from '@app/store/features/city/city.service';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-city-companies',
@@ -15,7 +16,8 @@ export class CityCompaniesComponent implements OnInit {
     constructor(
         public router: Router,
         private activatedRoute: ActivatedRoute,
-        private cityService: CityService
+        private cityService: CityService,
+        private location: Location
     ) {
         this.loadCityData(this.activatedRoute.snapshot.paramMap.get('id'));
     }
@@ -28,10 +30,10 @@ export class CityCompaniesComponent implements OnInit {
             if (cities) {
                 this.city = cities.find(city => city.id.toString() === id);
                 if (!this.city) {
-                    this.router.navigate(['admin/cities']);
+                    this.location.back();
                 }
             } else {
-                this.router.navigate(['admin/cities']);
+                this.location.back();
             }
         });
     }

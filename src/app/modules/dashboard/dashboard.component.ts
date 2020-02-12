@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {MenuCategory, MenuItems} from '@app/shared/menu-items/menu-items';
+import {AuthService} from '@app/store/features/auth/auth.service';
+import {User} from '@app/store/models/user.model';
 
 @Component({
     selector: 'app-dashboard',
@@ -6,11 +9,18 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+    public menu: MenuCategory[];
+    private user: User;
 
-    ngOnInit(): void {
+    constructor(
+        public menuItems: MenuItems,
+        private authService: AuthService
+    ) {
     }
 
-    constructor() {
-
+    ngOnInit(): void {
+        this.authService.getAuthenticatedUser$().subscribe(user => {
+            this.menu = this.menuItems.getCategories(user.roles[0]);
+        });
     }
 }

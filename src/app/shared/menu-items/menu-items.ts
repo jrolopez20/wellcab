@@ -19,17 +19,17 @@ const MENU: { [key: string]: MenuCategory[] } = {
         {
             id: 'managment',
             name: 'Administrar',
-            summary: 'Módulo de administración.',
+            summary: 'Módulo de administración',
             items: [
                 {
                     id: 'users',
                     name: 'Usuarios',
-                    summary: 'Gestión de usuarios.'
+                    summary: 'Gestión de usuarios del sistema.'
                 },
                 {
                     id: 'companies',
                     name: 'Empresas',
-                    summary: 'Gestión de usuarios.'
+                    summary: 'Gestión de empresas.'
                 },
                 {
                     id: 'cities',
@@ -49,7 +49,7 @@ const MENU: { [key: string]: MenuCategory[] } = {
                 {
                     id: 'colors',
                     name: 'Colores',
-                    summary: 'Gestión de colores disponibles.'
+                    summary: 'Nomenclador de colores.'
                 },
                 {
                     id: 'brands',
