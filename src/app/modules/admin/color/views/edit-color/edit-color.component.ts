@@ -33,7 +33,7 @@ export class EditColorComponent implements OnInit {
         this.colorService.getColorsList$().subscribe(colors => {
             this.color = colors ? colors.find(color => color.id.toString() === id) : null;
             if (!this.color) {
-                this.router.navigate(['admin/colors']);
+                this.router.navigate(['managment/colors']);
             }
         });
     }

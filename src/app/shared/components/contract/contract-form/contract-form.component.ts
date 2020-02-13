@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {Contract} from '@app/store/models/contract.model';
 import {ContractService} from '@app/store/features/contract/contract.service';
@@ -81,7 +81,7 @@ export class ContractFormComponent implements OnInit {
             }
         });
         dialogRef.afterClosed().subscribe((result: Company) => {
-            if (result) {
+            if (result && this.contractForm.get('company').value.id !== result.id ) {
                 this.contractForm.get('company').setValue(result);
             }
         });

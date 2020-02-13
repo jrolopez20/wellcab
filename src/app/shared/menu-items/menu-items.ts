@@ -5,6 +5,7 @@ export interface MenuItem {
     id: string;
     name: string;
     summary?: string;
+    icon?: string;
 }
 
 export interface MenuCategory {
@@ -24,32 +25,38 @@ const MENU: { [key: string]: MenuCategory[] } = {
                 {
                     id: 'users',
                     name: 'Usuarios',
-                    summary: 'Gestión de usuarios del sistema.'
+                    summary: 'Gestión de usuarios del sistema.',
+                    icon: 'person'
                 },
                 {
                     id: 'companies',
                     name: 'Empresas',
-                    summary: 'Gestión de empresas.'
+                    summary: 'Gestión de empresas.',
+                    icon: 'domain'
                 },
                 {
                     id: 'cities',
                     name: 'Ciudades',
-                    summary: 'Gestión de ciudades.'
+                    summary: 'Gestión de ciudades.',
+                    icon: 'location_city'
                 },
                 {
                     id: 'licenses',
                     name: 'Licencias',
-                    summary: 'Gestión de licencias.'
+                    summary: 'Gestión de licencias.',
+                    icon: 'work'
                 },
                 {
                     id: 'vehicles',
                     name: 'Vehículos',
-                    summary: 'Gestión de vehículos.'
+                    summary: 'Gestión de vehículos.',
+                    icon: 'directions_car'
                 },
                 {
                     id: 'colors',
                     name: 'Colores',
-                    summary: 'Nomenclador de colores.'
+                    summary: 'Nomenclador de colores.',
+                    icon: 'palette'
                 },
                 {
                     id: 'brands',
@@ -78,6 +85,11 @@ const MENU: { [key: string]: MenuCategory[] } = {
 export class MenuItems {
     getCategories(section: Role): MenuCategory[] {
         return MENU[section];
+    }
+
+    getCategoriesByRoles(roles: Role[]): MenuCategory[] {
+
+        return [];
     }
 
     // getItems(section: string): DocItem[] {

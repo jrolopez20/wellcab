@@ -20,7 +20,8 @@ import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material';
 import {APP_DATE_FORMATS} from '@app/shared/adapters';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ContractModule} from '@app/shared/components/contract/contract.module';
-
+import {SharedContractModule} from '@app/shared/components/shared-contract/shared-contract.module';
+/**/
 @NgModule({
     declarations: [],
     imports: [
@@ -44,7 +45,8 @@ import {ContractModule} from '@app/shared/components/contract/contract.module';
         ColorModule,
         BrandModule,
         ModelModule,
-        ContractModule
+        ContractModule,
+        SharedContractModule
     ],
     providers: [
         MenuItems,

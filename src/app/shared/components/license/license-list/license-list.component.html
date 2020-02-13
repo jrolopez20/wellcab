@@ -65,13 +65,9 @@
                     <mat-icon>edit</mat-icon>
                     <span> {{'Common.Button.Edit' | translate}}</span>
                 </a>
-                <button mat-menu-item (click)="showContractDialog(row)">
-                    <mat-icon>{{ row.contract ? 'remove_red_eye' : 'add'}}</mat-icon>
-                    {{(row.contract ? 'Contract.Button.ShowContract' : 'Contract.Label.AddContract') | translate}}
-                </button>
-                <button mat-menu-item (click)="closeContract(row)" *ngIf="row.contract">
-                    <mat-icon>work_off</mat-icon>
-                    {{ 'Contract.Button.CloseContract' | translate}}
+                <button mat-menu-item (click)="showContracts(row)">
+                    <mat-icon>visibility</mat-icon>
+                    {{'Contract.Button.ShowContracts' | translate}}
                 </button>
             </mat-menu>
         </td>

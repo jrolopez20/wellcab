@@ -23,3 +23,8 @@ export const getError = createSelector(
     getLicenseState,
     (state: LicenseState) => state.error
 );
+
+export const getCurrentLicense = createSelector(
+    getLicenseState,
+    (state: LicenseState) => state.currentLicense
+);

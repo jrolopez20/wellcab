@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>{{data.title | translate}}</h2>
+<form [formGroup]="sharedContractForm">
+    <mat-dialog-content>
+        <div fxLayout="column wrap" fxLayoutGap.gt-xs="10px">
+            <div fxFlex="100">
+                <mat-form-field>
+                    <input readonly matInput placeholder="{{'Common.Label.Owner' | translate}}"
+                           formControlName="ownerUser" [value]="getOwnerName()"/>
+                    <button mat-stroked-button matSuffix style="top: -10px; margin-right: 5px;"
+                            (click)="showOwnerUserDialog()"
+                            matTooltip="{{'User.Label.SelectUser' | translate}}">
+                        <mat-icon>person</mat-icon>
+                    </button>
+                    <mat-error *ngIf="handleError('ownerUser', 'required')">
+                        {{'Common.ValidationMessage.FieldRequired' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>
+            {{'Common.Button.Cancel' | translate }}
+        </button>
+        <button mat-flat-button [disabled]="(isLoading$ | async) || sharedContractForm.invalid" color="primary"
+                (click)="submit()">
+            {{'Common.Button.Save' | translate}}
+        </button>
+    </mat-dialog-actions>
+</form>
+

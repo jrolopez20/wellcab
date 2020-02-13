@@ -30,16 +30,16 @@
                 </div>
                 <div fxFlex="100">
                     <mat-form-field>
-                        <input readonly matInput placeholder="{{'Vehicle.Label.Owner' | translate}}"
+                        <input readonly matInput placeholder="{{'Common.Label.Owner' | translate}}"
                                formControlName="owner" [value]="getOwnerName()"/>
                         <button mat-stroked-button matSuffix style="top: -10px; margin-right: 5px;"
                                 (click)="showOwnerUserDialog()"
-                                matTooltip="Seleccionar un usuario propietario">
+                                matTooltip="{{'User.Label.SelectUser' | translate}}">
                             <mat-icon>person</mat-icon>
                         </button>
                         <button mat-stroked-button matSuffix style="top: -10px;"
                                 (click)="showOwnerCompanyDialog()"
-                                matTooltip="Seleccionar una empresa como propietaria">
+                                matTooltip="{{'Company.Label.SelectCompany' | translate}}">
                             <mat-icon>business</mat-icon>
                         </button>
                         <mat-error *ngIf="handleError('owner', 'required')">

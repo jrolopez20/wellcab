@@ -45,7 +45,8 @@
       "Email": "Email",
       "Phone": "Teléfono",
       "DateOfBirth": "Fecha de nacimiento",
-      "Details": "Detalles"
+      "Details": "Detalles",
+      "Owner": "Propietario"
     },
     "Button": {
       "Attach": "Vincular",
@@ -79,7 +80,7 @@
       "Users": "Usuarios",
       "EditUser": "Editar usuario",
       "AddUser": "Adicionar usuario",
-      "SharedAccount": "Cuenta partícipe"
+      "SelectUser": "Seleccione un usuario"
     }
   },
   "Company": {
@@ -92,11 +93,13 @@
       "CompaniesOn": "Empresas en",
       "PostalCode": "Código postal",
       "AddCompany": "Adicionar empresa",
-      "EditCompany": "Editar empresa"
+      "EditCompany": "Editar empresa",
+      "SelectCompany": "Seleccione una empresa"
     }
   },
   "City": {
     "Label": {
+      "City": "Ciudad",
       "Cities": "Ciudades",
       "AddCity": "Adicionar ciudad",
       "EditCity": "Editar ciudad",
@@ -130,7 +133,6 @@
       "Brand": "Marca",
       "Model": "Modelo",
       "Color": "Color",
-      "Owner": "Propietario",
       "Odometer": "Odómetro",
       "OdometerNextRevision": "Próxima revisión",
       "MatriculationAt": "Fecha matriculación",
@@ -172,13 +174,31 @@
   "Contract": {
     "Label": {
       "Contract": "Contrato",
+      "Contracts": "Contratos",
+      "ContractList": "Listado de contratos",
       "ContractDetail": "Detalles del contrato",
       "AddContract": "Adicionar contrato",
       "ShureToCloseContract": "¿Está seguro que desea finalizar el contrato?"
     },
     "Button": {
+      "ShowContracts": "Ver contratos",
       "ShowContract": "Ver contrato",
       "CloseContract": "Finalizar contrato"
+    }
+  },
+  "SharedContract" : {
+    "Label": {
+      "SharedContract": "Cuenta partícipe",
+      "SharedContracts": "Cuentas partícipes",
+      "AddSharedContract": "Adicionar cuenta partícipe",
+      "SharedContractDetail": "Detalles de cuenta partícipe",
+      "SharedContractHistory": "Histórico de cuentas partícipes",
+      "SelectContract": "Seleccione un contrato para ver sus cuentas partícipes",
+      "ShureToCloseSharedContract": "¿Está seguro que desea finalizar la cuenta partícipe?"
+    },
+    "Button": {
+      "CloseSharedContract": "Finalizar cuenta partícipe",
+      "ShowSharedContract": "Ver cuenta partícipe"
     }
   }
 }

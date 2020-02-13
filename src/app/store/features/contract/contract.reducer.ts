@@ -63,12 +63,7 @@ const contractReducer = createReducer(
         (state, {contract}) => {
             return {
                 ...state,
-                contracts: state.contracts ? state.contracts.map(u => {
-                    if (u.id === contract.id) {
-                        u = {...contract};
-                    }
-                    return u;
-                }) : null,
+                contracts: updateContracts(state.contracts, contract),
                 loading: false,
                 error: null
             };
@@ -86,18 +81,27 @@ const contractReducer = createReducer(
         (state, {contract}) => {
             return {
                 ...state,
-                contracts: state.contracts ? state.contracts.map(u => {
-                    if (u.id === contract.id) {
-                        u = {...contract};
-                    }
-                    return u;
-                }) : null,
+                contracts: updateContracts(state.contracts, contract),
                 loading: false,
                 error: null
             };
         }
     )
 );
+
+/**
+ * Update the contract list
+ * @param contracts
+ * @param contract
+ */
+const updateContracts = (contracts, contract) => {
+    return [...contracts].map(item => {
+        if (item.id === contract.id) {
+            return {...contract};
+        }
+        return item;
+    });
+};
 
 export function reducer(state: ContractState | undefined, action: Action) {
     return contractReducer(state, action);

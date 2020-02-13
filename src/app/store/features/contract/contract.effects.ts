@@ -4,7 +4,6 @@ import * as ContractActions from './contract.actions';
 import {catchError, concatMap, map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
-import {Contract} from '@app/store/models/contract.model';
 
 @Injectable()
 export class ContractEffects {
@@ -15,8 +14,8 @@ export class ContractEffects {
     public loadContracts$ = createEffect(() =>
         this.actions$.pipe(
             ofType(ContractActions.loadContractsRequest),
-            concatMap(({sort, order, page, limit, filter}) => {
-                return this.http.get<any>(`contracts?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
+            concatMap(({licenseId, sort, order, page, limit, filter}) => {
+                return this.http.get<any>(`licenses/${licenseId}/contracts?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
                         ContractActions.loadContractsCompleted({contracts: response.data, total: response.pagination.total})
                     ),

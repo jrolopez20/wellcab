@@ -3,7 +3,7 @@ import {Contract} from '@app/store/models/contract.model';
 
 export const loadContractsRequest = createAction(
     '[Contract] Load Contracts Request',
-    props<{ sort: string, order: string, page: number, limit: number, filter?: string }>()
+    props<{ licenseId: number, sort: string, order: string, page: number, limit: number, filter?: string }>()
 );
 
 export const loadContractsCompleted = createAction(

@@ -30,10 +30,10 @@ export class EditUserComponent implements OnInit {
             if (users) {
                 this.user = users.find(user => user.id.toString() === id);
                 if (!this.user) {
-                    this.router.navigate(['admin/users']);
+                    this.router.navigate(['managment/users']);
                 }
             } else {
-                this.router.navigate(['admin/users']);
+                this.router.navigate(['managment/users']);
             }
         });
     }

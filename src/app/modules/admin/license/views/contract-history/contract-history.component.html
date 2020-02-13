@@ -1,0 +1,14 @@
+<div fxLayout="row wrap" fxLayout.xs="column wrap" fxLayoutGap="10px">
+    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+        <app-contract-list
+                [license]="license"
+                (onContractSelectedChange)="handleContractChange($event)">
+        </app-contract-list>
+    </div>
+    <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+        <app-shared-contract-list
+                [license]="license"
+                [contract]="selectedContract" >
+        </app-shared-contract-list>
+    </div>
+</div>

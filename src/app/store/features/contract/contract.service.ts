@@ -22,8 +22,8 @@ export class ContractService {
      * @param limit
      * @param filter
      */
-    public loadContracts({sort = '', order, page, limit, filter = ''}) {
-        this.store.dispatch(ContractActions.loadContractsRequest({sort, order, page, limit, filter}));
+    public loadContracts({licenseId, sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(ContractActions.loadContractsRequest({licenseId, sort, order, page, limit, filter}));
     }
 
     public getContractsList$(): Observable<Contract[]> {

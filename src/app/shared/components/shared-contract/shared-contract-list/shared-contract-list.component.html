@@ -1,0 +1,79 @@
+<mat-card>
+    <mat-card-content>
+        <div class="d-flex flex-wrap">
+            <div>
+                <mat-card-title>
+                    {{'SharedContract.Label.SharedContracts' | translate}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    {{(currentContract ? 'SharedContract.Label.SharedContractHistory' :
+                  'SharedContract.Label.SelectContract') | translate}}
+                </mat-card-subtitle>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
+                <app-search-box (onSubmit)="search($event)"></app-search-box>
+            </div>
+            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100" *ngIf="editable" style="padding-top: 3px;">
+                <button mat-flat-button color="accent" [disabled]="!currentContract || (isLoading$ | async)"
+                        (click)="showDialog()" *ngIf="editable">
+                    <mat-icon>add</mat-icon>
+                    {{'Common.Button.Add' | translate}}
+                </button>
+            </div>
+        </div>
+
+        <table mat-table [dataSource]="sharedContractsList$ | async" class="table table-rasponsive" matSort
+               matSortActive="ownerUser" matSortDirection="desc">
+
+            <ng-container matColumnDef="ownerUser">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Common.Label.Owner' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{getOwnerName(row.ownerUser)}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="finishedAt">
+                <th mat-header-cell *matHeaderCellDef class="col-action">{{'Common.Label.Status' | translate}}</th>
+                <td mat-cell *matCellDef="let row" class="col-action">
+                    <mat-icon [ngClass]="row.finishedAt ? 'text-muted' : 'text-dark'">{{ row.finishedAt ? 'lock' : 'lock_open'}}</mat-icon>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef class="col-action">{{'Common.Label.Action' | translate}}</th>
+                <td mat-cell *matCellDef="let row" class="col-action">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="showDialog(row)">
+                            <mat-icon>visibility</mat-icon>
+                            {{'SharedContract.Button.ShowSharedContract' | translate}}
+                        </button>
+                        <button mat-menu-item (click)="closeSharedContract(row)" *ngIf="!row.finishedAt">
+                            <mat-icon>lock</mat-icon>
+                            {{ 'SharedContract.Button.CloseSharedContract' | translate}}
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <!-- Loading status row -->
+            <ng-container matColumnDef="loading-status">
+                <th mat-header-cell *matHeaderCellDef [colSpan]="displayedColumns.length" class="header-row-loading"
+                    [ngStyle]="{'display': (isLoading$ | async) ? 'table-cell' : 'none'}">
+                    <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+                </th>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="['loading-status']" class="header-row-loading"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [length]="sharedContractsTotal$ | async" [pageSize]="initialPageSize"
+                       [pageSizeOptions]="[10, 25, 50, 100]">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>

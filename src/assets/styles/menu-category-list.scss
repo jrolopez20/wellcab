@@ -9,7 +9,6 @@
 
   @media (max-width: 767px) {
     justify-content: center;
-
   }
 }
 
@@ -20,7 +19,7 @@
   width: 260px;
 
   .mat-card-title {
-    font-size: 20px;
+    font-size: 1.4rem !important;
   }
 
   &, &:active, &:hover, &:focus {
@@ -47,4 +46,13 @@
     margin: 0;
     padding: 50px;
   }
+}
+
+/**************/
+.overview-menu-list-icon-spacer {
+  flex: 1 1 auto;
+}
+
+.overview-menu-list-item-icon {
+  color: #607d8b;
 }

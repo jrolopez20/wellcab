@@ -145,11 +145,9 @@ export class VehicleFormComponent implements OnInit {
 
     showOwnerUserDialog() {
         const dialogRef = this.dialog.open(UserListDialogComponent, {
-            minWidth: '800px',
+            minWidth: '700px',
             data: {
-                // TODO, esperar a que Uriser permita en el endpoint la forma ROLE_ADMIN
-                // para poder usar en enum de Role
-                roles: ['OWNER'] // Role.Owner
+                roles: [Role.OWNER]
             }
         });
         dialogRef.afterClosed().subscribe((result: User) => {

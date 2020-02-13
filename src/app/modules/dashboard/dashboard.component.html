@@ -21,7 +21,11 @@
            class="overview-menu-category-list-item"
            [routerLink]="'/' + category.id + '/' + item.id">
             <mat-card class="docs-component-category-list-card">
-                <mat-card-title>{{item.name}}</mat-card-title>
+                <mat-card-header class="docs-component-list-card-header">
+                    <mat-card-title>{{item.name}}</mat-card-title>
+                    <span class="overview-menu-list-icon-spacer"></span>
+                    <mat-icon class="overview-menu-list-item-icon">{{item.icon}}</mat-icon>
+                </mat-card-header>
                 <mat-card-content class="overview-menu-category-list-card-summary">
                     {{item.summary}}
                 </mat-card-content>

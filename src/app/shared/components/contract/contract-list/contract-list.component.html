@@ -3,9 +3,9 @@
         <div class="d-flex flex-wrap">
             <div>
                 <mat-card-title>
-                    {{'Brand.Label.Brands' | translate}}
+                    {{'Contract.Label.Contracts' | translate}}
                 </mat-card-title>
-                <mat-card-subtitle>Listado de marcas</mat-card-subtitle>
+                <mat-card-subtitle> {{'Contract.Label.ContractList' | translate}}</mat-card-subtitle>
             </div>
         </div>
 
@@ -21,7 +21,8 @@
             </div>
         </div>
 
-        <table mat-table [dataSource]="brandList$ | async" class="table table-rasponsive" matSort matSortActive="name"
+        <table mat-table [dataSource]="contractList$ | async" class="table table-rasponsive" matSort
+               matSortActive="company"
                matSortDirection="desc">
 
             <ng-container matColumnDef="select">
@@ -31,14 +32,28 @@
                     <mat-radio-button (click)="$event.stopPropagation()"
                                       (change)="$event ? selection.toggle(row) : null"
                                       [checked]="selection.isSelected(row)"
-                                      [aria-label]="checkboxLabel(row)">
+                                      [aria-label]="checkboxLabel(row)"
+                                      name="contract-selection">
                     </mat-radio-button>
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Common.Label.Name' | translate}}</th>
-                <td mat-cell *matCellDef="let row">{{row.name}}</td>
+            <ng-container matColumnDef="city">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'City.Label.City' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{row.city.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Company.Label.Company' | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{row.company.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="finishedAt">
+                <th mat-header-cell *matHeaderCellDef class="col-action">{{'Common.Label.Status' | translate}}</th>
+                <td mat-cell *matCellDef="let row" class="col-action">
+                    <mat-icon
+                            [ngClass]="row.finishedAt ? 'text-muted' : 'text-dark'">{{ row.finishedAt ? 'lock' : 'lock_open'}}</mat-icon>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="action">
@@ -48,9 +63,13 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item color="primary" (click)="showDialog(row)">
-                            <mat-icon>edit</mat-icon>
-                            <span> {{'Common.Button.Edit' | translate}}</span>
+                        <button mat-menu-item (click)="showDialog(row)">
+                            <mat-icon>visibility</mat-icon>
+                            {{'Contract.Button.ShowContract' | translate}}
+                        </button>
+                        <button mat-menu-item (click)="closeContract(row)" *ngIf="!row.finishedAt">
+                            <mat-icon>lock</mat-icon>
+                            {{ 'Contract.Button.CloseContract' | translate}}
                         </button>
                     </mat-menu>
                 </td>
@@ -72,7 +91,8 @@
             </tr>
         </table>
 
-        <mat-paginator [length]="brandsTotal$ | async" [pageSize]="initialPageSize" [pageSizeOptions]="[10, 25, 50, 100]">
+        <mat-paginator [length]="contractsTotal$ | async" [pageSize]="initialPageSize"
+                       [pageSizeOptions]="[10, 25, 50, 100]">
         </mat-paginator>
     </mat-card-content>
 </mat-card>

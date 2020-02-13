@@ -42,12 +42,20 @@ export class LicenseService {
         return this.store.select(LicenseSelectors.getError);
     }
 
+    public getCurrentLicense$(): Observable<License> {
+        return this.store.select(LicenseSelectors.getCurrentLicense);
+    }
+
     public addLicense(license: License) {
         this.store.dispatch(LicenseActions.addLicenseRequest({license}));
     }
 
     public setLicense(license: License) {
         this.store.dispatch(LicenseActions.setLicenseRequest({license}));
+    }
+
+    public setCurrentLicense(license?: License) {
+        this.store.dispatch(LicenseActions.setCurrentLicense({license}));
     }
 
 }

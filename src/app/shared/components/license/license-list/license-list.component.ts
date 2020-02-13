@@ -4,11 +4,9 @@ import {merge, Observable} from 'rxjs';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LicenseService} from '@app/store/features/license/license.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/confirm-dialog.component';
 import {Contract} from '@app/store/models/contract.model';
-import {CompanyListDialogComponent} from '@app/shared/components/company/company-list-dialog/company-list-dialog.component';
-import {Company} from '@app/store/models/company.model';
 import {ContractFormComponent} from '@app/shared/components/contract/contract-form/contract-form.component';
 import {ContractService} from '@app/store/features/contract/contract.service';
 
@@ -37,7 +35,8 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
         private licenseService: LicenseService,
         private contractService: ContractService,
         private router: Router,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private _route: ActivatedRoute
     ) {
     }
 
@@ -74,40 +73,9 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
         });
     }
 
-    showContractDialog(license: License) {
-        const dialogRef = this.dialog.open(ContractFormComponent, {
-            minWidth: '400px',
-            data: {
-                title: license.contract ? 'Contract.Label.ContractDetail' : 'Contract.Label.AddContract',
-                licenseId: license.id,
-                contract: license.contract
-            }
-        });
-        dialogRef.afterClosed().subscribe((result: Contract) => {
-            if (result) {
-                this.loadLicenses();
-            }
-        });
-    }
-
-    closeContract(license: License) {
-        if (license.contract) {
-            const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-                data: {
-                    message: 'Contract.Label.ShureToCloseContract'
-                }
-            });
-            dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.contractService.closeContract(license.id);
-                    this.isLoadingContract$.subscribe(loading => {
-                        if (!loading) {
-                            this.loadLicenses();
-                        }
-                    });
-                }
-            });
-        }
+    showContracts(license: License) {
+        this.licenseService.setCurrentLicense(license);
+        this.router.navigate([license.id, 'contracts'], {relativeTo: this._route});
     }
 
 }

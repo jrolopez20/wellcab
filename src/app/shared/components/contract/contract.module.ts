@@ -11,10 +11,10 @@ import {EffectsModule} from '@ngrx/effects';
 import {ContractEffects} from '@app/store/features/contract/contract.effects';
 import {UtilsModule} from '@app/shared/utils/utils.module';
 import { ContractFormComponent } from './contract-form/contract-form.component';
-
+import { ContractListComponent } from './contract-list/contract-list.component';
 
 @NgModule({
-    declarations: [ContractFormComponent],
+    declarations: [ContractFormComponent, ContractListComponent],
     imports: [
         CommonModule,
         AppMaterialModule,
@@ -29,6 +29,7 @@ import { ContractFormComponent } from './contract-form/contract-form.component';
         EffectsModule.forFeature([ContractEffects]),
         UtilsModule
     ],
+    exports:[ContractListComponent],
     entryComponents: [ContractFormComponent]
 })
 export class ContractModule {

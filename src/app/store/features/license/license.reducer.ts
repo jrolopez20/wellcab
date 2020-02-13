@@ -73,6 +73,14 @@ const licenseReducer = createReducer(
                 error: null
             };
         }
+    ),
+    on(LicenseActions.setCurrentLicense,
+        (state, {license}) => {
+            return {
+                ...state,
+                currentLicense: license || null
+            };
+        }
     )
 );
 

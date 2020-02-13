@@ -35,4 +35,8 @@ export const setLicenseCompleted = createAction(
     '[License] Set License Completed',
     props<{ license: License }>()
 );
+export const setCurrentLicense = createAction(
+    '[License] Set Current License',
+    props<{ license?: License }>()
+);
 
