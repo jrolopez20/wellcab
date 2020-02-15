@@ -17,6 +17,7 @@ import {LanguagePickerComponent} from './components/language-picker/language-pic
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ErrorInterceptor} from '@app/core/interceptors/error.interceptor';
 import {throwIfAlreadyLoaded} from '@app/core/guards/module-import.guard';
+import {NotifierModule} from 'angular-notifier';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,21 @@ import {throwIfAlreadyLoaded} from '@app/core/guards/module-import.guard';
         AppMaterialModule,
         BrowserAnimationsModule,
         CdkAccordionModule,
-        TranslateModule
+        TranslateModule,
+        NotifierModule.withConfig({
+            position: {
+                horizontal: {
+                    position: 'right',
+                    distance: 20
+                },
+                vertical: {
+                    distance: 15
+                }
+            },
+            behaviour: {
+                autoHide: 6000
+            }
+        }),
     ],
     entryComponents: [AppLogoutDialogComponent],
     exports: [

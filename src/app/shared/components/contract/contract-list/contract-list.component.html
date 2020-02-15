@@ -10,9 +10,9 @@
         </div>
 
         <div fxLayout="row wrap" fxLayoutGap="10px">
-            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
-                <app-search-box (onSubmit)="search($event)"></app-search-box>
-            </div>
+<!--            <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">-->
+<!--                <app-search-box (onSubmit)="search($event)"></app-search-box>-->
+<!--            </div>-->
             <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100" *ngIf="editable" style="padding-top: 3px;">
                 <button mat-flat-button color="accent" (click)="showDialog()" *ngIf="editable">
                     <mat-icon>add</mat-icon>

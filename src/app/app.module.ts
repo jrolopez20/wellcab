@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {LOCALE_ID, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {DatePipe, LocationStrategy, PathLocationStrategy, registerLocaleData} from '@angular/common';
+import {LocationStrategy, PathLocationStrategy, registerLocaleData} from '@angular/common';
 import {AppComponent} from './app.component';
 
 import {FlexLayoutModule} from '@angular/flex-layout';

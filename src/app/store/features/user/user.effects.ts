@@ -71,8 +71,6 @@ export class UserEffects {
         this.actions$.pipe(
             ofType(UserActions.toggleAccessRequest),
             concatMap(({user}) => {
-                console.log(typeof user.hasAccess);
-                console.log(user.hasAccess);
                 return this.http.patch<User>(`users/${user.id}`, {
                     accessStatus: user.hasAccess ? 'enabled' : 'disabled'
                 }).pipe(

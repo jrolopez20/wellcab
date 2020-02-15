@@ -1,20 +1,15 @@
-/*
-Template Name: Material Pro Admin
-Author: Themedesigner
-Email: niravjoshi87@gmail.com
-File: scss
-*/
 /**
  * Table Of Content
  *
  * 	1. Globals
- *	2. Headers
- *	3. Navigations
- *	4. Banners
- *	5. Footers
- *	6. app
- *	7. Widgets
- *	8. Custom Templates
+ *	2. Spinner
+ *	3. App
+ *	4. Header
+ *	5. Pages
+ *	6. Sidebar
+ *	7. Responsive
+ *	8. Menu category styles
+ *	9. Notifier styles
  */
 @import 'variable';
 @import 'spinner';
@@ -24,5 +19,6 @@ File: scss
 @import 'sidebar';
 @import 'responsive';
 @import 'menu-category-list';
+@import '~angular-notifier/styles';
 
 //@import "../styles/icons/material-design-iconic-font/css/materialdesignicons.min.css";
