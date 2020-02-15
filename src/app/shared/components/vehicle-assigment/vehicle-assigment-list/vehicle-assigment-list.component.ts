@@ -3,7 +3,6 @@ import {License} from '@app/store/models/license.model';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {merge, Observable} from 'rxjs';
 import {VehicleAssigment} from '@app/store/models/vehicle-assigment.model';
-import {FormBuilder} from '@angular/forms';
 import {VehicleAssigmentService} from '@app/store/features/vehicle-assigment/vehicle-assigment.service';
 import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/confirm-dialog.component';
 import {VehicleAssigmentFormComponent} from '@app/shared/components/vehicle-assigment/vehicle-assigment-form/vehicle-assigment-form.component';
@@ -30,7 +29,6 @@ export class VehicleAssigmentListComponent implements OnInit, AfterViewInit {
     private displayedColumns: string[] = ['plateNumber', 'brand', 'model', 'finishedAt', 'action'];
 
     constructor(
-        private formBuilder: FormBuilder,
         private vehicleAssigmentService: VehicleAssigmentService,
         private dialog: MatDialog
     ) {

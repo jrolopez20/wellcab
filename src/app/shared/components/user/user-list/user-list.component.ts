@@ -90,8 +90,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
     }
 
     onAccessChange(slider, user: User) {
+        const userCopy = {...user, hasAccess: slider.checked};
         if (slider.checked) {
-            const userCopy = {...user, hasAccess: slider.checked};
             this.userService.toggleAccess(userCopy);
         } else {
             const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -101,9 +101,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
             });
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
-                    this.userService.toggleUnregister(user);
+                    this.userService.toggleAccess(userCopy);
                 } else {
-                    slider.source.checked = true;
+                    slider.source.checked = !slider.source.checked;
                 }
             });
         }

@@ -16,7 +16,7 @@ export class DriverAssigmentEffects {
         this.actions$.pipe(
             ofType(DriverAssigmentActions.loadDriverAssigmentsRequest),
             concatMap(({licenseId, sort, order, page, limit, filter}) => {
-                return this.http.get<any>(`licenses/{licenseId}/driver-assigments?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
+                return this.http.get<any>(`licenses/${licenseId}/driver-assigments?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
                     map(response =>
                         DriverAssigmentActions.loadDriverAssigmentsCompleted({
                             driverAssigments: response.data,
@@ -32,8 +32,10 @@ export class DriverAssigmentEffects {
     public addDriverAssigment$ = createEffect(() =>
         this.actions$.pipe(
             ofType(DriverAssigmentActions.addDriverAssigmentRequest),
-            concatMap(({licenseId, driverAssigment}) => {
-                return this.http.post<DriverAssigment>(`licenses/${licenseId}/driver-assigments`, driverAssigment).pipe(
+            concatMap(({licenseId, driver}) => {
+                return this.http.post<DriverAssigment>(`licenses/${licenseId}/driver-assigments`, {
+                    driverUser: driver.id
+                }).pipe(
                     map(response =>
                         DriverAssigmentActions.addDriverAssigmentCompleted({driverAssigment: {...response}})
                     ),
@@ -47,8 +49,25 @@ export class DriverAssigmentEffects {
         this.actions$.pipe(
             ofType(DriverAssigmentActions.setDriverAssigmentRequest),
             concatMap(({licenseId, driverAssigment}) => {
-                const {id, ...driverAssigmentCopy} = driverAssigment;
-                return this.http.put<DriverAssigment>(`licenses/${licenseId}/driver-assigments/${id}`, driverAssigmentCopy).pipe(
+                return this.http.put<DriverAssigment>(`licenses/${licenseId}/driver-assigments/${driverAssigment.id}`, {
+                    driverUser: driverAssigment.driverUser.id
+                }).pipe(
+                    map(response =>
+                        DriverAssigmentActions.setDriverAssigmentCompleted({driverAssigment: {...response}})
+                    ),
+                    catchError(error => of(DriverAssigmentActions.driverAssigmentsError({error})))
+                );
+            })
+        )
+    );
+
+    public unlinkDriver$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(DriverAssigmentActions.unlinkDriverRequest),
+            concatMap(({licenseId, driverAssigment}) => {
+                return this.http.patch<DriverAssigment>(`licenses/${licenseId}/driver-assigments/${driverAssigment.id}`, {
+                    status: 'finished'
+                }).pipe(
                     map(response =>
                         DriverAssigmentActions.setDriverAssigmentCompleted({driverAssigment: {...response}})
                     ),

@@ -16,8 +16,12 @@ export class UserEffects {
         this.actions$.pipe(
             ofType(UserActions.loadUsersRequest),
             concatMap(({sort, order, page, limit, filter, active, roles}) => {
+                let url = `users?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}&roles=${roles.join()}`;
+                if (active !== null) {
+                    url += `&active=${active}`;
+                }
                 return this.http.get<any>
-                (`users?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}&active=${active}&roles=${roles.join()}`)
+                (url)
                     .pipe(
                         map(response =>
                             UserActions.loadUsersCompleted({users: response.data, total: response.pagination.total})
@@ -67,6 +71,8 @@ export class UserEffects {
         this.actions$.pipe(
             ofType(UserActions.toggleAccessRequest),
             concatMap(({user}) => {
+                console.log(typeof user.hasAccess);
+                console.log(user.hasAccess);
                 return this.http.patch<User>(`users/${user.id}`, {
                     accessStatus: user.hasAccess ? 'enabled' : 'disabled'
                 }).pipe(

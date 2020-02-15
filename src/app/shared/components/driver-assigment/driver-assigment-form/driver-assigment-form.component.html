@@ -1,18 +1,18 @@
 <h2 mat-dialog-title>{{data.title | translate}}</h2>
-<form [formGroup]="vehicleAssigmentForm">
+<form [formGroup]="driverAssigmentForm">
     <mat-dialog-content>
         <div fxLayout="column wrap" fxLayoutGap.gt-xs="10px">
             <div fxFlex="100">
                 <mat-form-field>
-                    <input readonly matInput placeholder="{{'Vehicle.Label.Vehicle' | translate}}"
-                           formControlName="vehicle" [value]="vehicleToString()"/>
+                    <input readonly matInput placeholder="{{'Driver.Label.Driver' | translate}}"
+                           formControlName="driverUser" [value]="driverToString()"/>
                     <button mat-stroked-button matSuffix style="top: -10px; margin-right: 5px;"
-                            *ngIf="!data.vehicleAssigment?.finishedAt"
-                            (click)="showVehicleListDialog()"
-                            matTooltip="{{'Vehicle.Label.SelectVehicle' | translate}}">
-                        <mat-icon>directions_car</mat-icon>
+                            *ngIf="!data.driverAssigment?.endAt"
+                            (click)="showDriverUserListDialog()"
+                            matTooltip="{{'User.Label.SelectUser' | translate}}">
+                        <mat-icon>person</mat-icon>
                     </button>
-                    <mat-error *ngIf="handleError('vehicle', 'required')">
+                    <mat-error *ngIf="handleError('driverUser', 'required')">
                         {{'Common.ValidationMessage.FieldRequired' | translate}}
                     </mat-error>
                 </mat-form-field>
@@ -24,8 +24,8 @@
             {{'Common.Button.Cancel' | translate }}
         </button>
         <button mat-flat-button color="primary"
-                *ngIf="!data.vehicleAssigment?.finishedAt"
-                [disabled]="(isLoading$ | async) || vehicleAssigmentForm.invalid"
+                *ngIf="!data.driverAssigment?.endAt"
+                [disabled]="(isLoading$ | async) || driverAssigmentForm.invalid"
                 (click)="submit()">
             {{'Common.Button.Save' | translate}}
         </button>

@@ -88,6 +88,6 @@ export class VehicleAssigmentFormComponent implements OnInit {
     vehicleToString(): string {
         const vehicle = this.vehicleAssigmentForm.get('vehicle').value;
         return vehicle ? vehicle.plateNumber : null;
-    };
+    }
 
 }

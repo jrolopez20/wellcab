@@ -5,6 +5,7 @@ import {DriverAssigment} from '@app/store/models/driver-assigment.model';
 import {Observable} from 'rxjs';
 import * as DriverAssigmentSelectors from './driver-assigment.selectors';
 import {AppState} from '@app/reducers';
+import {User} from '@app/store/models/user.model';
 
 @Injectable({
     providedIn: 'root'
@@ -42,12 +43,16 @@ export class DriverAssigmentService {
         return this.store.select(DriverAssigmentSelectors.getError);
     }
 
-    public addDriverAssigment(licenseId: number, driverAssigment: DriverAssigment) {
-        this.store.dispatch(DriverAssigmentActions.addDriverAssigmentRequest({licenseId, driverAssigment}));
+    public addDriverAssigment(licenseId: number, driver: User) {
+        this.store.dispatch(DriverAssigmentActions.addDriverAssigmentRequest({licenseId, driver}));
     }
 
     public setDriverAssigment(licenseId: number, driverAssigment: DriverAssigment) {
         this.store.dispatch(DriverAssigmentActions.setDriverAssigmentRequest({licenseId, driverAssigment}));
+    }
+
+    public unlinkDriver(licenseId: number, driverAssigment: DriverAssigment) {
+        this.store.dispatch(DriverAssigmentActions.unlinkDriverRequest({licenseId, driverAssigment}));
     }
 
 }

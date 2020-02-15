@@ -57,17 +57,37 @@ const driverAssigmentReducer = createReducer(
         (state, {driverAssigment}) => {
             return {
                 ...state,
-                driverAssigments: state.driverAssigments.map(u => {
-                    if (u.id === driverAssigment.id) {
-                        u = {...driverAssigment};
-                    }
-                    return u;
-                }),
+                driverAssigments: updateDriverAssigments(state.driverAssigments, driverAssigment),
+                loading: false,
+                error: null
+            };
+        }),
+    on(DriverAssigmentActions.unlinkDriverRequest,
+        (state) => {
+            return {
+                ...state,
+                loading: true
+            };
+        }),
+    on(DriverAssigmentActions.unlinkDriverCompleted,
+        (state, {driverAssigment}) => {
+            return {
+                ...state,
+                driverAssigments: updateDriverAssigments(state.driverAssigments, driverAssigment),
                 loading: false,
                 error: null
             };
         })
 );
+
+const updateDriverAssigments = (driverAssigments, driverAssigment) => {
+    return [...driverAssigments].map(item => {
+        if (item.id === driverAssigment.id) {
+            return {...driverAssigment};
+        }
+        return item;
+    });
+};
 
 export function reducer(state: DriverAssigmentState | undefined, action: Action) {
     return driverAssigmentReducer(state, action);

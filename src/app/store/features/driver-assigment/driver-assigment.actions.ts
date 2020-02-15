@@ -1,5 +1,6 @@
 import {createAction, props} from '@ngrx/store';
 import {DriverAssigment} from '@app/store/models/driver-assigment.model';
+import {User} from '@app/store/models/user.model';
 
 export const loadDriverAssigmentsRequest = createAction(
     '[DriverAssigment] Load Driver Assigments Request',
@@ -18,7 +19,7 @@ export const driverAssigmentsError = createAction(
 
 export const addDriverAssigmentRequest = createAction(
     '[DriverAssigment] Add Driver Assigment Request',
-    props<{ licenseId: number, driverAssigment: DriverAssigment }>()
+    props<{ licenseId: number, driver: User }>()
 );
 
 export const addDriverAssigmentCompleted = createAction(
@@ -33,6 +34,16 @@ export const setDriverAssigmentRequest = createAction(
 
 export const setDriverAssigmentCompleted = createAction(
     '[DriverAssigment] Set Driver Assigment Completed',
+    props<{ driverAssigment: DriverAssigment }>()
+);
+
+export const unlinkDriverRequest = createAction(
+    '[DriverAssigment] Unlink Driver Request',
+    props<{ licenseId: number, driverAssigment: DriverAssigment }>()
+);
+
+export const unlinkDriverCompleted = createAction(
+    '[DriverAssigment] Unlink Driver Completed',
     props<{ driverAssigment: DriverAssigment }>()
 );
 

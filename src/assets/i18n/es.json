@@ -46,7 +46,10 @@
       "Phone": "Teléfono",
       "DateOfBirth": "Fecha de nacimiento",
       "Details": "Detalles",
-      "Owner": "Propietario"
+      "Owner": "Propietario",
+      "EndAt": "Finalizado",
+      "Linked": "Vinculado",
+      "Unlinked": "Desvinculado"
     },
     "Button": {
       "Attach": "Vincular",
@@ -85,8 +88,6 @@
   },
   "Company": {
     "Label": {
-      "Linked": "Vinculado",
-      "Unlinked": "No vinculado",
       "Companies": "Empresas",
       "Company": "Empresa",
       "Cif": "CIF",
@@ -109,10 +110,15 @@
   },
   "Driver": {
     "Label": {
+      "DriverDetail": "Detalles del conductor",
+      "LinkDriver": "Vincular conductor",
       "Driver": "Conductor",
-      "SocialSecurityNumber": "No. seguridad social"
+      "SocialSecurityNumber": "No. seguridad social",
+      "DriverAssigment": "Asignación de conductores",
+      "DriverAssigmentHistory": "Historial de conductores asignados"
     },
     "Button": {
+      "ShowDriver": "Ver conductor",
       "ShowDrivers": "Ver conductores"
     }
   },
@@ -148,7 +154,8 @@
       "VehicleAssigment": "Asignación de vehículos",
       "VehicleAssigmentHistory": "Historial de vehículos asignados",
       "VehicleDetail": "Detalles del vehículo",
-      "LinkVehicle": "Vincular vehículo"
+      "LinkVehicle": "Vincular vehículo",
+      "SelectVehicle": "Seleccione un vehículo"
     },
     "Button": {
       "ShowVehicle": "Ver vehículo",

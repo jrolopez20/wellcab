@@ -33,13 +33,13 @@
     </ng-container>
 
     <ng-container matColumnDef="linked">
-        <th mat-header-cell *matHeaderCellDef class="text-center">{{'Company.Label.Linked' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef class="text-center">{{'Common.Label.Linked' | translate}}</th>
         <td mat-cell *matCellDef="let row" class="text-center">
             <span *ngIf="row.unlinkedAt; else linkedCompany" style="color: red">
-                {{'Company.Label.Unlinked' | translate}}
+                {{'Common.Label.Unlinked' | translate}}
             </span>
             <ng-template #linkedCompany>
-                <mat-icon matTooltip="{{'Company.Label.Linked' | translate}}">check</mat-icon>
+                <mat-icon matTooltip="{{'Common.Label.Linked' | translate}}">check</mat-icon>
             </ng-template>
         </td>
     </ng-container>
