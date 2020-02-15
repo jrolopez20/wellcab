@@ -17,6 +17,7 @@ import {ContractService} from '@app/store/features/contract/contract.service';
 })
 export class LicenseListComponent implements OnInit, AfterViewInit {
     @Input() editable = true;
+    @Input() showExtraAction = false;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -76,6 +77,16 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
     showContracts(license: License) {
         this.licenseService.setCurrentLicense(license);
         this.router.navigate([license.id, 'contracts'], {relativeTo: this._route});
+    }
+
+    showVehicles(license: License) {
+        this.licenseService.setCurrentLicense(license);
+        this.router.navigate([license.id, 'vehicles'], {relativeTo: this._route});
+    }
+
+    showDrivers(license: License) {
+        this.licenseService.setCurrentLicense(license);
+        this.router.navigate([license.id, 'drivers'], {relativeTo: this._route});
     }
 
 }

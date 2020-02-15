@@ -6,10 +6,9 @@ import {AddLicenseComponent} from './views/add-license/add-license.component';
 import {EditLicenseComponent} from './views/edit-license/edit-license.component';
 import {ListLicenseComponent} from './views/list-license/list-license.component';
 import {SharedModule} from '@app/shared/shared.module';
-import {ContractHistoryComponent} from './views/contract-history/contract-history.component';
 
 @NgModule({
-    declarations: [AddLicenseComponent, EditLicenseComponent, ListLicenseComponent, ContractHistoryComponent],
+    declarations: [AddLicenseComponent, EditLicenseComponent, ListLicenseComponent],
     imports: [
         CommonModule,
         LicenseRoutingModule,

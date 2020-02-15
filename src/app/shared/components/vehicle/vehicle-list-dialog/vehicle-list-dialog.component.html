@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>{{'Vehicle.Label.Vehicles' | translate}}</h2>
+<mat-dialog-content>
+    <app-vehicle-list
+            [editable]="false"
+            [selectable]="true"
+            [status]="this.data.status"
+            (onRowSelected)="handleSelection($event)">
+    </app-vehicle-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        {{'Common.Button.Cancel' | translate }}
+    </button>
+    <button mat-flat-button color="primary"
+            [disabled]="!selectedItem"
+            (click)="acept()">
+        {{'Common.Button.Acept' | translate}}
+    </button>
+</mat-dialog-actions>

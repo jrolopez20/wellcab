@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {merge, Observable} from 'rxjs';
-import {Vehicle} from '@app/store/models/vehicle.model';
+import {Status, Vehicle} from '@app/store/models/vehicle.model';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {VehicleService} from '@app/store/features/vehicle/vehicle.service';
 import {Router} from '@angular/router';
-import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/confirm-dialog.component';
+import {SelectionModel} from '@angular/cdk/collections';
 
 
 @Component({
@@ -15,6 +15,9 @@ import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/co
 })
 export class VehicleListComponent implements OnInit, AfterViewInit {
     @Input() editable = true;
+    @Input() selectable = false;
+    @Input() status: Status;
+    @Output() onRowSelected = new EventEmitter<Vehicle>();
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -24,24 +27,33 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
     public error$: Observable<any>;
 
     private initialPageSize = 25;
-    displayedColumns: string[] = ['plateNumber', 'name', 'brand', 'model', 'ownerCompany', 'active', 'action'];
+    displayedColumns: string[] = ['plateNumber', 'name', 'brand', 'model', 'ownerCompany'];
     private filter: string;
+    private selection = new SelectionModel<Vehicle>(false, []);
 
     constructor(
         private formBuilder: FormBuilder,
         private vehicleService: VehicleService,
-        private router: Router,
         public dialog: MatDialog
     ) {
     }
 
     ngOnInit() {
-
+        if (this.editable) {
+            this.displayedColumns.push('active');
+            this.displayedColumns.push('action');
+        }
+        if (this.selectable) {
+            this.displayedColumns.unshift('select');
+        }
         this.isLoading$ = this.vehicleService.getIsLoading$();
         this.vehicleList$ = this.vehicleService.getVehiclesList$();
         this.vehiclesTotal$ = this.vehicleService.getVehiclesTotal$();
         this.error$ = this.vehicleService.getError$();
 
+        this.selection.changed.subscribe(value => {
+            this.onRowSelected.emit(value.source.selected.shift());
+        });
         this.loadVehicles();
     }
 
@@ -60,7 +72,9 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
     }
 
     loadVehicles() {
+        this.selection.clear();
         this.vehicleService.loadVehicles({
+            status: this.status,
             sort: this.sort.active,
             order: this.sort.direction,
             page: this.paginator.pageIndex,
@@ -69,8 +83,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
         });
     }
 
-    private getOwnerName = (owner) => {
-
+    getOwnerName(owner) {
         let displayName = null;
         if (owner) {
             // Check if owner is a user
@@ -87,20 +100,10 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
 
         }
         return displayName;
-    };
-
-    // TODO - Test it
-    deleteVehicle(vehicle: Vehicle): void {
-        const dialogRef = this.dialog.open(ConfirmDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                // this.vehicleService.deleteVehicle(vehicle).subscribe((response) => {
-                //     console.log(response);
-                // }, error1 => {
-                //     console.log(error1);
-                // });
-            }
-        });
     }
 
+    /** The label for the checkbox on the passed row */
+    checkboxLabel(row?: Vehicle): string {
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
+    }
 }

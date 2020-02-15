@@ -14,8 +14,12 @@ export class VehicleEffects {
     public loadVehicles$ = createEffect(() =>
         this.actions$.pipe(
             ofType(VehicleActions.loadVehiclesRequest),
-            concatMap(({sort, order, page, limit, filter}) => {
-                return this.http.get<any>(`vehicles?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`).pipe(
+            concatMap(({status, sort, order, page, limit, filter}) => {
+                let url = `vehicles?search=${filter}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`;
+                if (status) {
+                    url += `&status=${status}`;
+                }
+                return this.http.get<any>(url).pipe(
                     map(response =>
                         VehicleActions.loadVehiclesCompleted({vehicles: response.data, total: response.pagination.total})
                     ),

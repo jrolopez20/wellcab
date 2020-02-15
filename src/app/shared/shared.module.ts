@@ -21,6 +21,7 @@ import {APP_DATE_FORMATS} from '@app/shared/adapters';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ContractModule} from '@app/shared/components/contract/contract.module';
 import {SharedContractModule} from '@app/shared/components/shared-contract/shared-contract.module';
+import {VehicleAssigmentModule} from '@app/shared/components/vehicle-assigment/vehicle-assigment.module';
 /**/
 @NgModule({
     declarations: [],
@@ -46,7 +47,8 @@ import {SharedContractModule} from '@app/shared/components/shared-contract/share
         BrandModule,
         ModelModule,
         ContractModule,
-        SharedContractModule
+        SharedContractModule,
+        VehicleAssigmentModule
     ],
     providers: [
         MenuItems,

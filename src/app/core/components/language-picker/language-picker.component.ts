@@ -17,7 +17,9 @@ export class LanguagePickerComponent implements OnInit {
     private preferencesKey: string;
 
     constructor(private translateService: TranslateService) {
-        this.langs = [Lang.en, Lang.es];
+        // At this moment only Spanish language is available
+        // Add Lang.en to langs array for English language
+        this.langs = [Lang.es];
     }
 
     ngOnInit(): void {

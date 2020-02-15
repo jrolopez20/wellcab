@@ -29,7 +29,7 @@ export class ContractEffects {
         this.actions$.pipe(
             ofType(ContractActions.addContractRequest),
             concatMap(({licenseId, contract}) => {
-                return this.http.post<any>(`licenses/${licenseId}/contract`, {
+                return this.http.post<any>(`licenses/${licenseId}/contracts`, {
                     city: contract.city,
                     company: contract.company.id
                 }).pipe(
@@ -46,7 +46,7 @@ export class ContractEffects {
         this.actions$.pipe(
             ofType(ContractActions.setContractRequest),
             concatMap(({licenseId, contract}) => {
-                return this.http.put<any>(`licenses/${licenseId}/contract`, {
+                return this.http.put<any>(`licenses/${licenseId}/contracts`, {
                     city: contract.city,
                     company: contract.company.id
                 }).pipe(
@@ -63,7 +63,7 @@ export class ContractEffects {
         this.actions$.pipe(
             ofType(ContractActions.closeContractRequest),
             concatMap(({licenseId}) => {
-                return this.http.patch<any>(`licenses/${licenseId}/contract`, {
+                return this.http.patch<any>(`licenses/${licenseId}/contracts`, {
                     status: 'finished'
                 }).pipe(
                     map(response =>

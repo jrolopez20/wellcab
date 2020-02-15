@@ -42,7 +42,7 @@ export class MasterComponent implements OnDestroy, OnInit {
         });*/
         this.authService.getAuthenticatedUser$().pipe(first())
             .subscribe(user => {
-                this.menu = this.menuItems.getCategories(user.roles[0]);
+                this.menu = this.menuItems.getCategories(user.roles);
             });
     }
 
@@ -60,7 +60,6 @@ export class MasterComponent implements OnDestroy, OnInit {
             minWidth: '320px'
         });
         dialogRef.afterClosed().subscribe(result => {
-            console.log('completed');
         });
     }
 }

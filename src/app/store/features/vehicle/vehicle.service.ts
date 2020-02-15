@@ -16,14 +16,15 @@ export class VehicleService {
 
     /**
      * Load vehicles
+     * @param status
      * @param sort
      * @param order
      * @param page
      * @param limit
      * @param filter
      */
-    public loadVehicles({sort = '', order, page, limit, filter = ''}) {
-        this.store.dispatch(VehicleActions.loadVehiclesRequest({sort, order, page, limit, filter}));
+    public loadVehicles({status, sort = '', order, page, limit, filter = ''}) {
+        this.store.dispatch(VehicleActions.loadVehiclesRequest({status, sort, order, page, limit, filter}));
     }
 
     public getVehiclesList$(): Observable<Vehicle[]> {
@@ -50,7 +51,7 @@ export class VehicleService {
         this.store.dispatch(VehicleActions.setVehicleRequest({vehicle}));
     }
 
-    public deleteVehicle(vehicle: Vehicle) {
-        this.store.dispatch(VehicleActions.deleteVehicleRequest({vehicle}));
+    public resetStorage() {
+        this.store.dispatch(VehicleActions.resetStorage());
     }
 }

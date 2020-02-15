@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatDialog, MatPaginator, MatSnackBar} from '@angular/material';
-import {Vehicle} from '@app/store/models/vehicle.model';
+import {Status, Vehicle} from '@app/store/models/vehicle.model';
 import {VehicleService} from '@app/store/features/vehicle/vehicle.service';
 import {Location} from '@angular/common';
 import {Observable} from 'rxjs';
@@ -38,8 +38,8 @@ export class VehicleFormComponent implements OnInit {
     private isLoading$: Observable<boolean>;
 
     private statuses = [
-        {id: 1, name: 'Operativo'},
-        {id: 2, name: 'Mantenimiento'}
+        {id: Status.OPERATIVE, name: 'Operativo'},
+        {id: Status.MAINTENANCE, name: 'Mantenimiento'}
     ];
 
     public brands$: Observable<Brand[]>;
@@ -177,9 +177,9 @@ export class VehicleFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
+    public handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
-    };
+    }
 
     submit(): void {
         // Stop here if form is invalid
@@ -204,7 +204,7 @@ export class VehicleFormComponent implements OnInit {
         });
     }
 
-    private getOwnerName = () => {
+    getOwnerName() {
         const owner = this.vehicleForm.value.owner;
         let displayName = null;
         if (owner) {
@@ -222,7 +222,7 @@ export class VehicleFormComponent implements OnInit {
 
         }
         return displayName;
-    };
+    }
 
     private _loadBrands() {
         this.brandService.loadBrands({

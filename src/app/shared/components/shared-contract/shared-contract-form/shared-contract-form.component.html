@@ -7,6 +7,7 @@
                     <input readonly matInput placeholder="{{'Common.Label.Owner' | translate}}"
                            formControlName="ownerUser" [value]="getOwnerName()"/>
                     <button mat-stroked-button matSuffix style="top: -10px; margin-right: 5px;"
+                            *ngIf="!data.sharedContract?.finishedAt"
                             (click)="showOwnerUserDialog()"
                             matTooltip="{{'User.Label.SelectUser' | translate}}">
                         <mat-icon>person</mat-icon>
@@ -22,7 +23,9 @@
         <button mat-button mat-dialog-close>
             {{'Common.Button.Cancel' | translate }}
         </button>
-        <button mat-flat-button [disabled]="(isLoading$ | async) || sharedContractForm.invalid" color="primary"
+        <button mat-flat-button color="primary"
+                *ngIf="!data.sharedContract?.finishedAt"
+                [disabled]="(isLoading$ | async) || sharedContractForm.invalid"
                 (click)="submit()">
             {{'Common.Button.Save' | translate}}
         </button>

@@ -110,7 +110,7 @@ const userReducer = createReducer(
             };
         }),
     on(UserActions.resetStorage,
-        (state) => {
+        () => {
             return {
                 ...initialState
             };

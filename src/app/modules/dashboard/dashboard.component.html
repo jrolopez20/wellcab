@@ -14,8 +14,10 @@
     </div>
 </div>-->
 
-<div *ngFor="let category of menu">
-    <div class="overview-menu-category-list-summary">{{category.summary}}</div>
+<div *ngFor="let category of menu; let first = first;">
+    <div class="overview-menu-category-list-summary" [ngStyle]="{'margin-top': first ? '' : '20px'}">
+        {{category.summary}}
+    </div>
     <div class="overview-menu-category-list">
         <a *ngFor="let item of category.items"
            class="overview-menu-category-list-item"

@@ -61,13 +61,21 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <a mat-menu-item color="primary" [routerLink]="[row.id]">
+                <a mat-menu-item color="primary" [routerLink]="[row.id]" *ngIf="editable">
                     <mat-icon>edit</mat-icon>
                     <span> {{'Common.Button.Edit' | translate}}</span>
                 </a>
-                <button mat-menu-item (click)="showContracts(row)">
+                <button mat-menu-item (click)="showContracts(row)" *ngIf="showExtraAction">
                     <mat-icon>visibility</mat-icon>
                     {{'Contract.Button.ShowContracts' | translate}}
+                </button>
+                <button mat-menu-item (click)="showVehicles(row)" *ngIf="showExtraAction">
+                    <mat-icon>visibility</mat-icon>
+                    {{'Vehicle.Button.ShowVehicles' | translate}}
+                </button>
+                <button mat-menu-item (click)="showDrivers(row)" *ngIf="showExtraAction">
+                    <mat-icon>visibility</mat-icon>
+                    {{'Driver.Button.ShowDrivers' | translate}}
                 </button>
             </mat-menu>
         </td>

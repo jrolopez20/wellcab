@@ -54,7 +54,7 @@
                     [checked]="!!row.hasAccess"
                     [disabled]="row.unregisteredAt ? 'disabled' : null"
                     (change)="onAccessChange($event, row)"
-            >
+                    name="user-selection">
             </mat-slide-toggle>
         </td>
     </ng-container>
@@ -101,7 +101,9 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-header-row *matHeaderRowDef="['loading-status']" class="header-row-loading"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        class="custom-row" [ngClass]="selection.isSelected(row) ? 'custom-row-selected' : ''">
+    </tr>
 </table>
 
 <mat-paginator [length]="usersTotal$ | async" [pageSize]="initialPageSize" [pageSizeOptions]="[10, 25, 50, 100]">

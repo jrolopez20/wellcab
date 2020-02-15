@@ -13,6 +13,19 @@
 <table mat-table [dataSource]="vehicleList$ | async" class="table table-rasponsive" matSort matSortActive="name"
        matSortDirection="desc">
 
+    <ng-container matColumnDef="select" *ngIf="selectable">
+        <th mat-header-cell *matHeaderCellDef class="col-action">
+        </th>
+        <td mat-cell *matCellDef="let row">
+            <mat-radio-button (click)="$event.stopPropagation()"
+                              (change)="$event ? selection.toggle(row) : null"
+                              [checked]="selection.isSelected(row)"
+                              [aria-label]="checkboxLabel(row)"
+                              name="vehicle-selection">
+            </mat-radio-button>
+        </td>
+    </ng-container>
+
     <ng-container matColumnDef="plateNumber">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Vehicle.Label.PlateNumber' | translate}}</th>
         <td mat-cell *matCellDef="let row">{{row.plateNumber}}</td>
@@ -63,10 +76,6 @@
                     <mat-icon>edit</mat-icon>
                     <span> {{'Common.Button.Edit' | translate}}</span>
                 </a>
-                <!--                        <button mat-menu-item (click)="deleteVehicle(row.id)">-->
-                <!--                            <mat-icon>delete</mat-icon>-->
-                <!--                            <span> {{'Common.Button.Delete' | translate}}</span>-->
-                <!--                        </button>-->
             </mat-menu>
         </td>
     </ng-container>
@@ -81,9 +90,10 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-header-row *matHeaderRowDef="['loading-status']" class="header-row-loading"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        class="custom-row" [ngClass]="selection.isSelected(row) ? 'custom-row-selected' : ''">
+    </tr>
 </table>
 
-<mat-paginator [length]="vehiclesTotal$ | async" [pageSize]="initialPageSize"
-               [pageSizeOptions]="[10, 25, 50, 100]">
+<mat-paginator [length]="vehiclesTotal$ | async" [pageSize]="initialPageSize" [pageSizeOptions]="[10, 25, 50, 100]">
 </mat-paginator>

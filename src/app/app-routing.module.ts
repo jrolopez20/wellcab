@@ -32,6 +32,10 @@ export const routes: Routes = [
             {
                 path: 'managment',
                 loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
+            },
+            {
+                path: 'operative',
+                loadChildren: () => import('./modules/operative/operative.module').then(m => m.OperativeModule),
             }
         ]
     },

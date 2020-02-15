@@ -111,6 +111,9 @@
     "Label": {
       "Driver": "Conductor",
       "SocialSecurityNumber": "No. seguridad social"
+    },
+    "Button": {
+      "ShowDrivers": "Ver conductores"
     }
   },
   "License": {
@@ -127,6 +130,7 @@
   },
   "Vehicle": {
     "Label": {
+      "Vehicle": "Vehículo",
       "Vehicles": "Vehículos",
       "PlateNumber": "Matrícula",
       "Name": "Nombre",
@@ -140,7 +144,15 @@
       "InsuranceExpirationAt": "Fecha expiración del seguro",
       "RentExpirationAt": "Fecha expiración del alquiler",
       "AddVehicle": "Adicionar vehículo",
-      "EditVehicle": "Editar vehículo"
+      "EditVehicle": "Editar vehículo",
+      "VehicleAssigment": "Asignación de vehículos",
+      "VehicleAssigmentHistory": "Historial de vehículos asignados",
+      "VehicleDetail": "Detalles del vehículo",
+      "LinkVehicle": "Vincular vehículo"
+    },
+    "Button": {
+      "ShowVehicle": "Ver vehículo",
+      "ShowVehicles": "Ver vehículos"
     }
   },
   "Brand": {
@@ -165,12 +177,6 @@
       "EditColor": "Editar color"
     }
   },
-  "Role": {
-    "ROLE_ADMIN": "Administrador",
-    "ROLE_MANAGER": "Gestor",
-    "ROLE_DRIVER": "Conductor",
-    "ROLE_OWNER": "Propietario"
-  },
   "Contract": {
     "Label": {
       "Contract": "Contrato",
@@ -186,7 +192,7 @@
       "CloseContract": "Finalizar contrato"
     }
   },
-  "SharedContract" : {
+  "SharedContract": {
     "Label": {
       "SharedContract": "Cuenta partícipe",
       "SharedContracts": "Cuentas partícipes",
@@ -200,5 +206,11 @@
       "CloseSharedContract": "Finalizar cuenta partícipe",
       "ShowSharedContract": "Ver cuenta partícipe"
     }
+  },
+  "Role": {
+    "ROLE_ADMIN": "Administrador",
+    "ROLE_MANAGER": "Gestor",
+    "ROLE_DRIVER": "Conductor",
+    "ROLE_OWNER": "Propietario"
   }
 }

@@ -1,9 +1,9 @@
 import {createAction, props} from '@ngrx/store';
-import {Vehicle} from '@app/store/models/vehicle.model';
+import {Status, Vehicle} from '@app/store/models/vehicle.model';
 
 export const loadVehiclesRequest = createAction(
     '[Vehicle] Load Vehicles',
-    props<{ sort: string, order: string, page: number, limit: number, filter?: string }>()
+    props<{ status: Status, sort: string, order: string, page: number, limit: number, filter?: string }>()
 );
 
 export const loadVehiclesCompleted = createAction(
@@ -36,12 +36,6 @@ export const setVehicleCompleted = createAction(
     props<{ vehicle: Vehicle }>()
 );
 
-export const deleteVehicleRequest = createAction(
-    '[Vehicle] Delete Vehicle Request',
-    props<{ vehicle: Vehicle }>()
-);
-
-export const deleteVehicleCompleted = createAction(
-    '[Vehicle] Delete Vehicle Completed',
-    props<{ vehicle: Vehicle }>()
+export const resetStorage = createAction(
+    '[Vehicle] Reset Storage'
 );

@@ -58,4 +58,8 @@ export class LicenseService {
         this.store.dispatch(LicenseActions.setCurrentLicense({license}));
     }
 
+    public findLicense(licenseId: number) {
+        this.store.dispatch(LicenseActions.findLicenseRequest({licenseId}));
+    }
+
 }

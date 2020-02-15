@@ -13,9 +13,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {UtilsModule} from '@app/shared/utils/utils.module';
+import {VehicleListDialogComponent} from './vehicle-list-dialog/vehicle-list-dialog.component';
 
 @NgModule({
-    declarations: [VehicleListComponent, VehicleFormComponent],
+    declarations: [VehicleListComponent, VehicleFormComponent, VehicleListDialogComponent],
     imports: [
         CommonModule,
         FlexModule,
@@ -32,7 +33,8 @@ import {UtilsModule} from '@app/shared/utils/utils.module';
         EffectsModule.forFeature([VehicleEffects]),
         UtilsModule
     ],
-    exports: [VehicleListComponent, VehicleFormComponent]
+    exports: [VehicleListComponent, VehicleFormComponent],
+    entryComponents: [VehicleListDialogComponent]
 })
 export class VehicleModule {
 }

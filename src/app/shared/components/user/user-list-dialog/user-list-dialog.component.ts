@@ -22,7 +22,7 @@ export class UserListDialogComponent implements OnInit {
         this.userService.resetStorage();
     }
 
-    handleSelection(item?: User) {
+    handleSelection(item: User) {
         this.selectedItem = item;
     }
 

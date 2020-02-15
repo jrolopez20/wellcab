@@ -20,7 +20,9 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit(): void {
         this.authService.getAuthenticatedUser$().subscribe(user => {
-            this.menu = this.menuItems.getCategories(user.roles[0]);
+            if (user) {
+                this.menu = this.menuItems.getCategories(user.roles);
+            }
         });
     }
 }

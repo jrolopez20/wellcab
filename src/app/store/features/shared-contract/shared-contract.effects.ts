@@ -33,7 +33,7 @@ export class SharedContractEffects {
         this.actions$.pipe(
             ofType(SharedContractActions.addSharedContractRequest),
             concatMap(({licenseId, sharedContract}) => {
-                return this.http.post<SharedContract>(`licenses/${licenseId}/shared-contract`, {
+                return this.http.post<SharedContract>(`licenses/${licenseId}/shared-contracts`, {
                     ownerUser: sharedContract.ownerUser.id
                 }).pipe(
                     map(response =>
@@ -50,7 +50,7 @@ export class SharedContractEffects {
             ofType(SharedContractActions.setSharedContractRequest),
             concatMap(({licenseId, sharedContract}) => {
                 const {id, ...sharedContractCopy} = sharedContract;
-                return this.http.put<SharedContract>(`licenses/${licenseId}/shared-contract`, {
+                return this.http.put<SharedContract>(`licenses/${licenseId}/shared-contracts`, {
                     ownerUser: sharedContract.ownerUser.id
                 }).pipe(
                     map(response =>
@@ -66,7 +66,7 @@ export class SharedContractEffects {
         this.actions$.pipe(
             ofType(SharedContractActions.closeSharedContractRequest),
             concatMap(({licenseId}) => {
-                return this.http.patch<SharedContract>(`licenses/${licenseId}/shared-contract`, {
+                return this.http.patch<SharedContract>(`licenses/${licenseId}/shared-contracts`, {
                     status: 'finished'
                 }).pipe(
                     map(response =>

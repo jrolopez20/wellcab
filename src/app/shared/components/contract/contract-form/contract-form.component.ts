@@ -42,8 +42,8 @@ export class ContractFormComponent implements OnInit {
 
     initContractForm() {
         this.contractForm = this.formBuilder.group({
-            city: ['', Validators.required],
-            company: ['', Validators.required]
+            city: [{value: '', disabled: this.data.contract ? this.data.contract.finishedAt : false}, Validators.required],
+            company: [{value: '', disabled: this.data.contract ? this.data.contract.finishedAt : false}, Validators.required]
         });
         if (this.data.contract) {
             this.contractForm.get('company').setValue(this.data.contract.company);
@@ -57,9 +57,9 @@ export class ContractFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
+    public handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
-    };
+    }
 
     submit(): void {
         if (this.contractForm.valid) {
@@ -69,7 +69,11 @@ export class ContractFormComponent implements OnInit {
             } else {
                 this.contractService.addContract(this.data.licenseId, contract);
             }
-            this.dialogRef.close(contract);
+            this.isLoading$.subscribe(loading => {
+                if (!loading) {
+                    this.dialogRef.close(contract);
+                }
+            });
         }
     }
 
@@ -81,7 +85,7 @@ export class ContractFormComponent implements OnInit {
             }
         });
         dialogRef.afterClosed().subscribe((result: Company) => {
-            if (result && this.contractForm.get('company').value.id !== result.id ) {
+            if (result && this.contractForm.get('company').value.id !== result.id) {
                 this.contractForm.get('company').setValue(result);
             }
         });
@@ -90,7 +94,7 @@ export class ContractFormComponent implements OnInit {
     getCompanyName(): string {
         const company = this.contractForm.get('company').value;
         return company ? `${company.name} - CIF: ${company.cif}` : null;
-    };
+    }
 
     private _loadCities() {
         this.cityService.loadCities({

@@ -16,7 +16,7 @@
   display: inline-block;
   margin: 8px;
   vertical-align: top;
-  width: 260px;
+  width: 280px;
 
   .mat-card-title {
     font-size: 1.4rem !important;
@@ -25,6 +25,10 @@
   &, &:active, &:hover, &:focus {
     text-decoration: none;
   }
+   &:hover {
+     -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+     box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+   }
 }
 
 .overview-menu-category-list-card-summary {

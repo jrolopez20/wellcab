@@ -3,7 +3,6 @@ import {Routes, RouterModule} from '@angular/router';
 import {ListLicenseComponent} from '@app/modules/admin/license/views/list-license/list-license.component';
 import {AddLicenseComponent} from '@app/modules/admin/license/views/add-license/add-license.component';
 import {EditLicenseComponent} from '@app/modules/admin/license/views/edit-license/edit-license.component';
-import {ContractHistoryComponent} from '@app/modules/admin/license/views/contract-history/contract-history.component';
 
 const routes: Routes = [
     {
@@ -17,10 +16,6 @@ const routes: Routes = [
     {
         path: ':id',
         component: EditLicenseComponent
-    },
-    {
-        path: ':id/contracts',
-        component: ContractHistoryComponent
     },
     {
         path: '**',

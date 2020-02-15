@@ -3,6 +3,11 @@ import {Model} from '@app/store/models/model.model';
 import {Company} from '@app/store/models/company.model';
 import {User} from '@app/store/models/user.model';
 
+export enum Status {
+    OPERATIVE = 1,
+    MAINTENANCE = 2
+}
+
 export interface Vehicle {
     id: number;
     name: string;
@@ -11,7 +16,7 @@ export interface Vehicle {
     ownerCompany?: Company,
     brand: Brand;
     model: Model;
-    status: any;
+    status: Status;
     color: any;
     matriculationAt: string;
     currentOdometer: number;

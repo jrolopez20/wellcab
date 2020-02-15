@@ -26,6 +26,20 @@ export class LicenseEffects {
         )
     );
 
+    public findLincense$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(LicenseActions.findLicenseRequest),
+            concatMap(({licenseId}) => {
+                return this.http.get<any>(`licenses/${licenseId}`).pipe(
+                    map(response =>
+                        LicenseActions.findLicenseCompleted({license: {...response}})
+                    ),
+                    catchError(error => of(LicenseActions.licensesError({error})))
+                );
+            })
+        )
+    );
+
     public addLicense$ = createEffect(() =>
         this.actions$.pipe(
             ofType(LicenseActions.addLicenseRequest),

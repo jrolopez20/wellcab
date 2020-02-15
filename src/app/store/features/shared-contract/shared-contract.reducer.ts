@@ -2,7 +2,7 @@ import {Action, createReducer, on} from '@ngrx/store';
 import {SharedContractState, initialState} from './shared-contract.state';
 import * as SharedContractActions from './shared-contract.actions';
 
-export const featureKey = 'sharedContract';
+export const featureKey = 'vehicleAssigment';
 
 const sharedContractReducer = createReducer(
     initialState,

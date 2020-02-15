@@ -67,12 +67,12 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-header-row *matHeaderRowDef="['loading-status']" class="header-row-loading"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                class="custom-row"
-                [ngClass]="selection.isSelected(row) ? 'custom-row-selected' : ''">
+                class="custom-row" [ngClass]="selection.isSelected(row) ? 'custom-row-selected' : ''">
             </tr>
         </table>
 
-        <mat-paginator [length]="brandsTotal$ | async" [pageSize]="initialPageSize" [pageSizeOptions]="[10, 25, 50, 100]">
+        <mat-paginator [length]="brandsTotal$ | async" [pageSize]="initialPageSize"
+                       [pageSizeOptions]="[10, 25, 50, 100]">
         </mat-paginator>
     </mat-card-content>
 </mat-card>

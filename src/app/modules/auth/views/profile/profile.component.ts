@@ -20,7 +20,6 @@ export class ProfileComponent implements OnInit {
     }
 
     handleSubmit(user: User) {
-        console.log(user)
         // this.userService.setUser(user);
     }
 }

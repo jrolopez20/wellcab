@@ -12,8 +12,7 @@ const licenseReducer = createReducer(
                 ...state,
                 loading: true
             };
-        }
-    ),
+        }),
     on(LicenseActions.loadLicensesCompleted,
         (state, {licenses, total}) => {
             return {
@@ -23,8 +22,7 @@ const licenseReducer = createReducer(
                 loading: false,
                 error: null
             };
-        }
-    ),
+        }),
     on(LicenseActions.licensesError,
         (state, {error}) => {
             return {
@@ -32,16 +30,14 @@ const licenseReducer = createReducer(
                 error: error,
                 loading: false
             };
-        }
-    ),
+        }),
     on(LicenseActions.addLicenseRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
-        }
-    ),
+        }),
     on(LicenseActions.addLicenseCompleted,
         (state) => {
             return {
@@ -49,16 +45,14 @@ const licenseReducer = createReducer(
                 loading: false,
                 error: null
             };
-        }
-    ),
+        }),
     on(LicenseActions.setLicenseRequest,
         (state) => {
             return {
                 ...state,
                 loading: true
             };
-        }
-    ),
+        }),
     on(LicenseActions.setLicenseCompleted,
         (state, {license}) => {
             return {
@@ -72,16 +66,30 @@ const licenseReducer = createReducer(
                 loading: false,
                 error: null
             };
-        }
-    ),
+        }),
     on(LicenseActions.setCurrentLicense,
         (state, {license}) => {
             return {
                 ...state,
                 currentLicense: license || null
             };
-        }
-    )
+        }),
+    on(LicenseActions.findLicenseRequest,
+        (state) => {
+            return {
+                ...state,
+                loading: true
+            };
+        }),
+    on(LicenseActions.findLicenseCompleted,
+        (state, {license}) => {
+            return {
+                ...state,
+                currentLicense: license,
+                loading: false,
+                error: null
+            };
+        }),
 );
 
 export function reducer(state: LicenseState | undefined, action: Action) {

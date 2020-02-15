@@ -64,6 +64,7 @@ export const changePasswordRequest = createAction(
 export const changePasswordCompleted = createAction(
     '[User] Change Password Completed'
 );
+
 export const resetStorage = createAction(
     '[User] Reset Storage'
 );

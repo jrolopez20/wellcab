@@ -4,8 +4,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {SharedContract} from '@app/store/models/shared-contract.model';
 import {SharedContractService} from '@app/store/features/shared-contract/shared-contract.service';
-import {CompanyListDialogComponent} from '@app/shared/components/company/company-list-dialog/company-list-dialog.component';
-import {Company} from '@app/store/models/company.model';
 import {UserListDialogComponent} from '@app/shared/components/user/user-list-dialog/user-list-dialog.component';
 import {Role, User} from '@app/store/models/user.model';
 
@@ -36,7 +34,7 @@ export class SharedContractFormComponent implements OnInit {
 
     initSharedContractForm() {
         this.sharedContractForm = this.formBuilder.group({
-            ownerUser: ['', Validators.required]
+            ownerUser: [{value: '', disabled: this.data.sharedContract ? this.data.sharedContract.finishedAt : false}, Validators.required]
         });
         if (this.data.sharedContract) {
             this.sharedContractForm.patchValue(this.data.sharedContract);
@@ -49,9 +47,9 @@ export class SharedContractFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
+    public handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
-    };
+    }
 
     submit(): void {
         if (this.sharedContractForm.valid) {
@@ -61,7 +59,11 @@ export class SharedContractFormComponent implements OnInit {
             } else {
                 this.sharedContractService.addSharedContract(this.data.licenseId, sharedContract);
             }
-            this.dialogRef.close(sharedContract);
+            this.isLoading$.subscribe(loading => {
+                if (!loading) {
+                    this.dialogRef.close(sharedContract);
+                }
+            });
         }
     }
 
@@ -73,7 +75,7 @@ export class SharedContractFormComponent implements OnInit {
             }
         });
         dialogRef.afterClosed().subscribe((result: User) => {
-            if (result && this.sharedContractForm.get('ownerUser').value.id !== result.id ) {
+            if (result && this.sharedContractForm.get('ownerUser').value.id !== result.id) {
                 this.sharedContractForm.get('ownerUser').setValue(result);
             }
         });

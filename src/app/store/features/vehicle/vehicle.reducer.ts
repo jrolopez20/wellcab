@@ -66,6 +66,12 @@ const vehicleReducer = createReducer(
                 loading: false,
                 error: null
             };
+        }),
+    on(VehicleActions.resetStorage,
+        () => {
+            return {
+                ...initialState
+            };
         })
 );
 
