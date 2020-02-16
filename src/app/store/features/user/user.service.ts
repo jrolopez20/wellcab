@@ -44,6 +44,10 @@ export class UserService {
         return this.store.select(UserSelectors.getError);
     }
 
+    public getCurrentUser$(): Observable<User> {
+        return this.store.select(UserSelectors.getCurrentUser);
+    }
+
     public getRolesAvailable(): Role[] {
         const roles: Role[] = [Role.ADMIN, Role.MANAGER, Role.DRIVER, Role.OWNER];
         return roles;
@@ -63,6 +67,10 @@ export class UserService {
 
     public toggleUnregister(user: User) {
         this.store.dispatch(UserActions.toggleUnregisterRequest({user}));
+    }
+
+    public setCurrentUser(user?: User) {
+        this.store.dispatch(UserActions.setCurrentUser({user}));
     }
 
     /**

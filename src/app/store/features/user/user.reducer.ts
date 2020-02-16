@@ -114,6 +114,13 @@ const userReducer = createReducer(
             return {
                 ...initialState
             };
+        }),
+    on(UserActions.setCurrentUser,
+        (state, {user}) => {
+            return {
+                ...state,
+                currentUser: user ? {...user} : null
+            };
         })
 );
 

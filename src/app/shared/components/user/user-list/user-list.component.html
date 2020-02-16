@@ -79,10 +79,10 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <a mat-menu-item color="primary" [routerLink]="[row.id]">
+                <button mat-menu-item color="primary" (click)="editUser(row)">
                     <mat-icon>edit</mat-icon>
                     {{'Common.Button.Edit' | translate}}
-                </a>
+                </button>
                 <button mat-menu-item (click)="toggleUnregister(row)">
                     <mat-icon>{{ row.unregisteredAt ? 'check_circle' : 'remove_circle'}}</mat-icon>
                     {{ (row.unregisteredAt ? 'Common.Button.Activate' : 'Common.Button.Deactivate') | translate}}

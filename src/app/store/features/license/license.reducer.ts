@@ -71,7 +71,7 @@ const licenseReducer = createReducer(
         (state, {license}) => {
             return {
                 ...state,
-                currentLicense: license || null
+                currentLicense: license ? {...license} : null
             };
         }),
     on(LicenseActions.findLicenseRequest,

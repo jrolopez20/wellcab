@@ -23,3 +23,8 @@ export const getError = createSelector(
     getUserState,
     (state: UserState) => state.error
 );
+
+export const getCurrentUser = createSelector(
+    getUserState,
+    (state: UserState) => state.currentUser
+);

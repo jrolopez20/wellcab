@@ -62,7 +62,8 @@
       "Delete": "Eliminar",
       "Unattach": "Desvincular",
       "Activate": "Activar",
-      "Deactivate": "Desactivar"
+      "Deactivate": "Desactivar",
+      "GoBack": "Regresar"
     },
     "Confirm": {
       "ShureToDelete": "¿Está seguro que desea eliminar este elemento?",

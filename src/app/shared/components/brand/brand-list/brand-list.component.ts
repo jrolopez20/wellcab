@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
 import {Brand} from '@app/store/models/brand.model';
 import {merge, Observable} from 'rxjs';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {BrandService} from '@app/store/features/brand/brand.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {BrandFormComponent} from '@app/shared/components/brand/brand-form/brand-form.component';

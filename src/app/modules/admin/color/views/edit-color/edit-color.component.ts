@@ -1,20 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Color} from '@app/store/models/color.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColorService} from '@app/store/features/color/color.service';
 import {Location} from '@angular/common';
-import {Observable} from 'rxjs';
-import {async} from 'rxjs/internal/scheduler/async';
-import {catchError, first} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-edit-color',
     templateUrl: './edit-color.component.html',
     styleUrls: ['./edit-color.component.css']
 })
-export class EditColorComponent implements OnInit {
+export class EditColorComponent implements OnInit, OnDestroy {
     private color: Color;
     private colorId;
+    private subscription: Subscription;
 
     constructor(
         private router: Router,
@@ -29,11 +28,15 @@ export class EditColorComponent implements OnInit {
         this.loadColorData(this.colorId);
     }
 
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
+
     loadColorData(id) {
-        this.colorService.getColorsList$().subscribe(colors => {
+        this.subscription = this.colorService.getColorsList$().subscribe(colors => {
             this.color = colors ? colors.find(color => color.id.toString() === id) : null;
             if (!this.color) {
-                this.router.navigate(['managment/colors']);
+                this.location.back();
             }
         });
     }

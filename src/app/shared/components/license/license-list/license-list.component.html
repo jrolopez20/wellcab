@@ -61,29 +61,19 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <a mat-menu-item color="primary" [routerLink]="[row.id]" *ngIf="editable">
+                <button mat-menu-item color="primary" (click)="editLicense(row)" *ngIf="editable">
                     <mat-icon>edit</mat-icon>
                     <span> {{'Common.Button.Edit' | translate}}</span>
-                </a>
-                <button mat-menu-item (click)="showContracts(row)" *ngIf="showExtraAction">
-                    <mat-icon>visibility</mat-icon>
-                    {{'Contract.Button.ShowContracts' | translate}}
                 </button>
-                <button mat-menu-item (click)="showVehicles(row)" *ngIf="showExtraAction">
-                    <mat-icon>visibility</mat-icon>
-                    {{'Vehicle.Button.ShowVehicles' | translate}}
-                </button>
-                <button mat-menu-item (click)="showDrivers(row)" *ngIf="showExtraAction">
-                    <mat-icon>visibility</mat-icon>
-                    {{'Driver.Button.ShowDrivers' | translate}}
-                </button>
+                <!-- Container for aditional buttons -->
+                <ng-container *ngTemplateOutlet="actionButtons; context: {item: row}"></ng-container>
             </mat-menu>
         </td>
     </ng-container>
 
     <!-- Loading status row -->
     <ng-container matColumnDef="loading-status">
-        <th mat-header-cell *matHeaderCellDef [colSpan]="displayedColumns.length"  class="header-row-loading"
+        <th mat-header-cell *matHeaderCellDef [colSpan]="displayedColumns.length" class="header-row-loading"
             [ngStyle]="{'display': (isLoading$ | async) ? 'table-cell' : 'none'}">
             <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
         </th>

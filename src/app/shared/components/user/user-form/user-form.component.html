@@ -13,7 +13,7 @@
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <input matInput placeholder="{{'User.Label.Username' | translate}}" formControlName="username"
-                               minlength="5" maxlength="255" />
+                               minlength="5" maxlength="255"/>
                         <mat-error *ngIf="handleError('username', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
                         </mat-error>
@@ -28,7 +28,7 @@
                 <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                     <mat-form-field>
                         <input matInput placeholder="{{'Common.Label.Email' | translate}}" formControlName="email"
-                               maxlength="255" />
+                               maxlength="255"/>
                         <mat-error *ngIf="handleError('email', 'required')">
                             {{'Common.ValidationMessage.FieldRequired' | translate}}
                         </mat-error>
@@ -101,7 +101,7 @@
                         <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="{{'Common.Label.FirstName' | translate}}"
-                                       formControlName="name" maxlength="45" />
+                                       formControlName="name" maxlength="45"/>
                                 <mat-error *ngIf="handleError('name', 'required')">
                                     {{'Common.ValidationMessage.FieldRequired' | translate}}
                                 </mat-error>
@@ -113,7 +113,7 @@
                         <div fxFlex.gt-xs="calc(50%-10px)" fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="{{'Common.Label.LastName' | translate}}"
-                                       formControlName="lastName" maxlength="45" />
+                                       formControlName="lastName" maxlength="45"/>
                                 <mat-error *ngIf="handleError('lastName', 'required')">
                                     {{'Common.ValidationMessage.FieldRequired' | translate}}
                                 </mat-error>
@@ -222,9 +222,12 @@
         </mat-card-content>
         <mat-card-actions align="end" fxLayoutGap.gt-xs="5px">
             <button mat-button (click)="location.back()">
-                {{'Common.Button.Cancel' | translate }}
+                {{(readOnly ? 'Common.Button.GoBack' : 'Common.Button.Cancel') | translate }}
             </button>
-            <button [disabled]="isLoading$ | async" mat-flat-button color="primary" (click)="submit()" *ngIf="!readOnly">
+            <button mat-flat-button color="primary"
+                    *ngIf="!readOnly"
+                    [disabled]="isLoading$ | async"
+                    (click)="submit()">
                 {{'Common.Button.Save' | translate }}
             </button>
         </mat-card-actions>

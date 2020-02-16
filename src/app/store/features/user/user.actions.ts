@@ -68,3 +68,8 @@ export const changePasswordCompleted = createAction(
 export const resetStorage = createAction(
     '[User] Reset Storage'
 );
+
+export const setCurrentUser = createAction(
+    '[User] Set Current User',
+    props<{ user?: User }>()
+);

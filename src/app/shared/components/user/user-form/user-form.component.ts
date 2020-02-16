@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
@@ -13,7 +13,7 @@ import {Observable} from 'rxjs';
     templateUrl: './user-form.component.html',
     styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent implements OnInit, AfterViewInit {
+export class UserFormComponent implements OnInit {
     @Input() title: string;
     @Input() subtitle: string;
     @Input() user: User;
@@ -24,7 +24,6 @@ export class UserFormComponent implements OnInit, AfterViewInit {
     userForm: FormGroup;
     detailFormGroup: FormGroup;
     public isLoading$: Observable<boolean>;
-    error: '';
     private roles: Role[];
     private removable = true;
     private hidePassword = true;
@@ -44,15 +43,12 @@ export class UserFormComponent implements OnInit, AfterViewInit {
         private userService: UserService,
         private location: Location
     ) {
-        this.roles = this.userService.getRolesAvailable();
-        this.isLoading$ = userService.getIsLoading$();
     }
 
     ngOnInit() {
+        this.roles = this.userService.getRolesAvailable();
+        this.isLoading$ = this.userService.getIsLoading$();
         this.initUserForm();
-    }
-
-    ngAfterViewInit(): void {
     }
 
     initUserForm() {
@@ -108,20 +104,6 @@ export class UserFormComponent implements OnInit, AfterViewInit {
             validator: CredentialValidators.passwordMatchValidator
         });
 
-        if (!this.user) {
-            // Passwords are required for new users
-            this.userForm.addControl('password', new FormControl(
-                '', [Validators.compose(
-                    [Validators.required]
-                )]
-            ));
-            this.userForm.addControl('confirmPassword', new FormControl(
-                '', [Validators.compose(
-                    [Validators.required]
-                )]
-            ));
-        }
-
         if (this.user) {
             const user = {...this.user};
             if (!this.user.detail) {
@@ -139,19 +121,33 @@ export class UserFormComponent implements OnInit, AfterViewInit {
             } else {
                 if (this.readOnly) {
                     const mask = () => {
-                        const numbers = user.detail.bankAccountNumber.slice(-3);
-                        const hidenNumbers = user.detail.bankAccountNumber.slice(0, -3);
-                        let hidden = '';
-                        for (let i = 0; i < hidenNumbers.length; i++) {
-                            hidden += '*';
+                        if (user.detail.bankAccountNumber) {
+                            const numbers = user.detail.bankAccountNumber.slice(-3);
+                            const hidenNumbers = user.detail.bankAccountNumber.slice(0, -3);
+                            let hidden = '';
+                            for (let i = 0; i < hidenNumbers.length; i++) {
+                                hidden += '*';
+                            }
+                            return hidden + numbers;
                         }
-                        return hidden + numbers;
                     };
 
                     user.detail = {...user.detail, bankAccountNumber: mask()};
                 }
             }
             this.userForm.patchValue(user);
+        } else {
+            // Passwords are required for new users
+            this.userForm.addControl('password', new FormControl(
+                '', [Validators.compose(
+                    [Validators.required]
+                )]
+            ));
+            this.userForm.addControl('confirmPassword', new FormControl(
+                '', [Validators.compose(
+                    [Validators.required]
+                )]
+            ));
         }
     }
 

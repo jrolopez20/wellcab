@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
 import {License} from '@app/store/models/license.model';
 import {LicenseService} from '@app/store/features/license/license.service';
 import {Location} from '@angular/common';
@@ -9,9 +9,9 @@ import {Location} from '@angular/common';
     templateUrl: './vehicle-history.component.html',
     styleUrls: ['./vehicle-history.component.css']
 })
-export class VehicleHistoryComponent implements OnInit {
-    public currentLicense$: Observable<License>;
+export class VehicleHistoryComponent implements OnInit, OnDestroy {
     public license: License;
+    private subscription: Subscription;
 
     constructor(
         private licenseService: LicenseService,
@@ -20,8 +20,7 @@ export class VehicleHistoryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentLicense$ = this.licenseService.getCurrentLicense$();
-        this.currentLicense$.subscribe(license => {
+        this.subscription = this.licenseService.getCurrentLicense$().subscribe(license => {
             if (license) {
                 this.license = license;
             } else {
@@ -30,4 +29,7 @@ export class VehicleHistoryComponent implements OnInit {
         });
     }
 
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 }

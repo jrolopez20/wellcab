@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LicenseService} from '@app/store/features/license/license.service';
-import {Observable, Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {License} from '@app/store/models/license.model';
 import {Contract} from '@app/store/models/contract.model';
 import {Location} from '@angular/common';
@@ -10,10 +10,10 @@ import {Location} from '@angular/common';
     templateUrl: './contract-history.component.html',
     styleUrls: ['./contract-history.component.css']
 })
-export class ContractHistoryComponent implements OnInit {
-    public currentLicense$: Observable<License>;
+export class ContractHistoryComponent implements OnInit, OnDestroy {
     public license: License;
     public selectedContract = new Subject<Contract>();
+    private subscription: Subscription;
 
     constructor(
         private licenseService: LicenseService,
@@ -22,14 +22,17 @@ export class ContractHistoryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentLicense$ = this.licenseService.getCurrentLicense$();
-        this.currentLicense$.subscribe(license => {
+        this.subscription = this.licenseService.getCurrentLicense$().subscribe(license => {
             if (license) {
                 this.license = license;
             } else {
                 this.location.back();
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     handleContractChange(contract: Contract) {

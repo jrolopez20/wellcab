@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ConfirmDialogComponent} from '@app/shared/utils/delete-confirm-dialog/confirm-dialog.component';
 import {FormBuilder} from '@angular/forms';
 import {merge, Observable} from 'rxjs';
@@ -37,6 +37,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
         private formBuilder: FormBuilder,
         private userService: UserService,
         private router: Router,
+        private _route: ActivatedRoute,
         public dialog: MatDialog
     ) {
     }
@@ -107,6 +108,11 @@ export class UserListComponent implements OnInit, AfterViewInit {
                 }
             });
         }
+    }
+
+    editUser(user: User) {
+        this.userService.setCurrentUser(user);
+        this.router.navigate([user.id], {relativeTo: this._route});
     }
 
     toggleUnregister(user: User) {

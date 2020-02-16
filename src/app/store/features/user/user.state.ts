@@ -1,6 +1,7 @@
 import {User} from '@app/store/models/user.model';
 
 export interface UserState {
+    currentUser: User;
     users: User[] | null;
     total: number;
     loading: boolean;
@@ -8,6 +9,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
+    currentUser: null,
     users: null,
     total: 0,
     loading: false,

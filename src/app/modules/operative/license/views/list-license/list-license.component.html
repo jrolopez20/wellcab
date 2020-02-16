@@ -10,7 +10,23 @@
         </div>
         <app-license-list
                 [editable]="false"
-                [showExtraAction]="true">
+                [showExtraAction]="true"
+                [actionButtons]="extraButtons">
         </app-license-list>
+
+        <ng-template #extraButtons let-item="item">
+            <button mat-menu-item (click)="showContracts(item)">
+                <mat-icon>visibility</mat-icon>
+                {{'Contract.Button.ShowContracts' | translate}}
+            </button>
+            <button mat-menu-item (click)="showVehicles(item)">
+                <mat-icon>visibility</mat-icon>
+                {{'Vehicle.Button.ShowVehicles' | translate}}
+            </button>
+            <button mat-menu-item (click)="showDrivers(item)">
+                <mat-icon>visibility</mat-icon>
+                {{'Driver.Button.ShowDrivers' | translate}}
+            </button>
+        </ng-template>
     </mat-card-content>
 </mat-card>
