@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {License} from '@app/store/models/license.model';
 import {merge, Observable} from 'rxjs';
-import {MatDialog, MatPaginator, MatSort} from '@angular/material';
+import {MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder} from '@angular/forms';
 import {LicenseService} from '@app/store/features/license/license.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -13,7 +13,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class LicenseListComponent implements OnInit, AfterViewInit {
     @Input() editable = true;
-    @Input() showExtraAction = false;
     @Input() actionButtons: TemplateRef<any>;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
