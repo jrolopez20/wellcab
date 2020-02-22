@@ -69,7 +69,7 @@ export class ModelListComponent implements OnInit, AfterViewInit {
                 brandId: this.currentBrand.id,
                 sort: this.sort.active,
                 order: this.sort.direction,
-                page: this.paginator.pageIndex,
+                page: this.paginator.pageIndex + 1,
                 limit: this.paginator.pageSize || this.initialPageSize,
                 filter: this.filter
             });
