@@ -48,8 +48,16 @@ export class UserService {
         return this.store.select(UserSelectors.getCurrentUser);
     }
 
+    /**
+     * Get the full list of roles
+     */
     public getRolesAvailable(): Role[] {
-        const roles: Role[] = [Role.ADMIN, Role.MANAGER, Role.DRIVER, Role.OWNER];
+        const roles: Role[] = [];
+        for (const value in Role) {
+            if (typeof Role[value] === 'string') {
+                roles.push(Role[value] as Role);
+            }
+        }
         return roles;
     }
 
