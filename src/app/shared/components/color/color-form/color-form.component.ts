@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Color} from '@app/store/models/color.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
 import {Location} from '@angular/common';
 import {ColorService} from '@app/store/features/color/color.service';
 import {Observable} from 'rxjs';
@@ -16,15 +14,14 @@ export class ColorFormComponent implements OnInit {
     @Input() title: string;
     @Input() color: Color;
     @Output() onSubmit = new EventEmitter<Color>();
+
     public isLoading$: Observable<boolean>;
-    colorForm: FormGroup;
-    error: '';
+    public colorForm: FormGroup;
+    public error: '';
 
     constructor(
+        public location: Location,
         private formBuilder: FormBuilder,
-        public router: Router,
-        private snackBar: MatSnackBar,
-        private location: Location,
         private colorService: ColorService
     ) {
     }
@@ -51,9 +48,9 @@ export class ColorFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
+    handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
-    };
+    }
 
     submit(): void {
         // Stop here if form is invalid
@@ -73,8 +70,8 @@ export class ColorFormComponent implements OnInit {
         }
     }
 
-    private colorPickerChanged = (colorValue) => {
+    colorPickerChanged(colorValue) {
         this.colorForm.get('value').setValue(colorValue);
-    };
+    }
 
 }

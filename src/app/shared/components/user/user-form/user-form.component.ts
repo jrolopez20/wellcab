@@ -21,15 +21,14 @@ export class UserFormComponent implements OnInit {
     @Input() readOnly: boolean;
     @Output() onSubmit = new EventEmitter<User>();
 
-    userForm: FormGroup;
-    detailFormGroup: FormGroup;
+    public userForm: FormGroup;
+    public detailFormGroup: FormGroup;
     public isLoading$: Observable<boolean>;
-    private roles: Role[];
-    private removable = true;
-    private hidePassword = true;
-    private hideRepeatedPassword = true;
-
-    private documentTypes = [
+    public roles: Role[];
+    public removable = true;
+    public hidePassword = true;
+    public hideRepeatedPassword = true;
+    public documentTypes = [
         {id: 1, name: 'DNI'},
         {id: 2, name: 'NIE'},
         {id: 3, name: 'NIF'},
@@ -37,11 +36,9 @@ export class UserFormComponent implements OnInit {
     ];
 
     constructor(
+        public location: Location,
         private formBuilder: FormBuilder,
-        public router: Router,
-        private snackBar: MatSnackBar,
-        private userService: UserService,
-        private location: Location
+        private userService: UserService
     ) {
     }
 
@@ -177,14 +174,14 @@ export class UserFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
+    handleError(controlName: string, errorName: string) {
         if (this.userForm.contains(controlName)) {
             return this.userForm.controls[controlName].hasError(errorName);
         } else if (this.detailFormGroup.contains(controlName)) {
             return this.detailFormGroup.controls[controlName].hasError(errorName);
         }
         return true;
-    };
+    }
 
     submit(): void {
         // Stop here if form is invalid

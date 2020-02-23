@@ -1,10 +1,9 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {merge, Observable} from 'rxjs';
 import {Company} from '@app/store/models/company.model';
-import {MatDialog, MatPaginator, MatSort} from '@angular/material';
+import {MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder} from '@angular/forms';
 import {CompanyService} from '@app/store/features/company/company.service';
-import {Router} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
@@ -16,25 +15,22 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
     @Input() selectable = false;
     @Output() onRowSelected = new EventEmitter<Company>();
 
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
+
     public companyList$: Observable<Company[]>;
     public companiesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['name', 'cif'];
+
     private filter: string;
-
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
-    private initialPageSize = 25;
-
-    displayedColumns: string[] = ['name', 'cif'];
-
     private selection = new SelectionModel<Company>(false, []);
 
     constructor(
         private formBuilder: FormBuilder,
-        private companyService: CompanyService,
-        private router: Router,
-        public dialog: MatDialog
+        private companyService: CompanyService
     ) {
     }
 

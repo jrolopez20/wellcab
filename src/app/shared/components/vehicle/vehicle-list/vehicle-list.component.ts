@@ -1,10 +1,9 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {merge, Observable} from 'rxjs';
 import {Status, Vehicle} from '@app/store/models/vehicle.model';
-import {MatDialog, MatPaginator, MatSort} from '@angular/material';
+import {MatPaginator, MatSort} from '@angular/material';
 import {FormBuilder} from '@angular/forms';
 import {VehicleService} from '@app/store/features/vehicle/vehicle.service';
-import {Router} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 
 
@@ -25,16 +24,15 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
     public vehiclesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['plateNumber', 'name', 'brand', 'model', 'ownerCompany'];
 
-    private initialPageSize = 25;
-    displayedColumns: string[] = ['plateNumber', 'name', 'brand', 'model', 'ownerCompany'];
     private filter: string;
     private selection = new SelectionModel<Vehicle>(false, []);
 
     constructor(
         private formBuilder: FormBuilder,
         private vehicleService: VehicleService,
-        public dialog: MatDialog
     ) {
     }
 

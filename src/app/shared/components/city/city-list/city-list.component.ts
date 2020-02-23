@@ -16,23 +16,21 @@ export class CityListComponent implements OnInit, AfterViewInit {
     @Input() selectable = false;
     @Output() onRowSelected = new EventEmitter<Company>();
 
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
+
     public cityList$: Observable<City[]>;
     public citiesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
-
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['name', 'action'];
 
     private filter: string;
-    private initialPageSize = 25;
-    displayedColumns: string[] = ['name', 'action'];
 
     constructor(
         private formBuilder: FormBuilder,
-        private cityService: CityService,
-        private router: Router,
-        public dialog: MatDialog
+        private cityService: CityService
     ) {
     }
 

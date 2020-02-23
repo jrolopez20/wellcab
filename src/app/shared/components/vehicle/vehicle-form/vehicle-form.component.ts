@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {MatDialog, MatPaginator, MatSnackBar} from '@angular/material';
+import {MatDialog, MatPaginator} from '@angular/material';
 import {Status, Vehicle} from '@app/store/models/vehicle.model';
 import {VehicleService} from '@app/store/features/vehicle/vehicle.service';
 import {Location} from '@angular/common';
@@ -34,10 +33,9 @@ export class VehicleFormComponent implements OnInit {
     @ViewChild(MatPaginator, {static: true}) modelPaginator: MatPaginator;
     @ViewChild(MatPaginator, {static: true}) colorPaginator: MatPaginator;
 
-    vehicleForm: FormGroup;
-    private isLoading$: Observable<boolean>;
-
-    private statuses = [
+    public vehicleForm: FormGroup;
+    public isLoading$: Observable<boolean>;
+    public statuses = [
         {id: Status.OPERATIVE, name: 'Operativo'},
         {id: Status.MAINTENANCE, name: 'Mantenimiento'}
     ];
@@ -55,15 +53,13 @@ export class VehicleFormComponent implements OnInit {
     public isLoadingColor$: Observable<boolean>;
 
     constructor(
+        public location: Location,
         private formBuilder: FormBuilder,
-        public router: Router,
-        private snackBar: MatSnackBar,
         private vehicleService: VehicleService,
         private modelService: ModelService,
         private colorService: ColorService,
         private brandService: BrandService,
-        private location: Location,
-        public dialog: MatDialog
+        private dialog: MatDialog
     ) {
     }
 
@@ -177,7 +173,7 @@ export class VehicleFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError(controlName: string, errorName: string) {
+    handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
     }
 

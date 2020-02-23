@@ -15,23 +15,24 @@ import {Location} from '@angular/common';
 })
 export class CityCompaniesListComponent implements OnInit, AfterViewInit {
     @Input() city: City;
+
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
+
     public cityCompanyList$: Observable<CityCompany[]>;
     public cityCompaniesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    public displayedColumns: string[] = ['company', 'postalCode', 'address', 'linked', 'action'];
+    public initialPageSize = 25;
+
     private filter: string;
-    private initialPageSize = 25;
-
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
-    displayedColumns: string[] = ['company', 'postalCode', 'address', 'linked', 'action'];
 
     constructor(
+        public location: Location,
         private formBuilder: FormBuilder,
         private cityCompanyService: CityCompanyService,
-        private location: Location,
-        public dialog: MatDialog
+        private dialog: MatDialog
     ) {
     }
 

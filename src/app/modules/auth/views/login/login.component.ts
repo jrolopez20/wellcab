@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-// import {AuthenticationService} from '@app/modules/auth/services/authentication.service';
 import {AuthService} from '@app/store/features/auth/auth.service';
-import {first} from 'rxjs/operators';
-
 import {PageTitleService} from '@app/core/services/page-title.service';
 import {Observable} from 'rxjs';
 
@@ -17,12 +13,10 @@ export class LoginComponent implements OnInit {
     public error$: Observable<any>;
     public isLoading$: Observable<boolean>;
     public loginForm: FormGroup;
-    private appTitle = 'Gestvtc';
+    public appTitle = 'Gestvtc';
 
     constructor(
         private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
         private authService: AuthService,
         private pageTitleService: PageTitleService
     ) {
@@ -52,9 +46,9 @@ export class LoginComponent implements OnInit {
      * @param controlName
      * @param errorName
      */
-    public handleError = (controlName: string, errorName: string) => {
+    handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
-    };
+    }
 
     onSubmit(): void {
         // Stop here if form is invalid

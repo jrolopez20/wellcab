@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {Company} from '@app/store/models/company.model';
 import {Location} from '@angular/common';
@@ -18,13 +17,11 @@ export class CompanyFormComponent implements OnInit {
 
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
-    companyForm: FormGroup;
+    public companyForm: FormGroup;
 
     constructor(
+        public location: Location,
         private formBuilder: FormBuilder,
-        public router: Router,
-        private snackBar: MatSnackBar,
-        private location: Location,
         private companyService: CompanyService
     ) {
     }
@@ -57,9 +54,9 @@ export class CompanyFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
+    handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
-    };
+    }
 
     submit(): void {
         if (this.companyForm.valid) {

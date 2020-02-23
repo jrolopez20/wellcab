@@ -27,16 +27,16 @@ export class SharedContractListComponent implements OnInit, AfterViewInit {
     public sharedContractsTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    public currentContract = null;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['ownerUser', 'finishedAt', 'action'];
 
-    private currentContract = null;
-    private initialPageSize = 25;
-    private displayedColumns: string[] = ['ownerUser', 'finishedAt', 'action'];
     private filter: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private sharedContractService: SharedContractService,
-        public dialog: MatDialog
+        private dialog: MatDialog
     ) {
     }
 

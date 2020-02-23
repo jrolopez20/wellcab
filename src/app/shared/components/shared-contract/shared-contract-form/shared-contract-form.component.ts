@@ -47,7 +47,7 @@ export class SharedContractFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError(controlName: string, errorName: string) {
+    handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
     }
 

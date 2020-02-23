@@ -8,7 +8,7 @@ import {AuthService} from '@app/store/features/auth/auth.service';
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-    private user: User;
+    public user: User;
 
     constructor(private authService: AuthService) {
     }

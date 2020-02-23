@@ -15,24 +15,24 @@ import {ModelFormComponent} from '@app/shared/components/model/model-form/model-
 export class ModelListComponent implements OnInit, AfterViewInit {
     @Input() editable = true;
     @Input() brand: Observable<Brand>;
-    private currentBrand = null;
-    public modelList$: Observable<Model[]>;
-    public modelsTotal$: Observable<number>;
-    public isLoading$: Observable<boolean>;
-    public error$: Observable<any>;
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    private initialPageSize = 25;
-    private displayedColumns: string[] = ['name', 'action'];
+    public currentBrand = null;
+    public modelList$: Observable<Model[]>;
+    public modelsTotal$: Observable<number>;
+    public isLoading$: Observable<boolean>;
+    public error$: Observable<any>;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['name', 'action'];
+
     private filter: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private modelService: ModelService,
-        public dialog: MatDialog,
-        private snackBar: MatSnackBar
+        private dialog: MatDialog
     ) {
     }
 

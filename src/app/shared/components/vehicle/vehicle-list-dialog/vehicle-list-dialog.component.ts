@@ -9,7 +9,7 @@ import {VehicleService} from '@app/store/features/vehicle/vehicle.service';
     styleUrls: ['./vehicle-list-dialog.component.css']
 })
 export class VehicleListDialogComponent implements OnInit {
-    private selectedItem: Vehicle;
+    public selectedItem: Vehicle;
 
     constructor(
         public dialogRef: MatDialogRef<VehicleListDialogComponent>,

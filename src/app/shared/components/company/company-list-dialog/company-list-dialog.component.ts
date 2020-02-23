@@ -9,7 +9,7 @@ import {Role} from '@app/store/models/user.model';
     styleUrls: ['./company-list-dialog.component.css']
 })
 export class CompanyListDialogComponent implements OnInit {
-    private company: Company;
+    public company: Company;
 
     constructor(
         public dialogRef: MatDialogRef<CompanyListDialogComponent>,

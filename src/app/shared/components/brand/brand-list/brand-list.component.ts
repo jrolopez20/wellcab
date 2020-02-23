@@ -15,24 +15,24 @@ import {BrandFormComponent} from '@app/shared/components/brand/brand-form/brand-
 export class BrandListComponent implements OnInit, AfterViewInit {
     @Input() editable = true;
     @Output() onBrandSelectedChange = new EventEmitter<Brand>();
-    public brandList$: Observable<Brand[]>;
-    public brandsTotal$: Observable<number>;
-    public isLoading$: Observable<boolean>;
-    public error$: Observable<any>;
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    private filter: string;
-    private initialPageSize = 25;
-    private displayedColumns: string[] = ['select', 'name', 'action'];
+    public brandList$: Observable<Brand[]>;
+    public brandsTotal$: Observable<number>;
+    public isLoading$: Observable<boolean>;
+    public error$: Observable<any>;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['select', 'name', 'action'];
 
     private selection = new SelectionModel<Brand>(false, []);
+    private filter: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private brandService: BrandService,
-        public dialog: MatDialog
+        private dialog: MatDialog
     ) {
     }
 

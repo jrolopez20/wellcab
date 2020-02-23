@@ -14,6 +14,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class LicenseListComponent implements OnInit, AfterViewInit {
     @Input() editable = true;
     @Input() actionButtons: TemplateRef<any>;
+
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -21,9 +22,9 @@ export class LicenseListComponent implements OnInit, AfterViewInit {
     public licensesTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['code', 'issuesAt', 'expirationAt', 'isOperative', 'active', 'action'];
 
-    private initialPageSize = 25;
-    private displayedColumns: string[] = ['code', 'issuesAt', 'expirationAt', 'isOperative', 'active', 'action'];
     private filter: string;
 
     constructor(

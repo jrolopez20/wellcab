@@ -23,10 +23,10 @@ export class DriverAssigmentListComponent implements OnInit, AfterViewInit {
     public driverAssigmentsTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['username', 'name', 'lastName', 'endAt', 'action'];
 
     private filter: string;
-    private initialPageSize = 25;
-    private displayedColumns: string[] = ['username', 'name', 'lastName', 'endAt', 'action'];
 
     constructor(
         private driverAssigmentService: DriverAssigmentService,

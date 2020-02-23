@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Brand} from '@app/store/models/brand.model';
 import {BrandService} from '@app/store/features/brand/brand.service';
 import {Observable} from 'rxjs';
@@ -12,7 +11,7 @@ import {Observable} from 'rxjs';
     styleUrls: ['./brand-form.component.css']
 })
 export class BrandFormComponent implements OnInit {
-    brandForm: FormGroup;
+    public brandForm: FormGroup;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
 
@@ -20,9 +19,7 @@ export class BrandFormComponent implements OnInit {
         public dialogRef: MatDialogRef<BrandFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { title: string, brand?: Brand },
         private formBuilder: FormBuilder,
-        public router: Router,
-        private brandService: BrandService,
-        private snackBar: MatSnackBar
+        private brandService: BrandService
     ) {
     }
 
@@ -48,9 +45,9 @@ export class BrandFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
+    handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
-    };
+    }
 
     submit(): void {
         if (this.brandForm.valid) {

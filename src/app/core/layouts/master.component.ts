@@ -24,7 +24,7 @@ export class MasterComponent implements OnDestroy, OnInit {
     mobileQuery: MediaQueryList;
     private _mobileQueryListener: () => void;
     public user$: Observable<User>;
-    menu: MenuCategory[];
+    public menu: MenuCategory[];
 
     constructor(
         changeDetectorRef: ChangeDetectorRef,

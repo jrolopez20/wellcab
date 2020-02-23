@@ -26,16 +26,16 @@ export class ContractListComponent implements OnInit, AfterViewInit {
     public contractsTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['select', 'city', 'company', 'finishedAt', 'action'];
 
     private filter: string;
-    private initialPageSize = 25;
-    private displayedColumns: string[] = ['select', 'city', 'company', 'finishedAt', 'action'];
     private selection = new SelectionModel<Contract>(false, []);
 
     constructor(
+        public dialog: MatDialog,
         private formBuilder: FormBuilder,
-        private contractService: ContractService,
-        public dialog: MatDialog
+        private contractService: ContractService
     ) {
     }
 

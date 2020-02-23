@@ -1,7 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
 import {City} from '@app/store/models/city.model';
 import {Location} from '@angular/common';
 import {CityService} from '@app/store/features/city/city.service';
@@ -17,14 +15,12 @@ export class CityFormComponent implements OnInit {
     @Output() onSubmit = new EventEmitter<City>();
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
-    cityForm: FormGroup;
+    public cityForm: FormGroup;
 
     constructor(
+        public location: Location,
         private cityService: CityService,
         private formBuilder: FormBuilder,
-        public router: Router,
-        private snackBar: MatSnackBar,
-        private location: Location
     ) {
     }
 

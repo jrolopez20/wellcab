@@ -23,10 +23,10 @@ export class VehicleAssigmentListComponent implements OnInit, AfterViewInit {
     public vehicleAssigmentsTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['plateNumber', 'brand', 'model', 'finishedAt', 'action'];
 
     private filter: string;
-    private initialPageSize = 25;
-    private displayedColumns: string[] = ['plateNumber', 'brand', 'model', 'finishedAt', 'action'];
 
     constructor(
         private vehicleAssigmentService: VehicleAssigmentService,

@@ -11,8 +11,8 @@ import {Subscription} from 'rxjs';
     styleUrls: ['./edit-color.component.css']
 })
 export class EditColorComponent implements OnInit, OnDestroy {
-    private color: Color;
-    private colorId;
+    public color: Color;
+    private readonly colorId;
     private subscription: Subscription;
 
     constructor(

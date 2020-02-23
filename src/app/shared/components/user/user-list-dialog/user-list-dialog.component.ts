@@ -9,7 +9,7 @@ import {UserService} from '@app/store/features/user/user.service';
     styleUrls: ['./user-list-dialog.component.css']
 })
 export class UserListDialogComponent implements OnInit {
-    private selectedItem: User;
+    public selectedItem: User;
 
     constructor(
         public dialogRef: MatDialogRef<UserListDialogComponent>,

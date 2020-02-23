@@ -11,7 +11,6 @@ import {AppMaterialModule} from '@app/app-material.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {UtilsModule} from '@app/shared/utils/utils.module';
 import {VehicleListDialogComponent} from './vehicle-list-dialog/vehicle-list-dialog.component';
 
@@ -25,7 +24,6 @@ import {VehicleListDialogComponent} from './vehicle-list-dialog/vehicle-list-dia
         ReactiveFormsModule,
         FormsModule,
         RouterModule,
-        NgxMatSelectSearchModule,
         StoreModule.forFeature(
             VehicleReducer.featureKey,
             VehicleReducer.reducer

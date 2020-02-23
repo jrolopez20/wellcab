@@ -12,7 +12,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class SearchBoxComponent implements OnInit {
     @Output() onSubmit = new EventEmitter<string>();
-    private searchForm: FormGroup;
+    public searchForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
     }

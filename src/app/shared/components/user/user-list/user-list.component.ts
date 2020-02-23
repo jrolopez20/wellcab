@@ -20,17 +20,17 @@ export class UserListComponent implements OnInit, AfterViewInit {
     @Input() showActiveUsers: boolean;
     @Output() onRowSelected = new EventEmitter<User>();
 
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
+
     public userList$: Observable<User[]>;
     public usersTotal$: Observable<number>;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
     private filter: string;
+    public initialPageSize = 25;
+    public displayedColumns: string[] = ['username', 'email', 'name', 'lastName'];
 
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-    private initialPageSize = 25;
-    private displayedColumns: string[] = ['username', 'email', 'name', 'lastName'];
     private selection = new SelectionModel<User>(false, []);
 
     constructor(
@@ -38,7 +38,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
         private userService: UserService,
         private router: Router,
         private _route: ActivatedRoute,
-        public dialog: MatDialog
+        private dialog: MatDialog
     ) {
     }
 

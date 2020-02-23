@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialogRef, MatSnackBar} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '@app/store/features/user/user.service';
@@ -14,15 +14,13 @@ export class ChangePasswordDialogComponent implements OnInit {
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
     public changePasswordForm: FormGroup;
-
-    private hidePassword = true;
-    private hideRepeatedPassword = true;
+    public hidePassword = true;
+    public hideRepeatedPassword = true;
 
     constructor(
         public dialogRef: MatDialogRef<ChangePasswordDialogComponent>,
         private formBuilder: FormBuilder,
-        private userService: UserService,
-        private snackBar: MatSnackBar
+        private userService: UserService
     ) {
     }
 
@@ -53,9 +51,9 @@ export class ChangePasswordDialogComponent implements OnInit {
     }
 
     /* Get errors */
-    private handleError = (controlName: string, errorName: string) => {
+    handleError (controlName: string, errorName: string) {
         return this.changePasswordForm.controls[controlName].hasError(errorName);
-    };
+    }
 
     submit() {
         if (this.changePasswordForm.valid) {

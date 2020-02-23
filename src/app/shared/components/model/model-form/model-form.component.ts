@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {Brand} from '@app/store/models/brand.model';
-import {Router} from '@angular/router';
 import {Model} from '@app/store/models/model.model';
 import {ModelService} from '@app/store/features/model/model.service';
 import {SnackBarComponent} from '@app/shared/utils/snack-bar/snack-bar.component';
@@ -14,7 +13,7 @@ import {SnackBarComponent} from '@app/shared/utils/snack-bar/snack-bar.component
     styleUrls: ['./model-form.component.css']
 })
 export class ModelFormComponent implements OnInit {
-    modelForm: FormGroup;
+    public modelForm: FormGroup;
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
 
@@ -22,7 +21,6 @@ export class ModelFormComponent implements OnInit {
         public dialogRef: MatDialogRef<ModelFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { title: string, brand: Brand, model?: Model },
         private formBuilder: FormBuilder,
-        public router: Router,
         private modelService: ModelService,
         private snackBar: MatSnackBar
     ) {
@@ -59,9 +57,9 @@ export class ModelFormComponent implements OnInit {
     }
 
     /* Get errors */
-    public handleError = (controlName: string, errorName: string) => {
+    handleError(controlName: string, errorName: string) {
         return this.f[controlName].hasError(errorName);
-    };
+    }
 
     submit(): void {
         if (this.modelForm.valid) {

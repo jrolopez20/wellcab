@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {License} from '@app/store/models/license.model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
 import {LicenseService} from '@app/store/features/license/license.service';
 import {Location} from '@angular/common';
 import {Observable} from 'rxjs';
@@ -21,14 +19,12 @@ export class LicenseFormComponent implements OnInit {
 
     public isLoading$: Observable<boolean>;
     public error$: Observable<any>;
-    licenseForm: FormGroup;
+    public licenseForm: FormGroup;
 
     constructor(
+        public location: Location,
         private formBuilder: FormBuilder,
-        public router: Router,
-        private snackBar: MatSnackBar,
         private licenseService: LicenseService,
-        private location: Location
     ) {
     }
 

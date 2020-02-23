@@ -3,8 +3,6 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 import {AuthService} from '@app/store/features/auth/auth.service';
 import {Observable, of} from 'rxjs';
 import {catchError, switchMap, take} from 'rxjs/operators';
-import {getIsLoggedIn} from '@app/store/features/auth/auth.selectors';
-import {json} from '@angular-devkit/core';
 
 @Injectable({
     providedIn: 'root'
