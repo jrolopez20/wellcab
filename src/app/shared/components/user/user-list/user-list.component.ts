@@ -29,7 +29,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    private initialPageSize = 2;
+    private initialPageSize = 25;
     private displayedColumns: string[] = ['username', 'email', 'name', 'lastName'];
     private selection = new SelectionModel<User>(false, []);
 
